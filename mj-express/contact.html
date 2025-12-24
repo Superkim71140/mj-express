@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="utf-8">
+    <title>ติดต่อเรา - M&J EXPRESS บริการขนย้ายทั่วไทย</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #0b2e59;
+            --accent-color: #FFD700;
+            --accent-gradient: linear-gradient(45deg, #FFD700, #FFC107);
+            --blue-gradient: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            color: var(--text-dark);
+            background-color: #f8f9fa;
+        }
+
+        /* --- Navbar (เหมือนหน้าแรก) --- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); border-bottom: 4px solid; border-image: var(--accent-gradient) 1;
+        }
+        .navbar-brand img { max-height: 60px; width: auto; }
+        .nav-link { font-weight: 500; color: var(--secondary-color) !important; margin: 0 10px; }
+        .nav-link.active { color: var(--primary-color) !important; font-weight: 700; }
+
+        /* --- Page Header --- */
+        .page-header {
+            background: var(--blue-gradient);
+            padding: 100px 0 60px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::after {
+            content: ''; position: absolute; bottom: -50px; left: 0; width: 100%; height: 100px;
+            background: #f8f9fa; transform: skewY(-2deg);
+        }
+
+        /* --- Contact Cards (พระเอกของหน้านี้) --- */
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+        /* เส้นสีทองคาดบนการ์ด */
+        .contact-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--accent-gradient); transform: scaleX(0); transition: transform 0.4s;
+        }
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .contact-card:hover::before { transform: scaleX(1); }
+
+        .icon-box {
+            width: 80px; height: 80px;
+            background: #f0f4f8;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            transition: all 0.3s;
+        }
+        
+        /* สีเฉพาะของแต่ละปุ่ม */
+        .card-line .icon-box { color: #06C755; background: rgba(6, 199, 85, 0.1); }
+        .card-phone .icon-box { color: #0d6efd; background: rgba(13, 110, 253, 0.1); }
+        .card-fb .icon-box { color: #1877F2; background: rgba(24, 119, 242, 0.1); }
+
+        .contact-card:hover .icon-box { transform: rotateY(360deg); }
+
+        .contact-label { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; color: var(--secondary-color); }
+        .contact-value { font-size: 1.1rem; color: #555; margin-bottom: 20px; }
+        
+        .btn-action {
+            width: 100%; border-radius: 50px; padding: 10px; font-weight: 600;
+            transition: all 0.3s; text-decoration: none; display: inline-block;
+        }
+        .btn-line { background-color: #06C755; color: white; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3); }
+        .btn-phone { background-color: var(--secondary-color); color: white; box-shadow: 0 4px 15px rgba(11, 46, 89, 0.3); }
+        .btn-fb { background-color: #1877F2; color: white; box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); }
+        
+        .btn-action:hover { transform: translateY(-3px); color: white; filter: brightness(1.1); }
+
+        /* --- Map & Info Section --- */
+        .info-box {
+            background: white; border-radius: 20px; padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05); height: 100%;
+        }
+        .map-container {
+            border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 400px; width: 100%;
+        }
+
+        /* --- Top Bar (แถบข้อมูลด้านบน - เหมือนหน้าแรก) --- */
+.top-bar {
+    background-color: var(--secondary-color);
+    color: #fff;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 1031;
+}
+
+.top-bar a {
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.top-bar a:hover { opacity: 0.8; }
+
+.top-bar-divider {
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    background-color: rgba(255,255,255,0.3);
+    margin: 0 15px;
+    vertical-align: middle;
+}
+
+/* --- Main Navbar (อัปเกรดให้เหมือนหน้าแรก) --- */
+.navbar {
+    background: rgba(255, 255, 255, 0.98) !important; /* ปรับพื้นหลังให้ทึบขึ้นนิดนึงเพื่อให้อ่านง่าย */
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-bottom: none; 
+}
+
+.navbar-brand img {
+    max-height: 65px;
+    width: auto;
+    transition: transform 0.3s;
+}
+
+.navbar-brand:hover img { transform: scale(1.05); }
+
+.nav-link {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary-color) !important;
+    margin: 0 8px;
+    padding: 8px 0 !important;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Effect ขีดเส้นใต้ */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 50%;
+    background: var(--accent-gradient);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 80%;
+}
+
+.nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+/* ปุ่ม Contact ใน Navbar (แก้เป็นสีฟ้า) */
+.btn-nav-contact {
+    background: #0d6efd; /* สีฟ้าสด */
+    color: white !important; /* ตัวหนังสือสีขาว */
+    border-radius: 50px;
+    padding: 8px 25px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3); /* เงาสีฟ้า */
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.btn-nav-contact:hover {
+    background: #0b5ed7; /* ตอนชี้เมาส์ให้เข้มขึ้นนิดนึง */
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.5);
+}
+
+        /* --- Footer (ย่อ) --- */
+        footer { background: var(--secondary-color); color: #ccc; padding: 40px 0; margin-top: 80px; }
+
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo_m_j1.png" alt="M&J EXPRESS Logo">
+            </a>
+            
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="bi bi-list fs-1 text-primary"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html#home">หน้าแรก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#services">บริการ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#process">ขั้นตอน</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#price">ราคา</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portfolio.html">ผลงาน</a></li>
+                    
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="contact.html" class="btn btn-nav-contact">
+                            <i class="bi bi-chat-text-fill me-2"></i> ติดต่อเรา
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="page-header">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">ปรึกษาและประเมินราคาฟรี</h1>
+            <p class="lead opacity-75">ทีมงาน M&J Express พร้อมดูแลคุณตลอด 24 ชั่วโมง <br> ทักไลน์ตอบไว โทรปรึกษาได้ทันที</p>
+        </div>
+    </header>
+
+    <section class="container" style="margin-top: -50px; position: relative; z-index: 10;">
+        <div class="row g-4 justify-content-center">
+            
+            <div class="col-md-4">
+                <div class="contact-card card-line">
+                    <div class="icon-box">
+                        <i class="bi bi-line"></i>
+                    </div>
+                    <h3 class="contact-label">แชทประเมินราคา</h3>
+                    <p class="contact-value">ส่งรูปของและรายละเอียดเพื่อเช็คราคา</p>
+                    <a href="https://line.me/ti/p/_Wou4xwYjZ" target="_blank" class="btn btn-action btn-line">
+                        <i class="bi bi-chat-dots-fill me-2"></i> แอดไลน์ edokmzaza
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contact-card card-phone">
+                    <div class="icon-box">
+                        <i class="bi bi-telephone-fill"></i>
+                    </div>
+                    <h3 class="contact-label">โทรสายด่วน</h3>
+                    <p class="contact-value">ปรึกษาด่วน จองคิวรถทันที</p>
+                    <a href="tel:0955830371" class="btn btn-action btn-phone">
+                        <i class="bi bi-phone-vibrate me-2"></i> โทร 095-583-0371
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contact-card card-fb">
+                    <div class="icon-box">
+                        <i class="bi bi-facebook"></i>
+                    </div>
+                    <h3 class="contact-label">ติดตามผลงาน</h3>
+                    <p class="contact-value">ดูรีวิวลูกค้าจริงและอัปเดตงานขนส่ง</p>
+                    <a href="https://www.facebook.com/people/รับจ้างขนส่งมอไซค์กลับต่างจังหวัด/61577012168287" target="_blank" class="btn btn-action btn-fb">
+                        <i class="bi bi-hand-thumbs-up-fill me-2"></i> ไปที่เพจ Facebook
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-5 mt-4">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                
+                <div class="col-lg-5">
+                    <div class="info-box">
+                        <h3 class="fw-bold mb-4" style="color: var(--secondary-color);">
+                            <i class="bi bi-geo-alt-fill text-warning me-2"></i> ที่ตั้งสำนักงาน
+                        </h3>
+                        <p class="text-muted mb-4">
+                            เรามีจุดจอดรถและทีมงานพร้อมให้บริการ ครอบคลุมพื้นที่กรุงเทพฯ และปริมณฑล สามารถเข้ามาติดต่อหรือนัดหมายล่วงหน้าได้ครับ
+                        </p>
+                        
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="bi bi-house-door-fill fs-4 text-primary me-3 mt-1"></i>
+                            <div>
+                                <h6 class="fw-bold mb-1">M&J EXPRESS (สำนักงานใหญ่)</h6>
+                                <p class="text-muted mb-0">บ้านเลขที่ 85/24 ซอย อัสสัมชัญ 23 <br>แขวงบางไผ่ เขตบางแค กรุงเทพมหานคร</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="bi bi-clock-fill fs-4 text-primary me-3 mt-1"></i>
+                            <div>
+                                <h6 class="fw-bold mb-1">เวลาทำการ</h6>
+                                <p class="text-muted mb-0">เปิดบริการทุกวัน ตลอด 24 ชั่วโมง</p>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <p class="small text-muted text-center">
+                            *เพื่อความสะดวก รบกวนนัดหมายล่วงหน้าก่อนเข้ามาที่สำนักงาน
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.368739982705!2d100.3804859!3d13.7360564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2964e7c7a5d9f%3A0x2a3e0f7e4a7a8b0!2sSoi%20Assumption%2023!5e0!3m2!1sen!2sth!4v1700000000000!5m2!1sen!2sth" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-2 fw-bold text-white">M&J EXPRESS บริการรถรับจ้างขนของ</p>
+            <p class="small opacity-50">&copy; 2025 All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
