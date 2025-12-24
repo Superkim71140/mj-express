@@ -8,9 +8,7 @@
     <title>M&J Express รถรับจ้าง ขนส่งสินค้า ย้ายบ้าน บางแค-กรุงเทพฯ ทั่วไทย</title>
 
     <meta name="description" content="M&J Express บริการรถรับจ้างขนของ ย้ายบ้าน ย้ายหอ ขนส่งสินค้า พิกัดซอยอัสสัมชัญ 23 บางแค รถกระบะตู้ทึบ รถ 6 ล้อ ราคาถูก วิ่งงานด่วนทั่วกรุงเทพฯ และต่างจังหวัด โทรปรึกษาฟรี">
-
     <meta name="keywords" content="รถรับจ้างบางแค, รถรับจ้างอัสสัมชัญ23, รถรับจ้างฝั่งธน, รถรับจ้างภาษีเจริญ, รถกระบะรับจ้างกรุงเทพ, ย้ายหอพักบางแค, รถ 6 ล้อรับจ้าง, M&J Express">
-    
     <meta name="author" content="M&J Express">
 
     <meta property="og:type" content="website">
@@ -18,11 +16,11 @@
     <meta property="og:description" content="อยู่บางแคเรียกใช้ได้เลย! บริการดี รวดเร็ว ปลอดภัย ราคามิตรภาพ ย้ายของ ขนส่งสินค้า">
     <meta property="og:image" content="images/cover.jpg"> 
 
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-96x96.png" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
+    <link rel="icon" href="logo m&j1.jpg" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -47,6 +45,12 @@
             color: var(--text-dark);
             overflow-x: hidden;
             background-color: #fdfdfd;
+            padding-top: 0;
+        }
+
+        html {
+            scroll-behavior: smooth; /* เลื่อนหน้าจอแบบนุ่มนวล */
+            scroll-padding-top: 80px; /* เผื่อพื้นที่ให้ Navbar เวลาเลื่อนไปหา id */
         }
 
         /* --- Global Styles --- */
@@ -78,15 +82,15 @@
         .navbar {
             background: rgba(255, 255, 255, 0.98) !important;
             backdrop-filter: blur(10px);
-            padding: 15px 0;
+            padding: 10px 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             border-bottom: none;
         }
-        .navbar-brand img { max-height: 65px; width: auto; transition: transform 0.3s; }
+        .navbar-brand img { max-height: 55px; width: auto; transition: transform 0.3s; }
         .navbar-brand:hover img { transform: scale(1.05); }
         .nav-link {
             font-size: 1rem; font-weight: 600; color: var(--secondary-color) !important;
-            margin: 0 8px; padding: 8px 0 !important; position: relative;
+            margin: 0 8px; padding: 10px 0 !important; position: relative;
             text-transform: uppercase; letter-spacing: 0.5px;
         }
         .nav-link::after {
@@ -113,11 +117,6 @@
             background-size: cover; background-position: center; background-attachment: fixed;
             padding: 160px 0 120px 0; color: white; position: relative; overflow: hidden;
         }
-        @media (max-width: 991px) {
-            .hero-section { padding: 100px 0 60px 0; text-align: center; background-attachment: scroll; }
-            .hero-section h1 { font-size: 2.5rem; }
-            .hero-section .lead { font-size: 1rem; }
-        }
 
         /* --- Hero Badge --- */
         .hero-badge {
@@ -134,10 +133,54 @@
         }
         .badge-text { font-family: 'Prompt', sans-serif; font-weight: 700; color: #0b2e59; font-size: 1.25rem; line-height: 1; padding-top: 2px; }
         @keyframes goldShimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+        
+        /* --- Mobile Responsive Fixes (แก้ไขส่วนนี้โดยเฉพาะ) --- */
+        @media (max-width: 991px) {
+            .hero-section { 
+                padding: 120px 0 60px 0;
+                text-align: center; 
+                background-attachment: scroll; 
+            }
+        }
+
+        /* ปรับแต่งสำหรับมือถือ (จอเล็กกว่า 576px) */
         @media (max-width: 576px) {
-            .hero-badge { padding: 5px 20px 5px 5px; }
-            .badge-icon-box { width: 38px; height: 38px; font-size: 1.1rem; }
-            .badge-text { font-size: 1.05rem; }
+            .navbar-brand img { max-height: 40px; } /* ลดขนาดโลโก้อีกนิด */
+            
+            .hero-section {
+                padding-top: 85px; /* ดันเนื้อหาขึ้นไปอีก (เดิม 110px) */
+                padding-bottom: 30px;
+            }
+            
+            .hero-section h1 { 
+                font-size: 1.6rem !important;
+                line-height: 1.2;
+                margin-bottom: 10px !important; /* ลดระยะห่าง */
+            }
+            
+            .hero-section .lead { 
+                font-size: 0.9rem; 
+                margin-bottom: 1.5rem !important; /* ลดระยะห่าง */
+            }
+
+            /* ปรับขนาด Badge */
+            .hero-badge { 
+                padding: 4px 12px 4px 4px; 
+                margin-bottom: 15px;
+            }
+            .badge-icon-box { width: 32px; height: 32px; font-size: 0.9rem; margin-right: 8px; }
+            .badge-text { font-size: 0.9rem; }
+
+            /* ปรับระยะห่างของปุ่มประกันสินค้า */
+            .d-flex.flex-wrap.gap-3 {
+                gap: 0.5rem !important;
+                justify-content: center;
+                margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่างนิดหน่อย */
+            }
+            .d-flex.align-items-center.bg-white {
+                padding: 0.4rem 1rem !important;
+                font-size: 0.85rem;
+            }
         }
 
         /* --- Quote Form --- */
@@ -187,6 +230,7 @@
             .stat-item { text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding: 30px 10px; }
             .stat-item:last-child { border-bottom: none; }
             .stat-icon { font-size: 5rem; top: 50%; left: 50%; right: auto; transform: translate(-50%, -50%); opacity: 0.05; }
+            .stat-item h2 { font-size: 2.5rem; }
         }
 
        /* --- Process Section Redesign --- */
@@ -253,6 +297,8 @@
         /* --- Service & Pricing --- */
         .section-title { text-align: center; margin-bottom: 60px; }
         .section-title h2 { font-weight: 800; color: var(--secondary-color); font-size: 2.8rem; text-transform: uppercase; }
+        @media (max-width: 576px) { .section-title h2 { font-size: 2rem; } }
+        
         .title-underline { width: 80px; height: 6px; background: var(--accent-gradient); margin: 20px auto; border-radius: 10px; }
         
         .service-card {
@@ -418,11 +464,11 @@
                         </div>
                         <span class="badge-text">อันดับ 1 เรื่องขนย้ายครบวงจร</span>
                     </div>
-                    <h1 class="display-3 fw-bolder mb-3 lh-base text-white">
+                    <h1 class="display-3 fw-bolder mb-2 mb-lg-3 lh-base text-white">
                         บริการรถรับจ้างขนของ<br>
                         <span style="color: var(--accent-color);">ราคาถูก ทั่วประเทศ</span>
                     </h1>
-                    <p class="lead mb-5 opacity-90 fw-light">
+                    <p class="lead mb-4 mb-lg-5 opacity-90 fw-light">
                         M&J Express มืออาชีพด้านการขนส่ง ย้ายบ้าน คอนโด พร้อมคนยก 
                         ส่งรถมอเตอร์ไซค์ และสัตว์เลี้ยงแสนรัก.. ดูแลทุกชิ้นงานด้วยใจ
                     </p>
@@ -484,7 +530,7 @@
                                 </label>
                             </div>
 
-                            <button type="submit" class="btn btn-quote btn-shine w-100 py-3 fs-5 rounded-pill shadow">
+                            <button type="submit" class="btn btn-quote btn-shine w-100 py-2 py-lg-3 fs-6 fs-lg-5 rounded-pill shadow">
                                 <i class="bi bi-line me-2"></i> เช็คราคาทาง LINE (คลิก)
                             </button>
                         </form>
@@ -906,5 +952,27 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // เลือกปุ่มลิงก์ทั้งหมดในเมนู
+            var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            var navbarCollapse = document.getElementById('navbarNav');
+
+            // เพิ่ม event listener ให้กับทุกลิงก์
+            navLinks.forEach(function (link) {
+                link.addEventListener('click', function () {
+                    // ตรวจสอบว่าเมนูกำลังเปิดอยู่หรือไม่ (คลาส show จะมีอยู่เมื่อเปิด)
+                    if (navbarCollapse.classList.contains('show')) {
+                        // สั่งปิดเมนูโดยใช้ Bootstrap 5 API
+                        var bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                            toggle: false
+                        });
+                        bsCollapse.hide();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
