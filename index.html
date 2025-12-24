@@ -546,20 +546,20 @@
                 <div class="col-md-4">
                     <div class="stat-item border-right-custom">
                         <i class="bi bi-truck stat-icon"></i>
-                        <h2>3,000+</h2>
+                        <h2><span class="counter" data-target="3000">0</span>+</h2>
                         <p>เที่ยวขนส่งสำเร็จ</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="stat-item border-right-custom">
                         <i class="bi bi-map stat-icon"></i>
-                        <h2>77</h2>
+                        <h2><span class="counter" data-target="77">0</span></h2>
                         <p>จังหวัดทั่วประเทศไทย</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="stat-item">
-                        <h2>100%</h2>
+                        <h2><span class="counter" data-target="100">0</span>%</h2>
                         <p>ลูกค้าพึงพอใจ</p>
                     </div>
                 </div>
@@ -570,7 +570,7 @@
     <section id="services" class="section-padding bg-light">
         <div class="container">
             <div class="section-title">
-                <h2>บริการของเรา</h2>
+                <h2>บริการรถรับจ้างขนของ และขนส่งมอเตอร์ไซค์</h2>
                 <div class="title-underline"></div>
                 <p class="text-muted fs-5">M&J Express พร้อมดูแลทุกเรื่องการขนย้าย ครบ จบ ในที่เดียว</p>
             </div>
@@ -691,9 +691,9 @@
             </div>
             
             <div class="row g-3">
-                <div class="col-lg-4 col-md-6"><div class="gallery-item ratio ratio-4x3"><img src="S__11985325.jpg" class="w-100 h-100 object-fit-cover" alt="ผลงาน 1"></div></div>
-                <div class="col-lg-4 col-md-6"><div class="gallery-item ratio ratio-4x3"><img src="best.jpg" class="w-100 h-100 object-fit-cover" alt="ผลงาน 2"></div></div>
-                <div class="col-lg-4 col-md-6"><div class="gallery-item ratio ratio-4x3"><img src="S__11985352.jpg" class="w-100 h-100 object-fit-cover" alt="ผลงาน 3"></div></div>
+                <div class="col-lg-4 col-md-6"><div class="gallery-item ratio ratio-4x3"><img src="S__11985325.jpg" class="w-100 h-100 object-fit-cover" alt="บริการรถกระบะรับจ้างย้ายบ้าน บางแค กรุงเทพ"></div></div>
+                <div class="col-lg-4 col-md-6"><div class="gallery-item ratio ratio-4x3"><img src="best.jpg" class="w-100 h-100 object-fit-cover" alt="บริการรถกระบะรับจ้างย้ายบ้าน บางแค กรุงเทพ"></div></div>
+                <div class="col-lg-4 col-md-6"><div class="gallery-item ratio ratio-4x3"><img src="S__11985352.jpg" class="w-100 h-100 object-fit-cover" alt="บริการรถกระบะรับจ้างย้ายบ้าน บางแค กรุงเทพ"></div></div>
             </div>
             
             <div class="text-center mt-5">
@@ -928,7 +928,12 @@
                 </div>
             </div>
             <hr class="opacity-25 mt-5">
-            <div class="text-center small opacity-50">&copy; 2025 M&J EXPRESS ห้างหุ้นส่วนจำกัด เอ็มแอนด์เจ เอ็กซ์เพรส. All Rights Reserved.</div>
+            
+            <div class="text-center small opacity-50">
+                &copy; 2025 M&J EXPRESS ห้างหุ้นส่วนจำกัด เอ็มแอนด์เจ เอ็กซ์เพรส. All Rights Reserved.
+                <br class="d-md-none"> <span class="d-none d-md-inline"> | </span> Developerd by <a href="https://kimx-wed.vercel.app/" target="_blank" style="color: inherit; text-decoration: underline;">kimx-wed</a>
+            </div>
+            
         </div>
     </footer>
 
@@ -974,5 +979,52 @@
             });
         });
     </script>
+
+   <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll('.counter');
+            
+            // --- จุดที่ต้องแก้ ---
+            // เปลี่ยนจาก 200 เป็น 20 (ยิ่งเลขน้อย ยิ่งไว)
+            // ถ้าอยากให้ไวสุดๆ ลองใส่เลข 10 หรือ 5 ดูครับ
+            const speed = 20; 
+            // ------------------
+
+            const animateCounters = () => {
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText.replace(/,/g, '');
+                        
+                       
+                        const inc = target / speed;
+
+                        if (count < target) {
+                          
+                            counter.innerText = Math.ceil(count + inc).toLocaleString();
+                            
+                            setTimeout(updateCount, 20); 
+                        } else {
+                            counter.innerText = target.toLocaleString();
+                        }
+                    };
+                    updateCount();
+                });
+            };
+
+            const section = document.querySelector('.stats-section');
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    animateCounters();
+                    observer.disconnect();
+                }
+            }, { threshold: 0.5 });
+
+            if (section) {
+                observer.observe(section);
+            }
+        });
+    </script>
+    
 </body>
 </html>
