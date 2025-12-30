@@ -183,30 +183,63 @@
             }
         }
 
-        /* --- Quote Form --- */
-        .quote-card {
-            background: #ffffff; padding: 35px; border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15); position: relative; border-top: 6px solid var(--accent-color);
+        /* --- Why Choose Us Card (New Design) --- */
+        .feature-box-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            border-top: 6px solid var(--accent-color);
+            position: relative;
         }
-        .quote-header-wrapper { text-align: center; margin-bottom: 25px; }
-        .icon-circle-gold {
-            width: 70px; height: 70px; background: linear-gradient(135deg, #FFD700 0%, #ffdb4d 100%);
-            color: #0b2e59; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
-            font-size: 32px; margin-bottom: 10px; box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3); border: 4px solid #ffffff; 
+
+        .icon-halo-effect {
+            width: 80px; height: 80px;
+            background: var(--accent-gradient);
+            box-shadow: 0 0 0 rgba(255, 215, 0, 0.4);
+            
         }
-        .quote-title-new { color: #0b2e59; font-weight: 800; font-size: 1.8rem; margin-bottom: 5px; }
-        .quote-subtitle-new { color: #6c757d; font-size: 0.95rem; font-weight: 400; }
-        .form-floating > .form-control, .form-floating > .form-select {
-            background-color: #fff; border: 1px solid #ced4da; border-radius: 10px; height: 60px; color: #333;
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
         }
-        .form-floating > .form-control:focus, .form-floating > .form-select:focus {
-            border-color: var(--accent-color); box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+
+        .feature-item-row {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 15px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
-        .btn-quote {
-            background: linear-gradient(45deg, #06C755, #00B900); color: #ffffff !important; font-weight: 800; border: none;
-            box-shadow: 0 10px 25px rgba(6, 199, 85, 0.4); transition: all 0.3s ease;
+        .feature-item-row:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(13, 110, 253, 0.1);
+            border-color: rgba(13, 110, 253, 0.3);
         }
-        .btn-quote:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(6, 199, 85, 0.6); filter: brightness(1.1); }
+
+        .feature-icon-box {
+            width: 55px; height: 55px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; margin-right: 15px;
+            transition: all 0.3s;
+        }
+        /* Icon Colors */
+        .icon-box-blue { background: rgba(13, 110, 253, 0.1); color: var(--primary-color); }
+        .icon-box-green { background: rgba(25, 135, 84, 0.1); color: #198754; }
+        .icon-box-gold { background: rgba(255, 193, 7, 0.15); color: #d39e00; }
+        
+        .feature-item-row:hover .icon-box-blue { background: var(--primary-color); color: #fff; }
+        .feature-item-row:hover .icon-box-green { background: #198754; color: #fff; }
+        .feature-item-row:hover .icon-box-gold { background: #ffc107; color: #333; }
+
+        .btn-quote-green {
+            background: linear-gradient(45deg, #06C755, #00B900); color: #ffffff !important; 
+            border: none; box-shadow: 0 10px 20px rgba(6, 199, 85, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-quote-green:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(6, 199, 85, 0.5); filter: brightness(1.1); }
+
 
         /* --- Stats Section --- */
         .stats-section {
@@ -486,56 +519,50 @@
                 </div>
                 
                 <div class="col-lg-5">
-                    <div class="quote-card">
-                        <div class="quote-header-wrapper">
-                            <div class="icon-circle-gold">
-                                <i class="bi bi-clipboard-check-fill"></i>
+                    <div class="feature-box-card p-4 p-lg-5">
+                        <div class="text-center mb-4">
+                            <div class="d-inline-flex align-items-center justify-content-center icon-halo-effect rounded-circle mb-3">
+                                <i class="bi bi-hand-thumbs-up-fill fs-2 text-white"></i>
                             </div>
-                            <h3 class="quote-title-new">ประเมินราคาฟรี</h3>
-                            <p class="quote-subtitle-new">
-                                กรอกข้อมูลเบื้องต้น ทราบราคาไวใน 1 นาที
-                            </p>
+                            <h3 class="fw-bold" style="color: var(--secondary-color);">ทำไมต้องเลือกเรา?</h3>
+                            <p class="text-muted small">บริการที่ตอบโจทย์ ทุกความต้องการของคุณ</p>
                         </div>
                         
-                        <form onsubmit="event.preventDefault(); window.location.href='https://line.me/ti/p/_Wou4xwYjZ'">
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="serviceType">
-                                    <option selected>ขนย้ายบ้าน / หอพัก / คอนโด</option>
-                                    <option>ส่งรถมอเตอร์ไซค์ / บิ๊กไบค์</option>
-                                    <option>ส่งสัตว์เลี้ยง (สุนัข, แมว)</option>
-                                    <option>ส่งสินค้าทั่วไป / พัสดุชิ้นใหญ่</option>
-                                </select>
-                                <label for="serviceType"><i class="bi bi-list-task me-2"></i>เลือกประเภทบริการ</label>
+                        <div class="d-flex align-items-center mb-3 p-3 feature-item-row">
+                            <div class="feature-icon-box icon-box-blue">
+                                <i class="bi bi-house-door-fill"></i>
                             </div>
-                            
-                            <div class="row g-2 mb-3">
-                                <div class="col-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="fromLoc" placeholder="ต้นทาง">
-                                        <label for="fromLoc"><i class="bi bi-geo-alt me-1"></i> ต้นทาง</label>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="toLoc" placeholder="ปลายทาง">
-                                        <label for="toLoc"><i class="bi bi-geo-alt-fill me-1"></i> ปลายทาง</label>
-                                    </div>
-                                </div>
+                            <div>
+                                <h5 class="fw-bold mb-0 text-dark">รับ-ส่ง ถึงหน้าบ้าน</h5>
+                                <small class="text-secondary">Door-to-Door Service สะดวกสบาย</small>
                             </div>
+                        </div>
 
-                            <div class="form-check mb-4 ps-4">
-                                <input class="form-check-input" type="checkbox" id="needLabor" style="transform: scale(1.2);">
-                                <label class="form-check-label text-muted ms-2 pt-1" for="needLabor">
-                                    ต้องการคนช่วยยกของ
-                                </label>
+                        <div class="d-flex align-items-center mb-3 p-3 feature-item-row">
+                            <div class="feature-icon-box icon-box-green">
+                                <i class="bi bi-cash-coin"></i>
                             </div>
+                            <div>
+                                <h5 class="fw-bold mb-0 text-dark">มีเก็บเงินปลายทาง</h5>
+                                <small class="text-secondary">ของถึงมือค่อยจ่าย มั่นใจ 100%</small>
+                            </div>
+                        </div>
 
-                            <button type="submit" class="btn btn-quote btn-shine w-100 py-2 py-lg-3 fs-6 fs-lg-5 rounded-pill shadow">
-                                <i class="bi bi-line me-2"></i> เช็คราคาทาง LINE (คลิก)
-                            </button>
-                        </form>
+                        <div class="d-flex align-items-center mb-4 p-3 feature-item-row">
+                            <div class="feature-icon-box icon-box-gold">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0 text-dark">รถด่วน 24 ชั่วโมง</h5>
+                                <small class="text-secondary">พร้อมออกรถทันที ไม่ต้องรอนาน</small>
+                            </div>
+                        </div>
+
+                        <a href="https://line.me/ti/p/_Wou4xwYjZ" class="btn btn-quote-green w-100 rounded-pill py-3 fw-bold fs-5 btn-shine">
+                            <i class="bi bi-line me-2"></i> จองคิวรถ / สอบถามราคา
+                        </a>
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
     </section>
