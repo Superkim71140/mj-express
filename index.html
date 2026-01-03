@@ -16,13 +16,12 @@
     <meta property="og:description" content="อยู่บางแคเรียกใช้ได้เลย! บริการดี รวดเร็ว ปลอดภัย ราคามิตรภาพ ย้ายของ ขนส่งสินค้า">
     <meta property="og:image" content="images/cover.jpg"> 
 
-   
-   <link rel="icon" href="favicon-96x96.png" type="image/jpeg"> <link rel="shortcut icon" href="favicon-96x96.png" type="image/jpeg"> 
-
-
+    <link rel="icon" href="favicon-96x96.png" type="image/jpeg"> 
+    <link rel="shortcut icon" href="favicon-96x96.png" type="image/jpeg"> 
     <link rel="icon" href="favicon-96x96.png" type="image/png">
     <link rel="shortcut icon" href="favicon-96x96.png" type="image/png">
     <link rel="apple-touch-icon" href="favicon-96x96.png">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,6 +54,33 @@
         html {
             scroll-behavior: smooth; /* เลื่อนหน้าจอแบบนุ่มนวล */
             scroll-padding-top: 80px; /* เผื่อพื้นที่ให้ Navbar เวลาเลื่อนไปหา id */
+        }
+
+        /* --- Loading Screen Styles (เพิ่มใหม่) --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 9999; /* ทับทุกอย่าง */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+
+        #preloader.hide-loader {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .custom-spinner {
+            width: 4rem;
+            height: 4rem;
+            border-width: 0.3em;
+            color: var(--accent-color); /* สีเหลืองทอง */
         }
 
         /* --- Global Styles --- */
@@ -147,27 +173,25 @@
             }
         }
 
-        /* ปรับแต่งสำหรับมือถือ (จอเล็กกว่า 576px) */
         @media (max-width: 576px) {
-            .navbar-brand img { max-height: 40px; } /* ลดขนาดโลโก้อีกนิด */
+            .navbar-brand img { max-height: 40px; } 
             
             .hero-section {
-                padding-top: 85px; /* ดันเนื้อหาขึ้นไปอีก (เดิม 110px) */
+                padding-top: 85px;
                 padding-bottom: 30px;
             }
             
             .hero-section h1 { 
                 font-size: 1.6rem !important;
                 line-height: 1.2;
-                margin-bottom: 10px !important; /* ลดระยะห่าง */
+                margin-bottom: 10px !important;
             }
             
             .hero-section .lead { 
                 font-size: 0.9rem; 
-                margin-bottom: 1.5rem !important; /* ลดระยะห่าง */
+                margin-bottom: 1.5rem !important;
             }
 
-            /* ปรับขนาด Badge */
             .hero-badge { 
                 padding: 4px 12px 4px 4px; 
                 margin-bottom: 15px;
@@ -175,11 +199,10 @@
             .badge-icon-box { width: 32px; height: 32px; font-size: 0.9rem; margin-right: 8px; }
             .badge-text { font-size: 0.9rem; }
 
-            /* ปรับระยะห่างของปุ่มประกันสินค้า */
             .d-flex.flex-wrap.gap-3 {
                 gap: 0.5rem !important;
                 justify-content: center;
-                margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่างนิดหน่อย */
+                margin-bottom: 20px;
             }
             .d-flex.align-items-center.bg-white {
                 padding: 0.4rem 1rem !important;
@@ -187,7 +210,7 @@
             }
         }
 
-        /* --- Why Choose Us Card (New Design) --- */
+        /* --- Feature Card --- */
         .feature-box-card {
             background: rgba(255, 255, 255, 0.98);
             border-radius: 20px;
@@ -200,7 +223,6 @@
             width: 80px; height: 80px;
             background: var(--accent-gradient);
             box-shadow: 0 0 0 rgba(255, 215, 0, 0.4);
-            
         }
         @keyframes pulse-gold {
             0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
@@ -228,7 +250,6 @@
             font-size: 1.6rem; margin-right: 15px;
             transition: all 0.3s;
         }
-        /* Icon Colors */
         .icon-box-blue { background: rgba(13, 110, 253, 0.1); color: var(--primary-color); }
         .icon-box-green { background: rgba(25, 135, 84, 0.1); color: #198754; }
         .icon-box-gold { background: rgba(255, 193, 7, 0.15); color: #d39e00; }
@@ -247,7 +268,8 @@
 
         /* --- Stats Section --- */
         .stats-section {
-            background: var(--blue-gradient); color: white; padding: 50px 0; margin-top: -60px;
+            background: var(--blue-gradient); color: white; padding: 50px 0; 
+            margin-top: 0;
             position: relative; z-index: 10; box-shadow: 0 15px 40px rgba(13, 110, 253, 0.2);
             border-radius: 20px; overflow: hidden;
         }
@@ -270,7 +292,7 @@
             .stat-item h2 { font-size: 2.5rem; }
         }
 
-       /* --- Process Section Redesign --- */
+       /* --- Process Section --- */
         #process {
             background: linear-gradient(to bottom, #ffffff, #f4f7f6);
             position: relative; overflow: hidden;
@@ -449,6 +471,12 @@
 
 <body>
 
+    <div id="preloader">
+        <div class="spinner-border custom-spinner" role="status">
+            <span class="visually-hidden">กำลังโหลด...</span>
+        </div>
+    </div>
+
     <div class="top-bar d-none d-md-block">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
@@ -567,6 +595,48 @@
                         </a>
                     </div>
                     </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio-highlight" class="section-padding bg-light pb-5">
+        <div class="container">
+            <div class="section-title mb-5">
+                <h2>ผลงานการขนส่ง</h2>
+                <div class="title-underline"></div>
+                <p class="text-muted fs-5">ตัวอย่างความไว้วางใจจากลูกค้าของเรา</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <img src="work1.jpg" class="w-100 rounded-4 shadow" style="height: 550px; object-fit: cover;" alt="ผลงานขนส่ง 1">
+                    </div>
+                    <div class="mb-4">
+                        <img src="work2.jpg" class="w-100 rounded-4 shadow" style="height: 550px; object-fit: cover;" alt="ผลงานขนส่ง 2">
+                    </div>
+                    <div>
+                        <img src="work3.jpg" class="w-100 rounded-4 shadow" style="height: 550px; object-fit: cover;" alt="ผลงานขนส่ง 3">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <img src="work4.jpg" class="w-100 rounded-4 shadow" style="height: 550px; object-fit: cover;" alt="ผลงานขนส่ง 4">
+                    </div>
+                    <div class="mb-4">
+                        <img src="work5.jpg" class="w-100 rounded-4 shadow" style="height: 550px; object-fit: cover;" alt="ผลงานขนส่ง 5">
+                    </div>
+                    <div>
+                        <img src="work6.jpg" class="w-100 rounded-4 shadow" style="height: 550px; object-fit: cover;" alt="ผลงานขนส่ง 6">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="portfolio.html" class="btn btn-primary btn-shine btn-lg rounded-pill px-5 py-3 shadow fw-bold">
+                    <i class="bi bi-images me-2"></i> ดูรีวิวเพิ่มเติม (คลิก)
+                </a>
             </div>
         </div>
     </section>
@@ -709,45 +779,6 @@
                         <i class="bi bi-line me-2"></i> เริ่มต้นใช้บริการคลิกเลย
                     </a>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="portfolio" class="section-padding bg-light">
-        <div class="container">
-            <div class="section-title">
-                <h2>ผลงานการขนส่ง</h2>
-                <div class="title-underline"></div>
-                <p class="text-muted fs-5">ตัวอย่างความไว้วางใจจากลูกค้าของเรา</p>
-            </div>
-            
-            <div class="row g-3">
-                <div class="col-lg-3 col-md-6">
-                    <div class="gallery-item ratio ratio-4x3" style="border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                        <img src="S__12230704.jpg" class="w-100 h-100 object-fit-cover" alt="ผลงานขนส่งมอเตอร์ไซค์ 1">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="gallery-item ratio ratio-4x3" style="border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                        <img src="S__12230711.jpg" class="w-100 h-100 object-fit-cover" alt="ผลงานขนส่งมอเตอร์ไซค์ 2">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="gallery-item ratio ratio-4x3" style="border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                        <img src="S__12230709.jpg" class="w-100 h-100 object-fit-cover" alt="ผลงานขนส่งมอเตอร์ไซค์ 3">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="gallery-item ratio ratio-4x3" style="border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                        <img src="S__12230707.jpg" class="w-100 h-100 object-fit-cover" alt="ผลงานขนส่งมอเตอร์ไซค์ 4">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-5">
-                <a href="portfolio.html" class="btn btn-primary btn-shine btn-lg rounded-pill px-5 py-3 shadow fw-bold">
-                    <i class="bi bi-images me-2"></i> ดูรีวิวเพิ่มเติม (คลิก)
-                </a>
             </div>
         </div>
     </section>
@@ -994,63 +1025,45 @@
         </div>
     </div>
 
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById('floatMenu');
-            const btn = document.getElementById('mainToggle');
-            const icon = btn.querySelector('i');
-            menu.classList.toggle('show');
-            btn.classList.toggle('active');
-            if (menu.classList.contains('show')) { icon.className = 'bi bi-x-lg'; } else { icon.className = 'bi bi-arrows-angle-expand'; }
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // 1. ระบบ Navbar ปิดอัตโนมัติเมื่อกด
         document.addEventListener("DOMContentLoaded", function () {
-            // เลือกปุ่มลิงก์ทั้งหมดในเมนู
             var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
             var navbarCollapse = document.getElementById('navbarNav');
-
-            // เพิ่ม event listener ให้กับทุกลิงก์
             navLinks.forEach(function (link) {
                 link.addEventListener('click', function () {
-                    // ตรวจสอบว่าเมนูกำลังเปิดอยู่หรือไม่ (คลาส show จะมีอยู่เมื่อเปิด)
                     if (navbarCollapse.classList.contains('show')) {
-                        // สั่งปิดเมนูโดยใช้ Bootstrap 5 API
-                        var bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-                            toggle: false
-                        });
+                        var bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
                         bsCollapse.hide();
                     }
                 });
             });
         });
-    </script>
 
-   <script>
+        // 2. ระบบ Loading Screen (เพิ่มใหม่)
+        window.addEventListener("load", function () {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hide-loader');
+            }, 500); // รอ 0.5 วินาทีแล้วค่อยๆ หายไป
+        });
+
+        // 3. ระบบตัวเลขวิ่ง (Counter)
         document.addEventListener("DOMContentLoaded", () => {
             const counters = document.querySelectorAll('.counter');
-            
-            // --- จุดที่ต้องแก้ ---
-            // เปลี่ยนจาก 200 เป็น 20 (ยิ่งเลขน้อย ยิ่งไว)
-            // ถ้าอยากให้ไวสุดๆ ลองใส่เลข 10 หรือ 5 ดูครับ
             const speed = 20; 
-            // ------------------
 
             const animateCounters = () => {
                 counters.forEach(counter => {
                     const updateCount = () => {
                         const target = +counter.getAttribute('data-target');
                         const count = +counter.innerText.replace(/,/g, '');
-                        
-                       
                         const inc = target / speed;
 
                         if (count < target) {
-                          
                             counter.innerText = Math.ceil(count + inc).toLocaleString();
-                            
                             setTimeout(updateCount, 20); 
                         } else {
                             counter.innerText = target.toLocaleString();
@@ -1072,6 +1085,16 @@
                 observer.observe(section);
             }
         });
+
+        // 4. ระบบปุ่ม Floating Menu
+        function toggleMenu() {
+            const menu = document.getElementById('floatMenu');
+            const btn = document.getElementById('mainToggle');
+            const icon = btn.querySelector('i');
+            menu.classList.toggle('show');
+            btn.classList.toggle('active');
+            if (menu.classList.contains('show')) { icon.className = 'bi bi-x-lg'; } else { icon.className = 'bi bi-arrows-angle-expand'; }
+        }
     </script>
     
 </body>
