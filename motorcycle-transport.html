@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>รับส่งมอเตอร์ไซค์ไปต่างจังหวัด ราคาถูก ห่อหุ้มฟรี มีประกัน - MJ-TH Express</title>
+
+    <meta name="description" content="บริการขนส่งรถมอเตอร์ไซค์ข้ามจังหวัด ส่งรถบิ๊กไบค์ (BigBike) รถเล็ก รถตลาด ไปทั่วไทย ราคาถูก รับ-ส่งถึงหน้าบ้าน ฟรีบริการห่อหุ้มกันรอย มีประกันสินค้า โทร 095-583-0371">
+    <meta name="keywords" content="ส่งรถมอเตอร์ไซค์, ขนส่งบิ๊กไบค์, ส่งมอไซค์ไปต่างจังหวัด, รถรับจ้างขนมอเตอร์ไซค์, ส่งรถมอเตอร์ไซค์ราคาถูก, MJ-TH Express">
+    <meta name="author" content="MJ-TH Express">
+    
+    <link rel="canonical" href="https://www.mj-th-express.com/motorcycle-transport.html" />
+    <link rel="icon" href="favicon-96x96.png" type="image/jpeg"> 
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- Shared Variables & Styles (From Index) --- */
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #0b2e59;
+            --accent-color: #FFD700;
+            --accent-gradient: linear-gradient(45deg, #FFD700, #FFC107);
+            --gradient-bg: linear-gradient(135deg, #0b2e59 0%, #0d6efd 100%);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        body { font-family: 'Prompt', sans-serif; background-color: #f8f9fa; overflow-x: hidden; padding-top: 0; }
+
+        /* --- Top Bar (New) --- */
+        .top-bar {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1031;
+        }
+        .top-bar a { color: #fff; text-decoration: none; transition: opacity 0.3s; }
+        .top-bar a:hover { opacity: 0.8; }
+        .top-bar-divider { display: inline-block; width: 1px; height: 12px; background-color: rgba(255,255,255,0.3); margin: 0 15px; vertical-align: middle; }
+
+        /* --- Navbar (Updated to match Index) --- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-bottom: none;
+        }
+        .navbar-brand img { max-height: 55px; width: auto; transition: transform 0.3s; }
+        .navbar-brand:hover img { transform: scale(1.05); }
+        .nav-link {
+            font-size: 1rem; font-weight: 600; color: var(--secondary-color) !important;
+            margin: 0 8px; padding: 10px 0 !important; position: relative;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 3px; bottom: 0; left: 50%;
+            background: var(--accent-gradient); transition: all 0.3s ease;
+            transform: translateX(-50%); border-radius: 2px;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
+        .nav-link.active { color: var(--primary-color) !important; }
+
+        .btn-nav-contact {
+            background: var(--primary-color); color: white !important; border-radius: 50px;
+            padding: 8px 25px; font-weight: 600; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+            transition: all 0.3s; border: 2px solid transparent;
+        }
+        .btn-nav-contact:hover {
+            background: #fff; color: var(--primary-color) !important;
+            border-color: var(--primary-color); transform: translateY(-2px);
+        }
+
+        /* --- Hero Section ล้ำๆ --- */
+        .hero-motor-modern {
+            position: relative;
+            background: url('S__11985366.jpg') no-repeat center center/cover;
+            height: 80vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: -1px; /* แก้ช่องว่าง */
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(11, 46, 89, 0.95) 0%, rgba(11, 46, 89, 0.7) 60%, rgba(11, 46, 89, 0.2) 100%);
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .glass-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* --- Feature Cards (Glassmorphism) --- */
+        .feature-card-modern {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+            height: 100%;
+        }
+        .feature-card-modern:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(13, 110, 253, 0.15);
+            border-bottom: 5px solid var(--accent-color);
+        }
+        .icon-circle {
+            width: 70px; height: 70px;
+            background: rgba(13, 110, 253, 0.1);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .feature-card-modern:hover .icon-circle {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* --- Price Cards --- */
+        .price-card-pro {
+            background: #fff;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: 0.3s;
+            position: relative;
+        }
+        .price-card-pro:hover { transform: scale(1.03); }
+        .price-card-pro.popular { border: 2px solid var(--accent-color); transform: scale(1.05); z-index: 10; }
+        .price-head { padding: 30px; color: white; text-align: center; }
+        .bg-gradient-1 { background: linear-gradient(45deg, #6c757d, #495057); }
+        .bg-gradient-2 { background: linear-gradient(45deg, #0d6efd, #0a58ca); }
+        .bg-gradient-3 { background: linear-gradient(45deg, #212529, #000000); }
+        
+        .price-body { padding: 30px; }
+        .price-price { font-size: 2.5rem; font-weight: 700; color: var(--secondary-color); }
+        
+        /* --- Gallery Grid --- */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            color: white;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* --- Button Effects --- */
+        .btn-glow {
+            animation: glow 2s infinite;
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        /* --- New Document Section Styles --- */
+        .docs-section-premium {
+            background: linear-gradient(135deg, #1e2024 0%, #2a2d35 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .docs-section-premium::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .doc-glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .doc-glass-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .doc-icon-glow {
+            font-size: 3rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .process-box-white {
+            background: #ffffff;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 30px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: 24px; top: 45px; bottom: -35px;
+            width: 2px; background: #e9ecef; z-index: 0;
+        }
+        .timeline-item:last-child::before { display: none; }
+        
+        .timeline-badge {
+            position: absolute; left: 0; top: 0;
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: bold;
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+            z-index: 1;
+        }
+
+        /* --- Footer (Match Index) --- */
+        footer { background: var(--secondary-color); color: #ccc; position: relative; }
+        footer::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--accent-gradient); }
+        .footer-title { color: var(--accent-color); font-weight: 700; margin-bottom: 25px; }
+
+        /* --- Floating Menu (Match Index) --- */
+        .floating-container { position: fixed; bottom: 30px; right: 20px; z-index: 1000; display: flex; flex-direction: column-reverse; align-items: center; gap: 15px; }
+        .float-toggle {
+            width: 55px; height: 55px; background-color: #157347; color: white; border-radius: 50%; border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: transform 0.3s;
+        }
+        .float-menu {
+            display: flex; flex-direction: column; gap: 12px; opacity: 0; transform: translateY(20px) scale(0.8);
+            pointer-events: none; transition: all 0.3s; margin-bottom: 5px;
+        }
+        .float-menu.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        .float-item {
+            width: 48px; height: 48px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center;
+            text-decoration: none; box-shadow: 0 4px 8px rgba(0,0,0,0.2); font-size: 22px; transition: transform 0.2s; position: relative;
+        }
+        .float-item:hover { transform: scale(1.1); }
+        .btn-line-app { background-color: #06C755; } .btn-phone-app { background-color: #dc3545; } .btn-msg-app { background-color: #0d6efd; }
+        
+        @media (max-width: 576px) {
+            .floating-container { right: 15px; bottom: 20px; }
+            .float-toggle { width: 50px; height: 50px; font-size: 22px; }
+            .float-item { width: 42px; height: 42px; font-size: 20px; }
+            .navbar-brand img { max-height: 40px; }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Motorcycle Transport",
+      "provider": {
+        "@type": "MovingCompany",
+        "name": "MJ-TH Express"
+      },
+      "areaServed": "Thailand",
+      "description": "บริการรับส่งรถมอเตอร์ไซค์ไปต่างจังหวัด รถบิ๊กไบค์ รถเล็ก ห่อหุ้มกันรอยฟรี รับถึงหน้าบ้าน ราคาถูก",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "THB",
+        "price": "1500",
+        "description": "ราคาเริ่มต้นสำหรับการขนส่งมอเตอร์ไซค์"
+      }
+    }
+    </script>
+</head>
+
+<body>
+
+    <div class="top-bar d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-clock-fill text-warning me-2"></i>
+                <span>เปิดบริการทุกวัน ตลอด 24 ชั่วโมง</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <a href="tel:0955830371"><i class="bi bi-telephone-fill me-2"></i> 095-583-0371</a>
+                <span class="top-bar-divider"></span>
+                <a href="https://line.me/ti/p/_Wou4xwYjZ" target="_blank"><i class="bi bi-line me-2"></i> LINE: edokmzaza</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo_m_j1.png" alt="MJ-TH EXPRESS Logo">
+            </a>
+            
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="bi bi-list fs-1 text-primary"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">หน้าแรก</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">บริการส่งมอเตอร์ไซค์</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#process">ขั้นตอน</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#price">ราคา</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portfolio.html">ผลงาน</a></li>
+                    
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="contact.html" class="btn btn-nav-contact">
+                            <i class="bi bi-chat-text-fill me-2"></i> ติดต่อเรา
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-motor-modern">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="row align-items-center">
+                <div class="col-lg-7 animate__animated animate__fadeInLeft">
+                    <div class="glass-badge">
+                        <i class="bi bi-trophy-fill me-2"></i> อันดับ 1 ขนส่งมอเตอร์ไซค์
+                    </div>
+                    <h1 class="display-3 fw-bold mb-3 lh-sm">
+                        รับส่งมอเตอร์ไซค์ <br>
+                        <span style="color: var(--accent-color); text-shadow: 0 0 20px rgba(255,215,0,0.5);">ข้ามจังหวัด ทั่วไทย</span>
+                    </h1>
+                    <p class="lead mb-4 opacity-75 fw-light">
+                        บริการระดับมืออาชีพ BigBike รถคลาสสิค หรือรถเล็ก ดูแลเหมือนรถตัวเอง <br>
+                        <strong>รับ-ส่งถึงหน้าบ้าน • ห่อหุ้มหนาพิเศษ • มีประกัน 100%</strong>
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="https://line.me/ti/p/_Wou4xwYjZ" class="btn btn-success btn-lg rounded-pill px-5 shadow btn-glow">
+                            <i class="bi bi-line me-2"></i> เช็คราคาฟรี (LINE)
+                        </a>
+                        <a href="tel:0955830371" class="btn btn-outline-light btn-lg rounded-pill px-5">
+                            <i class="bi bi-telephone-fill me-2"></i> โทรด่วน
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block animate__animated animate__fadeInRight">
+                    <div class="position-relative">
+                        <img src="S__11985366.jpg" alt="ขนส่ง BigBike Ducati ห่อหุ้มอย่างดี" class="img-fluid rounded-4 shadow-lg border border-3 border-light" style="transform: rotate(3deg);">
+                        <div class="position-absolute bottom-0 start-0 bg-white text-dark p-3 rounded-3 shadow m-3">
+                            <h5 class="fw-bold m-0"><i class="bi bi-shield-check text-success"></i> ประกันสินค้า</h5>
+                            <small class="text-muted">วงเงินคุ้มครองสูง</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5 animate__animated animate__fadeInUp">
+                <h2 class="fw-bold text-secondary display-6">มาตรฐานระดับ VIP</h2>
+                <div class="bg-warning mx-auto" style="width: 60px; height: 4px; border-radius: 2px;"></div>
+                <p class="text-muted mt-3">ทำไมลูกค้า BigBike และรถบ้านถึงไว้ใจ MJ-TH Express</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card-modern">
+                        <div class="icon-circle"><i class="bi bi-box-seam-fill"></i></div>
+                        <h5 class="fw-bold">ห่อหุ้มหนา 3 ชั้น</h5>
+                        <p class="text-muted small">ใช้บับเบิ้ลกันกระแทก + ฟิล์มยืดพันรอบคัน ป้องกันรอยขีดข่วน 100% ฟรี!</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card-modern">
+                        <div class="icon-circle"><i class="bi bi-truck-front-fill"></i></div>
+                        <h5 class="fw-bold">รับ-ส่ง หน้าบ้าน</h5>
+                        <p class="text-muted small">Door-to-Door Service รอรับรถที่บ้านได้เลย ไม่ต้องขับรถมาส่งเอง</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card-modern">
+                        <div class="icon-circle"><i class="bi bi-shield-lock-fill"></i></div>
+                        <h5 class="fw-bold">ประกันสินค้า</h5>
+                        <p class="text-muted small">สบายใจหายห่วง ด้วยวงเงินประกันสินค้าตลอดการเดินทาง</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card-modern">
+                        <div class="icon-circle"><i class="bi bi-stopwatch-fill"></i></div>
+                        <h5 class="fw-bold">รวดเร็ว ตรงเวลา</h5>
+                        <p class="text-muted small">รถออกทุกวัน วิ่งงานด่วน 24 ชม. ส่งถึงปลายทางตามนัดหมาย</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light" id="pricing">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-secondary">อัตราค่าบริการ (เริ่มต้น)</h2>
+                <p class="text-muted">ราคาเดียว จบครบ รวมคนยกและค่าห่อหุ้มแล้ว ไม่มีบวกเพิ่ม</p>
+            </div>
+
+            <div class="row g-4 justify-content-center align-items-center">
+                <div class="col-md-4">
+                    <div class="price-card-pro">
+                        <div class="price-head bg-gradient-1">
+                            <h4 class="fw-bold m-0">รถเล็ก / ตลาด</h4>
+                            <small>Wave, Scoopy, Fino</small>
+                        </div>
+                        <div class="price-body text-center">
+                            <div class="price-price mb-3">1,XXX <span class="fs-6 text-muted">บาท</span></div>
+                            <ul class="list-unstyled text-start small mb-4">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> กรุงเทพฯ - ปริมณฑล</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> ภาคกลาง / ตะวันออก</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> ห่อหุ้มกันรอยฟรี</li>
+                            </ul>
+                            <a href="https://line.me/ti/p/_Wou4xwYjZ" class="btn btn-outline-dark rounded-pill w-100">เช็คราคา</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="price-card-pro popular">
+                        <div class="position-absolute top-0 end-0 bg-warning text-dark fw-bold px-3 py-1 small rounded-bottom-start">ขายดี</div>
+                        <div class="price-head bg-gradient-2">
+                            <h4 class="fw-bold m-0">Medium / PCX</h4>
+                            <small>Xmax, Forza, Vespa</small>
+                        </div>
+                        <div class="price-body text-center">
+                            <div class="price-price mb-3">Call <span class="fs-6 text-muted">บาท</span></div>
+                            <ul class="list-unstyled text-start small mb-4">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>ราคาพิเศษวิ่งทั่วไทย</strong></li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> ภาคเหนือ / อีสาน / ใต้</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> ทีมงานช่วยยก 2 คน</li>
+                            </ul>
+                            <a href="https://line.me/ti/p/_Wou4xwYjZ" class="btn btn-primary rounded-pill w-100 shadow">สอบถามราคา</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="price-card-pro">
+                        <div class="price-head bg-gradient-3">
+                            <h4 class="fw-bold m-0">BigBike / Chopper</h4>
+                            <small>400cc+, Harley, Ducati</small>
+                        </div>
+                        <div class="price-body text-center">
+                            <div class="price-price mb-3">VIP <span class="fs-6 text-muted">Rate</span></div>
+                            <ul class="list-unstyled text-start small mb-4">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> ล็อคล้อ 4 จุดแน่นหนา</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> ใช้ทางลาดไฮดรอลิก/อลูมิเนียม</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> ประกันวงเงินสูงพิเศษ</li>
+                            </ul>
+                            <a href="https://line.me/ti/p/_Wou4xwYjZ" class="btn btn-outline-dark rounded-pill w-100">ประเมินราคา</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h2 class="fw-bold">ผลงานจริง การันตีคุณภาพ</h2>
+                <p class="text-muted">ภาพจากหน้างานจริง มั่นใจได้ในความปลอดภัย</p>
+            </div>
+            
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <div class="gallery-item h-100">
+                        <img src="S__11985366.jpg" alt="ขนส่ง Ducati Diavel กรุงเทพ-เชียงใหม่ ห่อหุ้มหนาพิเศษ" style="height: 100%; min-height: 400px;">
+                        <div class="gallery-overlay">
+                            <h5>BigBike ระดับ High-End</h5>
+                            <p class="small">ดูแลพิเศษ ห่อหุ้มหนา ล็อคแน่นหนา ปลอดภัย 100%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="gallery-item mb-3">
+                        <img src="S__12230704.jpg" alt="ส่งรถมอเตอร์ไซค์คลาสสิค Classic Bike ไปต่างจังหวัด" style="height: 250px;">
+                        <div class="gallery-overlay">
+                            <h5>Classic Bike / Cafe Racer</h5>
+                            <p class="small">รถสะสม รถหายาก เราดูแลให้อย่างดี</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="S__12230707.jpg" alt="ขนส่งรถวิบาก โมโตครอส ไปสนามแข่ง" style="height: 250px;">
+                        <div class="gallery-overlay">
+                            <h5>Motocross / รถวิบาก</h5>
+                            <p class="small">ขนส่งไปสนามแข่ง หรือส่งกลับบ้าน</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="gallery-item">
+                        <img src="S__12230709.jpg" alt="รถรับจ้าง 4 ล้อตู้ทึบ มีลิฟต์ท้าย มีทางลาด ขนมอเตอร์ไซค์" style="height: 300px;">
+                        <div class="gallery-overlay">
+                            <h5>อุปกรณ์ครบครัน</h5>
+                            <p class="small">รถตู้ทึบหลังคาสูง พร้อมทางลาดอลูมิเนียมขึ้น-ลงสะดวก</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="gallery-item">
+                        <img src="S__12230711.jpg" alt="ส่งรถมอเตอร์ไซค์ด่วน ห่อฟิล์มดำกันรอย" style="height: 300px;">
+                        <div class="gallery-overlay">
+                            <h5>รถเล็ก / รถใช้งาน</h5>
+                            <p class="small">Wave, Click, PCX ราคาประหยัด ส่งถึงหน้าบ้าน</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="docs-section-premium py-5 text-white">
+        <div class="container position-relative z-1">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0 animate__animated animate__fadeInLeft">
+                    <h5 class="text-warning fw-bold mb-2">PREPARE BEFORE SHIPPING</h5>
+                    <h2 class="display-4 fw-bold mb-4">เอกสารที่ต้องใช้ <i class="bi bi-folder-check"></i></h2>
+                    <p class="opacity-75 mb-5 fs-5">เพื่อความถูกต้องตามกฎหมายและป้องกันรถสูญหาย กรุณาเตรียมเอกสารดังนี้ในวันส่งรถ:</p>
+                    
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="doc-glass-card">
+                                <i class="bi bi-person-vcard-fill doc-icon-glow"></i>
+                                <h5 class="fw-bold">สำเนาบัตร ปชช.</h5>
+                                <p class="small opacity-75 mb-0">ของผู้ส่งรถ</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="doc-glass-card">
+                                <i class="bi bi-journal-bookmark-fill doc-icon-glow"></i>
+                                <h5 class="fw-bold">สำเนาเล่มรถ</h5>
+                                <p class="small opacity-75 mb-0">หน้าเจ้าของรถ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 rounded" style="background: rgba(255,193,7,0.1); border-left: 4px solid #ffc107;">
+                        <small><i class="bi bi-info-circle-fill text-warning me-2"></i> หากชื่อผู้ส่งไม่ตรงกับเล่มรถ โปรดแนบเอกสารสัญญาซื้อขายหรือใบมอบอำนาจเพิ่มเติม</small>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 offset-lg-1 animate__animated animate__fadeInRight">
+                    <div class="process-box-white text-dark">
+                        <h3 class="fw-bold mb-4"><i class="bi bi-bezier2 text-primary"></i> ขั้นตอนการใช้บริการ</h3>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-badge">1</div>
+                            <h5 class="fw-bold m-0">แอดไลน์ / โทรแจ้งงาน</h5>
+                            <p class="text-muted small mb-0">ส่งรูปรถ แจ้งต้นทาง-ปลายทาง เพื่อประเมินราคา</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-badge">2</div>
+                            <h5 class="fw-bold m-0">นัดวันรับรถ</h5>
+                            <p class="text-muted small mb-0">ล็อคคิวรถที่ต้องการ (ไม่ต้องโอนมัดจำ หรือตามตกลง)</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-badge">3</div>
+                            <h5 class="fw-bold m-0">ทีมงานเข้ารับ & แพ็คกิ้ง</h5>
+                            <p class="text-muted small mb-0">รถกระบะตู้ทึบเข้ารับถึงหน้าบ้าน พร้อมห่อหุ้มกันรอยฟรี</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-badge">4</div>
+                            <h5 class="fw-bold m-0">ส่งถึงปลายทางปลอดภัย</h5>
+                            <p class="text-muted small mb-0">รอรับรถที่หน้าบ้านปลายทาง พร้อมตรวจเช็คสภาพรถ</p>
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            <a href="https://line.me/ti/p/_Wou4xwYjZ" class="btn btn-primary rounded-pill w-100 py-3 fw-bold shadow">
+                                <i class="bi bi-line me-2"></i> เริ่มต้นจองคิวรถ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="section-padding pb-3 pt-5">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-5">
+                    <h3 class="footer-title">MJ-TH EXPRESS</h3>
+                    <p class="opacity-75 pe-lg-5">บริการรถรับจ้างขนของ ขนย้ายบ้าน คอนโด ส่งรถมอเตอร์ไซค์ไปต่างจังหวัด เราเน้นบริการที่รวดเร็ว ปลอดภัย ในราคาที่ยุติธรรม</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white fw-bold mb-4">บริการของเรา</h5>
+                    <ul class="list-unstyled opacity-75 d-flex flex-column gap-2">
+                        <li><a href="index.html#services" class="text-white text-decoration-none">ขนย้ายบ้าน/คอนโด</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">ขนส่งมอเตอร์ไซค์</a></li>
+                        <li><a href="index.html#services" class="text-white text-decoration-none">ขนส่งสัตว์เลี้ยง</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-white fw-bold mb-4">ติดต่อสอบถาม</h5>
+                    <div class="d-flex flex-column gap-3">
+                        <p class="opacity-75 mb-0"><i class="bi bi-telephone-fill text-warning me-2"></i> 095-583-0371</p>
+                        <p class="opacity-75 mb-0"><i class="bi bi-line text-warning me-2"></i> edokmzaza</p>
+                        <p class="opacity-75 mb-0"><i class="bi bi-geo-alt-fill text-warning me-2"></i> บ้านเลขที่ 85/24 ซอย อัสสัมชัญ 23 แขวงบางไผ่ เขตบางแค กรุงเทพมหานคร</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="opacity-25 mt-5">
+            
+            <div class="text-center small opacity-50 pb-3">
+                &copy; 2025 MJ-TH EXPRESS เอ็มเจ-ทีเอช เอ็กซ์เพรส. All Rights Reserved.
+                <br class="d-md-none"> <span class="d-none d-md-inline"> | </span> Developed by <a href="https://kimx-wed.vercel.app/" target="_blank" style="color: inherit; text-decoration: underline;">kimx-wed</a>
+            </div>
+            
+        </div>
+    </footer>
+
+    <div class="floating-container">
+        <button class="float-toggle" onclick="toggleMenu()" id="mainToggle"><i class="bi bi-arrows-angle-expand"></i></button>
+        <div class="float-menu" id="floatMenu">
+            <a href="https://www.facebook.com/people/%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%82%E0%B8%99%E0%B8%AA%E0%B9%88%E0%B8%87%E0%B8%A1%E0%B8%AD%E0%B9%84%E0%B8%8B%E0%B8%84%E0%B9%8C%E0%B8%81%E0%B8%A5%E0%B8%B1%E0%B8%9A%E0%B8%95%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%88%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B8%94/61577012168287" target="_blank" class="float-item btn-msg-app"><i class="bi bi-messenger"></i></a>
+            <a href="tel:0955830371" class="float-item btn-phone-app"><i class="bi bi-telephone-fill"></i></a>
+            <a href="https://line.me/ti/p/_Wou4xwYjZ" target="_blank" class="float-item btn-line-app"><i class="bi bi-line"></i></a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Toggle Floating Menu
+        function toggleMenu() {
+            const menu = document.getElementById('floatMenu');
+            const btn = document.getElementById('mainToggle');
+            const icon = btn.querySelector('i');
+            menu.classList.toggle('show');
+            btn.classList.toggle('active');
+            if (menu.classList.contains('show')) { icon.className = 'bi bi-x-lg'; } else { icon.className = 'bi bi-arrows-angle-expand'; }
+        }
+
+        // Close Navbar on click (Mobile)
+        document.addEventListener("DOMContentLoaded", function () {
+            var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            var navbarCollapse = document.getElementById('navbarNav');
+            navLinks.forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (navbarCollapse.classList.contains('show')) {
+                        var bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+                        bsCollapse.hide();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
