@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.mj-th-express.com"
+        }
+      ],
+      "destination": "https://mj-th-express.com/$1",
+      "permanent": true
+    }
+  ]
+}
