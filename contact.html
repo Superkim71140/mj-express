@@ -3,8 +3,20 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ติดต่อเรา - M&J EXPRESS บริการขนย้ายทั่วไทย</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>ติดต่อรถรับจ้างบางแค ขนส่งมอเตอร์ไซค์ ย้ายของ (โทร 095-583-0371) - MJ-TH Express</title>
+    
+    <meta name="description" content="ติดต่อ MJ-TH Express รถรับจ้างบางแค เพชรเกษม หนองแขม บริการขนส่งมอเตอร์ไซค์ ย้ายบ้าน สอบถามราคาฟรี แอดไลน์ edokmzaza หรือโทร 095-583-0371 พิกัดซอยอัสสัมชัญ 23">
+    <meta name="keywords" content="เบอร์โทรรถรับจ้าง, ติดต่อรถรับจ้างบางแค, แผนที่ MJ-TH Express, ไลน์รถรับจ้าง, รถกระบะรับจ้าง เพชรเกษม, ขนส่งมอเตอร์ไซค์ บางแค">
+    <meta name="author" content="MJ-TH Express">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="สอบถามราคา รถรับจ้างบางแค ขนส่งมอเตอร์ไซค์ - MJ-TH Express">
+    <meta property="og:description" content="ประเมินราคาฟรี! รถรับจ้างย้ายบ้าน ส่งมอไซค์ พิกัดบางแค ฝั่งธน โทรเลย 095-583-0371">
+    <meta property="og:image" content="images/cover.jpg"> 
+    <meta property="og:url" content="https://mj-th-express.com/contact.html">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +25,46 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="canonical" href="https://mj-th-express.com/contact.html" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MovingCompany",
+      "name": "MJ-TH Express รถรับจ้างบางแค",
+      "image": "https://mj-th-express.com/images/cover.jpg",
+      "@id": "https://mj-th-express.com",
+      "url": "https://mj-th-express.com/contact.html",
+      "telephone": "095-583-0371",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "85/24 ซอยอัสสัมชัญ 23 แขวงบางไผ่",
+        "addressLocality": "เขตบางแค",
+        "addressRegion": "กรุงเทพมหานคร",
+        "postalCode": "10160",
+        "addressCountry": "TH"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 13.7367, 
+        "longitude": 100.3632
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "095-583-0371",
+        "contactType": "customer service",
+        "areaServed": "TH",
+        "availableLanguage": "Thai"
+      }
+    }
+    </script>
 
     <style>
         :root {
@@ -25,32 +77,36 @@
         }
 
         body {
-            font-family: 'Prompt', sans-serif; /* เปลี่ยนเป็น Prompt ให้เหมือนหน้าอื่น */
+            font-family: 'Prompt', sans-serif;
             color: var(--text-dark);
             background-color: #f8f9fa;
             padding-top: 0;
+            padding-bottom: 60px; /* เผื่อที่ให้ Mobile Nav */
         }
 
-        /* --- Navbar (เหมือนหน้าแรก) --- */
+        /* --- Loading Screen (เพิ่มใหม่ให้เหมือน Index) --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #ffffff; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+        #preloader.hide-loader { opacity: 0; visibility: hidden; }
+        .custom-spinner { width: 4rem; height: 4rem; border-width: 0.3em; color: var(--accent-color); }
+
+        /* --- Navbar --- */
         .navbar {
             background: rgba(255, 255, 255, 0.98) !important;
-            backdrop-filter: blur(10px);
-            padding: 10px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border-bottom: none;
+            backdrop-filter: blur(10px); padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border-bottom: none;
         }
         .navbar-brand img { max-height: 55px; width: auto; transition: transform 0.3s; }
         .navbar-brand:hover img { transform: scale(1.05); }
 
         .nav-link {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--secondary-color) !important;
-            margin: 0 8px;
-            padding: 10px 0 !important;
-            position: relative;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 1rem; font-weight: 600; color: var(--secondary-color) !important;
+            margin: 0 8px; padding: 10px 0 !important; position: relative;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 3px; bottom: 0; left: 50%;
@@ -60,69 +116,38 @@
         .nav-link:hover::after, .nav-link.active::after { width: 80%; }
         .nav-link.active { color: var(--primary-color) !important; }
 
-        /* ปุ่ม Contact ใน Navbar (สีฟ้า) */
         .btn-nav-contact {
-            background: #0d6efd;
-            color: white !important;
-            border-radius: 50px;
-            padding: 8px 25px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
-            transition: all 0.3s;
-            border: 2px solid transparent;
+            background: #0d6efd; color: white !important; border-radius: 50px;
+            padding: 8px 25px; font-weight: 600; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+            transition: all 0.3s; border: 2px solid transparent;
         }
         .btn-nav-contact:hover {
-            background: #0b5ed7;
-            color: white !important;
+            background: #fff; color: var(--primary-color) !important; border-color: var(--primary-color);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.5);
         }
 
         /* --- Page Header --- */
         .page-header {
-            background: var(--blue-gradient);
-            padding: 100px 0 80px;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            background: var(--blue-gradient); padding: 120px 0 100px;
+            color: white; text-align: center; position: relative; overflow: hidden;
         }
         .page-header::after {
             content: ''; position: absolute; bottom: -50px; left: 0; width: 100%; height: 100px;
             background: #f8f9fa; transform: skewY(-2deg);
         }
 
-        /* --- Mobile Responsive Header --- */
         @media (max-width: 576px) {
             .navbar-brand img { max-height: 40px; }
-            .page-header {
-                padding: 70px 0 60px; /* ลด Padding บนมือถือ */
-            }
-            .page-header h1 {
-                font-size: 1.8rem !important; /* ลดขนาดตัวอักษรหัวข้อ */
-            }
-            .page-header .lead {
-                font-size: 1rem;
-                margin-bottom: 0;
-            }
-            /* ปรับระยะห่าง Section การ์ด */
-            section.container[style*="margin-top"] {
-                margin-top: -40px !important;
-            }
+            .page-header { padding: 90px 0 80px; }
+            .page-header h1 { font-size: 1.8rem !important; }
+            section.container[style*="margin-top"] { margin-top: -60px !important; }
         }
 
         /* --- Contact Cards --- */
         .contact-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: all 0.4s ease;
-            height: 100%;
-            border: 1px solid rgba(0,0,0,0.02);
-            position: relative;
-            overflow: hidden;
+            background: white; border-radius: 20px; padding: 30px 20px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.4s ease;
+            height: 100%; border: 1px solid rgba(0,0,0,0.02); position: relative; overflow: hidden;
         }
         .contact-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
@@ -132,19 +157,14 @@
         .contact-card:hover::before { transform: scaleX(1); }
 
         .icon-box {
-            width: 80px; height: 80px;
-            background: #f0f4f8;
-            border-radius: 50%;
+            width: 80px; height: 80px; background: #f0f4f8; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2.5rem;
-            transition: all 0.3s;
+            margin: 0 auto 20px; font-size: 2.5rem; transition: all 0.3s;
         }
         
         .card-line .icon-box { color: #06C755; background: rgba(6, 199, 85, 0.1); }
         .card-phone .icon-box { color: #0d6efd; background: rgba(13, 110, 253, 0.1); }
         .card-fb .icon-box { color: #1877F2; background: rgba(24, 119, 242, 0.1); }
-
         .contact-card:hover .icon-box { transform: rotateY(360deg); }
 
         .contact-label { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; color: var(--secondary-color); }
@@ -166,20 +186,57 @@
         }
         .map-container {
             border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            height: 400px; width: 100%;
+            height: 400px; width: 100%; background: #eee;
+        }
+
+        /* --- Floating Menu (เพิ่มใหม่ให้เหมือน Index) --- */
+        .floating-container { position: fixed; bottom: 30px; right: 20px; z-index: 1000; display: flex; flex-direction: column-reverse; align-items: center; gap: 15px; }
+        .float-toggle {
+            width: 55px; height: 55px; background-color: #157347; color: white; border-radius: 50%; border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: transform 0.3s;
+        }
+        .float-menu {
+            display: flex; flex-direction: column; gap: 12px; opacity: 0; transform: translateY(20px) scale(0.8);
+            pointer-events: none; transition: all 0.3s; margin-bottom: 5px;
+        }
+        .float-menu.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        .float-item {
+            width: 48px; height: 48px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center;
+            text-decoration: none; box-shadow: 0 4px 8px rgba(0,0,0,0.2); font-size: 22px; transition: transform 0.2s; position: relative;
+        }
+        .float-item:hover { transform: scale(1.1); }
+        .btn-line-app { background-color: #06C755; } .btn-phone-app { background-color: #dc3545; } .btn-msg-app { background-color: #0d6efd; }
+
+        /* --- Mobile Bottom Nav (เพิ่มใหม่ให้เหมือน Index) --- */
+        .mobile-bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff;
+            box-shadow: 0 -2px 20px rgba(0,0,0,0.1); display: flex; justify-content: space-around;
+            padding: 10px 0 8px; z-index: 1060; border-top-left-radius: 15px; border-top-right-radius: 15px;
+        }
+        .mobile-nav-item {
+            display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #6c757d; font-size: 0.75rem; width: 25%;
+        }
+        .mobile-nav-item i { font-size: 1.4rem; margin-bottom: 2px; }
+        .mobile-nav-item.active { color: var(--primary-color); font-weight: 600; }
+        .mobile-nav-item.highlight-call { color: #dc3545; }
+        .mobile-nav-item.highlight-line { color: #06C755; }
+        .mobile-nav-item:hover { text-decoration: none; }
+
+        @media (max-width: 576px) {
+            .floating-container { display: none; }
         }
         
-        @media (max-width: 576px) {
-            .info-box { padding: 25px; } /* ลด Padding กล่องข้อมูลในมือถือ */
-        }
-
-        /* --- Footer --- */
-        footer { background: var(--secondary-color); color: #ccc; padding: 40px 0; margin-top: 80px; }
-
+        footer { background: var(--secondary-color); color: #ccc; padding: 40px 0; margin-top: 80px; margin-bottom: 60px; }
     </style>
 </head>
 
 <body>
+
+    <div id="preloader">
+        <div class="spinner-border custom-spinner" role="status">
+            <span class="visually-hidden">กำลังโหลด...</span>
+        </div>
+    </div>
 
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
@@ -193,19 +250,19 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-    <li class="nav-item"><a class="nav-link" href="index.html#home">หน้าแรก</a></li>
-    <li class="nav-item"><a class="nav-link text-primary fw-bold" href="motorcycle-transport.html">บริการส่งมอเตอร์ไซค์</a></li>
-    <li class="nav-item"><a class="nav-link" href="index.html#services">บริการทั่วไป</a></li>
-    <li class="nav-item"><a class="nav-link" href="index.html#process">ขั้นตอน</a></li>
-    <li class="nav-item"><a class="nav-link" href="index.html#price">ราคา</a></li>
-    <li class="nav-item"><a class="nav-link" href="portfolio.html">ผลงาน</a></li>
-    
-    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-        <a href="contact.html" class="btn btn-nav-contact">
-            <i class="bi bi-chat-text-fill me-2"></i> ติดต่อเรา
-        </a>
-    </li>
-</ul>
+                    <li class="nav-item"><a class="nav-link" href="index.html">หน้าแรก</a></li>
+                    <li class="nav-item"><a class="nav-link text-primary fw-bold" href="motorcycle-transport.html">บริการส่งมอเตอร์ไซค์</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#services">บริการทั่วไป</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#process">ขั้นตอน</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#price">ราคา</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portfolio.html">ผลงาน</a></li>
+                    
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="contact.html" class="btn btn-nav-contact">
+                            <i class="bi bi-chat-text-fill me-2"></i> ติดต่อเรา
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -213,7 +270,7 @@
     <header class="page-header">
         <div class="container">
             <h1 class="display-4 fw-bold mb-3">ปรึกษาและประเมินราคาฟรี</h1>
-            <p class="lead opacity-75">ทีมงาน M&J Express พร้อมดูแลคุณตลอด 24 ชั่วโมง <br> ทักไลน์ตอบไว โทรปรึกษาได้ทันที</p>
+            <p class="lead opacity-75">รถรับจ้างบางแค รถรับจ้างฝั่งธน <br> ทักไลน์ตอบไว โทรปรึกษาได้ทันที 24 ชม.</p>
         </div>
     </header>
 
@@ -269,17 +326,17 @@
                 <div class="col-lg-5">
                     <div class="info-box">
                         <h3 class="fw-bold mb-4" style="color: var(--secondary-color);">
-                            <i class="bi bi-geo-alt-fill text-warning me-2"></i> ที่ตั้งสำนักงาน
+                            <i class="bi bi-geo-alt-fill text-warning me-2"></i> จุดจอดรถบางแค
                         </h3>
                         <p class="text-muted mb-4">
-                            เรามีจุดจอดรถและทีมงานพร้อมให้บริการ ครอบคลุมพื้นที่กรุงเทพฯ และปริมณฑล สามารถเข้ามาติดต่อหรือนัดหมายล่วงหน้าได้ครับ
+                            เรามีจุดจอดรถและทีมงานพร้อมให้บริการในเขต <strong>บางแค, เพชรเกษม, หนองแขม, พุทธมณฑล</strong> และพื้นที่ใกล้เคียง (เรียกปุ๊บ ไปรับได้ทันที)
                         </p>
                         
                         <div class="d-flex align-items-start mb-3">
                             <i class="bi bi-house-door-fill fs-4 text-primary me-3 mt-1"></i>
                             <div>
-                                <h6 class="fw-bold mb-1">M&J EXPRESS (สำนักงานใหญ่)</h6>
-                                <p class="text-muted mb-0">บ้านเลขที่ 85/24 ซอย อัสสัมชัญ 23 <br>แขวงบางไผ่ เขตบางแค กรุงเทพมหานคร</p>
+                                <h6 class="fw-bold mb-1">MJ-TH EXPRESS (สำนักงานใหญ่)</h6>
+                                <p class="text-muted mb-0">เลขที่ 85/24 ซอยอัสสัมชัญ 23 <br>แขวงบางไผ่ เขตบางแค กทม. 10160</p>
                             </div>
                         </div>
 
@@ -301,7 +358,7 @@
                 <div class="col-lg-7">
                     <div class="map-container">
                         <iframe 
-                            src="https://maps.google.com/maps?q=13.738006,100.378946&z=15&output=embed" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.1!2d100.36!3d13.73!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ0JzEyLjEiTiAxMDDCsDIxJzQ3LjUiRQ!5e0!3m2!1sth!2sth!4v1600000000000!5m2!1sth!2sth" 
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
@@ -313,7 +370,7 @@
 
    <footer class="text-center">
         <div class="container">
-            <p class="mb-2 fw-bold text-white">M&J EXPRESS บริการรถรับจ้างขนของ</p>
+            <p class="mb-2 fw-bold text-white">M&J EXPRESS บริการรถรับจ้างบางแค ย้ายบ้าน ขนส่งมอเตอร์ไซค์</p>
             
             <p class="small opacity-50">
                 © 2025 All Rights Reserved.
@@ -325,9 +382,56 @@
         </div>
     </footer>
 
+    <div class="floating-container">
+        <button class="float-toggle" onclick="toggleMenu()" id="mainToggle"><i class="bi bi-arrows-angle-expand"></i></button>
+        <div class="float-menu" id="floatMenu">
+            <a href="https://www.facebook.com/people/รับจ้างขนส่งมอไซค์กลับต่างจังหวัด/61577012168287" target="_blank" class="float-item btn-msg-app"><i class="bi bi-messenger"></i></a>
+            <a href="tel:0955830371" class="float-item btn-phone-app"><i class="bi bi-telephone-fill"></i></a>
+            <a href="https://line.me/ti/p/_Wou4xwYjZ" target="_blank" class="float-item btn-line-app"><i class="bi bi-line"></i></a>
+        </div>
+    </div>
+
+    <div class="mobile-bottom-nav d-md-none">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="bi bi-house-door-fill"></i>
+            <span>หน้าแรก</span>
+        </a>
+        <a href="tel:0955830371" class="mobile-nav-item highlight-call">
+            <i class="bi bi-telephone-fill"></i>
+            <span>โทรเลย</span>
+        </a>
+        <a href="https://line.me/ti/p/_Wou4xwYjZ" class="mobile-nav-item highlight-line">
+            <i class="bi bi-line"></i>
+            <span>แอดไลน์</span>
+        </a>
+        <a href="https://www.facebook.com/people/รับจ้างขนส่งมอไซค์กลับต่างจังหวัด/61577012168287" target="_blank" class="mobile-nav-item">
+            <i class="bi bi-facebook"></i>
+            <span>แฟนเพจ</span>
+        </a>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // Preloader Script
+        window.addEventListener("load", function () {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hide-loader');
+            }, 500);
+        });
+
+        // Floating Menu Script
+        function toggleMenu() {
+            const menu = document.getElementById('floatMenu');
+            const btn = document.getElementById('mainToggle');
+            const icon = btn.querySelector('i');
+            menu.classList.toggle('show');
+            btn.classList.toggle('active');
+            if (menu.classList.contains('show')) { icon.className = 'bi bi-x-lg'; } else { icon.className = 'bi bi-arrows-angle-expand'; }
+        }
+
+        // Navbar Close Script
         document.addEventListener("DOMContentLoaded", function () {
             var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
             var navbarCollapse = document.getElementById('navbarNav');
