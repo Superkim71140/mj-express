@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# backups & helper toolkits
+/_old_site/
+/claude-seo-/
+/ui-ux-pro-max-skill-main/
+/tools/
+

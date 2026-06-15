@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "claude-seo-/**",
+    "_old_site/**",
+    "ui-ux-pro-max-skill-main/**",
+    "docs/**",
+    "tools/**",
   ]),
 ]);
 
