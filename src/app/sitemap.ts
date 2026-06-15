@@ -24,6 +24,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/areas`,
+      lastModified: defaultDate,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/portfolio`,
       lastModified: defaultDate,
       changeFrequency: "weekly",
@@ -57,13 +63,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // Dynamic service pages (priority 0.9)
-  const servicePages = servicesData.map((service) => ({
-    url: `${baseUrl}/services/${service.slug}`,
-    lastModified: service.updatedAt ? new Date(service.updatedAt) : defaultDate,
-    changeFrequency: "weekly" as const,
-    priority: 0.9,
-  }));
+  // Dynamic service pages (priority 0.9) - excluding motorcycle-transport to consolidate ranking signals on /motorcycle-transport
+  const servicePages = servicesData
+    .filter((service) => service.slug !== "motorcycle-transport")
+    .map((service) => ({
+      url: `${baseUrl}/services/${service.slug}`,
+      lastModified: service.updatedAt ? new Date(service.updatedAt) : defaultDate,
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    }));
 
   // Dynamic route pages (priority 0.9)
   const routePages = routesData.map((route) => ({

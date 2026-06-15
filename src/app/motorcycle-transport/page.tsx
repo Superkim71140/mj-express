@@ -44,7 +44,7 @@ export default function MotorcyclePage() {
     "@type": "MovingCompany",
     "name": siteConfig.businessName,
     "telephone": siteConfig.phone,
-    "url": "https://mj-th-express.com/motorcycle-transport",
+    "url": "https://www.mj-th-express.com/motorcycle-transport",
     "areaServed": districtBadges,
     "description": "บริการรับส่งรถมอเตอร์ไซค์ไปต่างจังหวัด รถบิ๊กไบค์ รถเล็ก ห่อหุ้มกันรอยฟรี รับถึงหน้าบ้าน",
   };
@@ -92,13 +92,13 @@ export default function MotorcyclePage() {
         "@type": "ListItem",
         "position": 1,
         "name": "หน้าแรก",
-        "item": "https://mj-th-express.com",
+        "item": "https://www.mj-th-express.com",
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "บริการส่งมอเตอร์ไซค์",
-        "item": "https://mj-th-express.com/motorcycle-transport",
+        "item": "https://www.mj-th-express.com/motorcycle-transport",
       },
     ],
   };

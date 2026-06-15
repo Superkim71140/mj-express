@@ -65,7 +65,7 @@ export const futureDistricts: DistrictSEO[] = [
     h1: "รถรับจ้างบางแค ขนของด่วน 24 ชม.",
     intro: "ยินดีต้อนรับสู่บริการรถรับจ้างย่านบางแค ทางเราสแตนบายรถกระบะตู้ทึบ 4 ล้อ พร้อมอุปกรณ์ยกย้ายรวดเร็วทันใจในเขตบางแค ท่าพระ บางหว้า และกาญจนาภิเษก",
     keywords: ["รถรับจ้างบางแค", "รถกระบะรับจ้างบางแค", "ย้ายบ้านบางแค", "ขนของบางแค"],
-    canonical: "https://mj-th-express.com/areas/bangkae-transport"
+    canonical: "https://www.mj-th-express.com/areas/bangkae-transport"
   },
   {
     slug: "salaya-transport",
@@ -78,7 +78,7 @@ export const futureDistricts: DistrictSEO[] = [
     h1: "รถรับจ้างศาลายา ย้ายหอมหิดล",
     intro: "บริการรถรับจ้างขนของย้ายหอพักคอนโดรอบมหาวิทยาลัยมหิดล ศาลายา เอาใจนักศึกษาด้วยราคากันเอง พร้อมคนช่วยยกของพนักงานขับรถสุภาพ",
     keywords: ["รถรับจ้างศาลายา", "ย้ายหอมหิดล", "ย้ายหอศาลายา", "รถกระบะรับจ้างศาลายา"],
-    canonical: "https://mj-th-express.com/areas/salaya-transport"
+    canonical: "https://www.mj-th-express.com/areas/salaya-transport"
   }
 ];
 
@@ -95,7 +95,7 @@ export const futureRoutes: RouteSEO[] = [
     h1: "รถรับจ้างกรุงเทพ ⇄ เชียงใหม่",
     intro: "บริการขนของข้ามจังหวัดด้วยรถกระบะ 4 ล้อตู้ทึบ วิ่งตรงส่งด่วนจากกรุงเทพฯ ไปยังเชียงใหม่ ลำพูน ลำปาง และภาคเหนือ ของถึงไวในวันเดียว",
     keywords: ["รถรับจ้างกรุงเทพเชียงใหม่", "ขนส่งมอเตอร์ไซค์ไปเชียงใหม่", "ย้ายบ้านข้ามจังหวัด"],
-    canonical: "https://mj-th-express.com/routes/bangkok-to-chiangmai-transport"
+    canonical: "https://www.mj-th-express.com/routes/bangkok-to-chiangmai-transport"
   }
 ];
 
@@ -111,6 +111,6 @@ export const futureServices: ServiceSEO[] = [
     h1: "ส่งมอเตอร์ไซค์ไปต่างจังหวัด ทั่วไทย",
     intro: "หมดห่วงเรื่องมอเตอร์ไซค์เป็นรอยระหว่างขนส่ง ด้วยบริการแพ็คห่อหุ้มหนาพิเศษ 3 ชั้นและแท่นยึดล้อหน้าล้อหลังกันล้ม ขนส่งปลอดภัยด้วยตู้ทึบ 100%",
     keywords: ["ส่งมอเตอร์ไซค์ไปต่างจังหวัด", "ส่งบิ๊กไบค์ข้ามจังหวัด", "ขนส่งมอเตอร์ไซค์ราคาถูก"],
-    canonical: "https://mj-th-express.com/services/motorcycle-shipping-upcountry"
+    canonical: "https://www.mj-th-express.com/services/motorcycle-shipping-upcountry"
   }
 ];

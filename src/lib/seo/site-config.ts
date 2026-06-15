@@ -6,7 +6,7 @@ export const siteConfig = {
   lineId: "edokmzaza",
   lineUrl: "https://line.me/ti/p/_Wou4xwYjZ",
   facebookUrl: "https://www.facebook.com/people/%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%82%E0%B8%99%E0%B8%AA%E0%B9%88%E0%B8%87%E0%B8%A1%E0%B8%AD%E0%B9%84%E0%B8%8B%E0%B8%84%E0%B9%8C%E0%B8%A5%E0%B8%B1%E0%B8%9A%E0%B8%95%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%88%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B8%94/61577012168287",
-  baseUrl: "https://mj-th-express.com",
+  baseUrl: "https://www.mj-th-express.com",
   priceRange: "฿500-฿15000",
   openingHours: "24 Hours every day",
   openingHoursTh: "เปิดบริการทุกวัน ตลอด 24 ชั่วโมง",

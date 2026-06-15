@@ -8,6 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: [
         "/tools/",
+        "/docs/tools/",
         "/claude-seo/",
         "/_old_site/",
         "/ui-ux-pro-max-skill/",

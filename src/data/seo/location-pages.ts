@@ -66,7 +66,7 @@ export const localAreas: LocalArea[] = [
       "ขนส่งมอเตอร์ไซค์ มหิดล",
       "รถรับจ้างทวีวัฒนา"
     ],
-    canonical: "https://mj-th-express.com/areas/phutthamonthon-transport",
+    canonical: "https://www.mj-th-express.com/areas/phutthamonthon-transport",
     ogImage: "/assets/images/work4.webp",
     badgeText: "พื้นที่ พุทธมณฑล สาย 2 - สาย 4",
     h1: "รถรับจ้าง พุทธมณฑล-ศาลายา",
@@ -185,7 +185,7 @@ export const localAreas: LocalArea[] = [
       "รถรับจ้างบางบอน 5",
       "ขนส่งมอเตอร์ไซค์ หนองแขม"
     ],
-    canonical: "https://mj-th-express.com/areas/nongkhaem-transport",
+    canonical: "https://www.mj-th-express.com/areas/nongkhaem-transport",
     ogImage: "/assets/images/work4.webp",
     badgeText: "พื้นที่ หนองแขม - เพชรเกษม 81/69",
     h1: "รถรับจ้างหนองแขม ขนของด่วน",
@@ -304,7 +304,7 @@ export const localAreas: LocalArea[] = [
       "รถรับจ้างวัดพันท้าย",
       "รถรับจ้างบางขุนเทียน"
     ],
-    canonical: "https://mj-th-express.com/areas/rama2-bangbon-transport",
+    canonical: "https://www.mj-th-express.com/areas/rama2-bangbon-transport",
     ogImage: "/assets/images/best.webp",
     badgeText: "พื้นที่ พระราม 2 - บางบอน - เอกชัย",
     h1: "รถรับจ้างพระราม 2 ขนของด่วน",
@@ -422,7 +422,7 @@ export const localAreas: LocalArea[] = [
       "ส่งมอเตอร์ไซค์ฝั่งพระนคร",
       "รถรับจ้างด่วน 24 ชั่วโมง ฝั่งพระนคร"
     ],
-    canonical: "https://mj-th-express.com/areas/phra-nakhon-transport",
+    canonical: "https://www.mj-th-express.com/areas/phra-nakhon-transport",
     ogImage: "/assets/images/work4.webp",
     badgeText: "พื้นที่ ฝั่งพระนคร - กรุงเทพชั้นใน",
     h1: "รถรับจ้างฝั่งพระนคร กรุงเทพชั้นใน ขนของด่วน 24 ชั่วโมง",
@@ -564,7 +564,7 @@ export const localAreas: LocalArea[] = [
       "ส่งมอเตอร์ไซค์สมุทรสาคร",
       "รถรับจ้างพระราม 2 ไปสมุทรสาคร"
     ],
-    canonical: "https://mj-th-express.com/areas/samut-sakhon-transport",
+    canonical: "https://www.mj-th-express.com/areas/samut-sakhon-transport",
     ogImage: "/assets/images/best.webp",
     badgeText: "พื้นที่ สมุทรสาคร - มหาชัย - กระทุ่มแบน",
     h1: "รถรับจ้างสมุทรสาคร มหาชัย กระทุ่มแบน ขนของด่วน 24 ชั่วโมง",
