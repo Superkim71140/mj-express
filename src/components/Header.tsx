@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { areaDropdownLinks } from "@/data/navigation";
+import { areaDropdownLinks, headerNavLinks } from "@/data/navigation";
 import { siteConfig } from "@/data/site";
 
 export default function Header() {
@@ -22,27 +22,24 @@ export default function Header() {
 
   // Hash tracking for active states of in-page anchors
   useEffect(() => {
-    // Set initial hash
-    setCurrentHash(window.location.hash);
-
     const handleHashChange = () => {
-      setCurrentHash(window.location.hash);
+      if (typeof window !== "undefined") {
+        setCurrentHash(window.location.hash);
+      }
     };
+
+    // Use a short timeout to prevent synchronous cascading renders (ESLint fix)
+    const timeoutId = setTimeout(() => {
+      handleHashChange();
+    }, 10);
 
     window.addEventListener("hashchange", handleHashChange);
 
-    // Periodically poll to capture Next.js routing transitions that don't trigger hashchange
-    const interval = setInterval(() => {
-      if (typeof window !== "undefined" && window.location.hash !== currentHash) {
-        setCurrentHash(window.location.hash);
-      }
-    }, 150);
-
     return () => {
       window.removeEventListener("hashchange", handleHashChange);
-      clearInterval(interval);
+      clearTimeout(timeoutId);
     };
-  }, [pathname, currentHash]);
+  }, [pathname]);
 
   const isAreaActive = pathname.startsWith("/areas");
 
@@ -72,54 +69,29 @@ export default function Header() {
           {/* Desktop Navigation Links (>=1200px) */}
           <div className="desktop-nav">
             <ul className="nav-menu">
-              <li className="nav-item">
-                <Link
-                  href="/"
-                  className={`nav-link ${pathname === "/" && (!currentHash || currentHash === "") ? "active" : ""}`}
-                  onClick={() => {
-                    setCurrentHash("");
-                    closeMenu();
-                  }}
-                >
-                  หน้าแรก
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  href="/motorcycle-transport"
-                  className={`nav-link ${pathname === "/motorcycle-transport" ? "active" : ""}`}
-                  onClick={() => {
-                    setCurrentHash("");
-                    closeMenu();
-                  }}
-                >
-                  ส่งมอเตอร์ไซค์
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  href="/#price"
-                  className={`nav-link ${pathname === "/" && currentHash === "#price" ? "active" : ""}`}
-                  onClick={() => {
-                    setCurrentHash("#price");
-                    closeMenu();
-                  }}
-                >
-                  ราคา
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  href="/portfolio"
-                  className={`nav-link ${pathname === "/portfolio" ? "active" : ""}`}
-                  onClick={() => {
-                    setCurrentHash("");
-                    closeMenu();
-                  }}
-                >
-                  ผลงาน
-                </Link>
-              </li>
+              {headerNavLinks.map((link) => {
+                const isActive = pathname === link.path && (!currentHash || currentHash === "");
+                const isHashActive = pathname === "/" && link.path.startsWith("/#") && currentHash === link.path.substring(1);
+                
+                return (
+                  <li className="nav-item" key={link.path}>
+                    <Link
+                      href={link.path}
+                      className={`nav-link ${isActive || isHashActive ? "active" : ""}`}
+                      onClick={() => {
+                        if (link.path.startsWith("/#")) {
+                          setCurrentHash(link.path.substring(1));
+                        } else {
+                          setCurrentHash("");
+                        }
+                        closeMenu();
+                      }}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
 
               {/* Dropdown for Service Areas */}
               <li
@@ -211,54 +183,29 @@ export default function Header() {
 
         <div className="drawer-body">
           <ul className="drawer-nav">
-            <li>
-              <Link
-                href="/"
-                className={`drawer-link ${pathname === "/" && (!currentHash || currentHash === "") ? "active" : ""}`}
-                onClick={() => {
-                  setCurrentHash("");
-                  closeMenu();
-                }}
-              >
-                หน้าแรก
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/motorcycle-transport"
-                className={`drawer-link ${pathname === "/motorcycle-transport" ? "active" : ""}`}
-                onClick={() => {
-                  setCurrentHash("");
-                  closeMenu();
-                }}
-              >
-                ส่งมอเตอร์ไซค์
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/#price"
-                className={`drawer-link ${pathname === "/" && currentHash === "#price" ? "active" : ""}`}
-                onClick={() => {
-                  setCurrentHash("#price");
-                  closeMenu();
-                }}
-              >
-                ราคา
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/portfolio"
-                className={`drawer-link ${pathname === "/portfolio" ? "active" : ""}`}
-                onClick={() => {
-                  setCurrentHash("");
-                  closeMenu();
-                }}
-              >
-                ผลงาน
-              </Link>
-            </li>
+            {headerNavLinks.map((link) => {
+              const isActive = pathname === link.path && (!currentHash || currentHash === "");
+              const isHashActive = pathname === "/" && link.path.startsWith("/#") && currentHash === link.path.substring(1);
+              
+              return (
+                <li key={link.path}>
+                  <Link
+                    href={link.path}
+                    className={`drawer-link ${isActive || isHashActive ? "active" : ""}`}
+                    onClick={() => {
+                      if (link.path.startsWith("/#")) {
+                        setCurrentHash(link.path.substring(1));
+                      } else {
+                        setCurrentHash("");
+                      }
+                      closeMenu();
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
 
             {/* Service Areas inside Drawer */}
             <li className="drawer-section">
