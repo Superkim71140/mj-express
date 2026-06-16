@@ -54,17 +54,26 @@
   background-color: #f1f5f9;
   color: var(--secondary-color, #1e293b);
   font-family: var(--font-prompt), sans-serif;
-  font-weight: 600;
-  padding: 16px 20px;
+  font-weight: 700;
+  padding: 20px 24px;
   text-align: left;
   border-bottom: 2px solid #e2e8f0;
 }
 
 .pricingTable td {
-  padding: 18px 20px;
+  padding: 24px 24px;
   border-bottom: 1px solid #e2e8f0;
-  color: #475569;
+  color: #1e293b;
   vertical-align: middle;
+}
+
+.pricingTable tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+/* Custom very light blue hover state */
+.pricingTable tbody tr:hover td {
+  background-color: rgba(13, 110, 253, 0.04) !important;
 }
 
 .pricingTable tr:last-child td {
@@ -76,15 +85,19 @@
 }
 
 .serviceName {
-  font-weight: 600;
+  font-family: var(--font-prompt), sans-serif;
+  font-weight: 700;
   color: var(--secondary-color, #1e293b);
-  font-size: 0.95rem;
+  font-size: 1.15rem;
+  margin-bottom: 4px;
 }
 
 .serviceSub {
-  font-size: 0.8rem;
-  color: #64748b;
+  font-family: var(--font-sarabun), sans-serif;
+  font-size: 0.95rem;
+  color: #475569;
   margin-top: 4px;
+  font-weight: 400;
 }
 
 .priceCol {
@@ -94,19 +107,24 @@
 
 .priceBadge {
   display: inline-block;
-  padding: 6px 12px;
-  background-color: rgba(13, 110, 253, 0.08);
-  color: var(--primary-color, #0d6efd);
+  padding: 10px 24px;
+  background-color: rgba(13, 110, 253, 0.1) !important;
+  color: #0d6efd !important;
   font-family: var(--font-prompt), sans-serif;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border-radius: 30px;
-  border: 1px solid rgba(13, 110, 253, 0.15);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 50rem;
+  border: none;
+  white-space: nowrap;
 }
 
 .descCol {
   width: 37%;
-  font-size: 0.9rem;
+  font-family: var(--font-sarabun), sans-serif;
+  font-size: 0.95rem;
+  color: #1e293b;
+  font-weight: 400;
+  line-height: 1.7;
 }
 
 .pricingNotes {

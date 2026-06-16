@@ -188,7 +188,7 @@ export default function AreaPageTemplate({ area }: AreaPageTemplateProps) {
       )}
 
       {/* Pricing Guide */}
-      <PricingGuideBlock priceNotes={area.priceNotes} />
+      <PricingGuideBlock priceNotes="อัตราค่าบริการเริ่มต้นที่ 1,000 บาท และประเมินราคารวมคนยกตามความเหมาะสมของปริมาณของและสถานที่หน้างานจริง ไม่มีบวกราคาแอบแฝง" />
 
       {/* FAQ block */}
       <FaqBlock
