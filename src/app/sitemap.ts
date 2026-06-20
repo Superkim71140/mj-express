@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/seo/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.baseUrl;
-  const defaultDate = new Date("2026-06-15T12:00:00Z");
+  const defaultDate = new Date();
 
   // Core pages
   const corePages: MetadataRoute.Sitemap = [
@@ -55,13 +55,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Dynamic area pages (priority 0.85)
-  const areaPages = localAreas.map((area) => ({
-    url: `${baseUrl}/areas/${area.slug}`,
-    lastModified: area.updatedAt ? new Date(area.updatedAt) : defaultDate,
-    changeFrequency: "weekly" as const,
-    priority: 0.85,
-  }));
+  const areaPages = localAreas.map((area) => {
+    const isSalaya = area.slug === "salaya";
+    return {
+      url: `${baseUrl}/areas/${area.slug}`,
+      lastModified: new Date(), // Force real-time freshness
+      changeFrequency: isSalaya ? ("daily" as const) : ("weekly" as const),
+      priority: isSalaya ? 1.0 : 0.85, // Absolute priority for Salaya
+    };
+  });
 
   // Dynamic service pages (priority 0.9) - excluding motorcycle-transport to consolidate ranking signals on /motorcycle-transport
   const servicePages = servicesData
