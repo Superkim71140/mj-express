@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   verification: {
-    google: "XBZroDGp_kA28tbvOnFUymh1DsDybkbicMoyPmsQ8JY",
+    google: "sawEki-ZmUAGO9lABfnHBh4dGc4NOJC31AgJn4ii-lQ",
   },
   openGraph: {
     type: "website",
