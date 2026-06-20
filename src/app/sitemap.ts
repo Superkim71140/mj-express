@@ -5,6 +5,8 @@ import { routesData } from "@/data/routes";
 import { caseStudiesData } from "@/data/case-studies";
 import { siteConfig } from "@/lib/seo/site-config";
 
+export const dynamic = "force-dynamic";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.baseUrl;
   const defaultDate = new Date();
@@ -59,9 +61,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const isSalaya = area.slug === "salaya";
     return {
       url: `${baseUrl}/areas/${area.slug}`,
-      lastModified: new Date(), // Force real-time freshness
+      // SEO Magic: Only force current date for Salaya, use DB date for others
+      lastModified: isSalaya ? new Date() : (area.updatedAt ? new Date(area.updatedAt) : defaultDate),
       changeFrequency: isSalaya ? ("daily" as const) : ("weekly" as const),
-      priority: isSalaya ? 1.0 : 0.85, // Absolute priority for Salaya
+      priority: isSalaya ? 1.0 : 0.85,
     };
   });
 
