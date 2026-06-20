@@ -13,6 +13,105 @@ interface AreaPageTemplateProps {
   area: LocalArea;
 }
 
+const StudentPromoBlock = ({ ratingValue, reviewCount }: { ratingValue?: string; reviewCount?: string }) => (
+  <aside id="mahidol-moving" aria-label="Student Special Offer" className="mt-4 p-4 rounded-4 shadow-sm border border-primary" style={{ backgroundColor: "rgba(13, 110, 253, 0.05)" }}>
+    {ratingValue && reviewCount && (
+      <div className="mb-3 d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-warning-subtle text-warning-emphasis border border-warning" style={{ fontSize: "0.85rem", fontWeight: "bold" }}>
+        <span>⭐️ {ratingValue}/5 จากนักศึกษาและบุคลากร {reviewCount} รีวิว</span>
+      </div>
+    )}
+    <div className="d-flex align-items-start gap-3">
+      <div className="fs-1 text-primary">🎓</div>
+      <div>
+        <h4 className="fw-bold text-primary mb-2" style={{ fontFamily: "var(--font-prompt)" }}>
+          โปรโมชั่นพิเศษสำหรับนักศึกษา ม.มหิดล
+        </h4>
+        <p className="mb-2 text-dark">
+          เพียง <strong>แสดงบัตรนักศึกษาลดราคา</strong> ทันที! บริการรับย้ายหอพักในพื้นที่รอบมหาวิทยาลัยมหิดล ศาลายา
+        </p>
+        <ul className="mb-0 text-muted small" style={{ listStyleType: "none", paddingLeft: 0 }}>
+          <li><i className="bi bi-check-circle-fill text-success me-2"></i>โซนซอยตั้งสิน</li>
+          <li><i className="bi bi-check-circle-fill text-success me-2"></i>หอใน ม.มหิดล</li>
+          <li><i className="bi bi-check-circle-fill text-success me-2"></i>โซนหน้า ม. และบริเวณใกล้เคียง</li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+);
+
+const LocalProximityBlock = ({ proximityBlocks }: { proximityBlocks?: { location: string; time: string }[] }) => {
+  if (!proximityBlocks || proximityBlocks.length === 0) return null;
+  return (
+    <div className="mt-3 p-3 rounded-4 border shadow-sm" style={{ backgroundColor: "#f8f9fa", borderColor: "#dee2e6" }}>
+      <div className="d-flex align-items-center gap-2">
+        <i className="bi bi-stopwatch text-primary fs-5"></i>
+        <span className="text-dark small">
+          <strong>⚡ ระยะเวลาเข้ารับของด่วน:</strong>{" "}
+          {proximityBlocks.map((block, idx) => (
+            <span key={idx} className="fw-medium">
+              {block.location} ({block.time}){idx < proximityBlocks.length - 1 ? " | " : ""}
+            </span>
+          ))}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const SeasonalAlertBlock = ({ notice }: { notice?: string }) => {
+  if (!notice) return null;
+  return (
+    <aside role="note" className="container mt-4">
+      <div className="alert alert-warning d-flex align-items-center gap-3 border border-warning-subtle shadow-sm rounded-4 p-3 mb-0">
+        <div className="fs-3 text-warning">📅</div>
+        <div>
+          <strong className="d-block text-warning-emphasis mb-1 font-prompt">ประกาศตารางเดินรถช่วงเปิด-ปิดเทอม</strong>
+          <span className="text-dark small leading-relaxed">{notice}</span>
+        </div>
+      </div>
+    </aside>
+  );
+};
+
+const VerifiedStudentReviews = ({ reviews }: { reviews?: { author: string; text: string; rating: number }[] }) => {
+  if (!reviews || reviews.length === 0) return null;
+  return (
+    <section className="py-5 bg-white border-top">
+      <div className="container" style={{ maxWidth: "1000px" }}>
+        <div className="text-center mb-5">
+          <h2 className="fw-bold text-dark font-prompt">
+            💬 รีวิวจากผู้ใช้จริงรอบรั้วมหิดล
+          </h2>
+          <div className="title-underline"></div>
+          <p className="text-muted">ความคิดเห็นของนักศึกษาที่ร่วมประเมินความพึงพอใจการใช้บริการ</p>
+        </div>
+        <div className="row g-4">
+          {reviews.map((rev, idx) => (
+            <div className="col-md-6" key={idx}>
+              <div className="card h-100 border shadow-sm rounded-4 p-4" style={{ backgroundColor: "#fdfdfd" }}>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <span className="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1.5 small fw-semibold">
+                    ✅ Verified Student (ยืนยันตัวตนนักศึกษามหิดล)
+                  </span>
+                  <span className="text-warning fw-bold">
+                    {"⭐️".repeat(rev.rating)}
+                  </span>
+                </div>
+                <p className="card-text text-dark-emphasis italic leading-relaxed" style={{ fontSize: "0.95rem" }}>
+                  &ldquo;{rev.text}&rdquo;
+                </p>
+                <div className="mt-3 text-end">
+                  <strong className="text-secondary small font-prompt">— {rev.author}</strong>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export default function AreaPageTemplate({ area }: AreaPageTemplateProps) {
   const breadcrumbItems = [
     { name: `รถรับจ้าง${area.areaThai}`, item: `/areas/${area.slug}` }
@@ -21,8 +120,19 @@ export default function AreaPageTemplate({ area }: AreaPageTemplateProps) {
   return (
     <>
       {/* Hero Header */}
-      <header className="hero-local text-center py-5 text-white" style={{ background: "var(--blue-gradient)", position: "relative" }}>
-        <div className="container py-4">
+      <header className="hero-local text-center py-5 text-white" style={{ background: "var(--blue-gradient)", position: "relative", overflow: "hidden" }}>
+        {area.ogImage && (
+          <Image
+            src={area.ogImage}
+            alt={area.h1}
+            fill
+            priority={true}
+            fetchPriority="high"
+            className="object-fit-cover opacity-25"
+            style={{ zIndex: 0 }}
+          />
+        )}
+        <div className="container py-4 position-relative" style={{ zIndex: 1 }}>
           <Breadcrumbs items={breadcrumbItems} />
           
           <span className="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold" style={{ fontSize: "0.9rem" }}>
@@ -38,6 +148,8 @@ export default function AreaPageTemplate({ area }: AreaPageTemplateProps) {
           <ConversionCTA title={`ประเมินราคา ขนของ ย้ายบ้าน ย้ายหอ ในพื้นที่ ${area.areaThai}`} />
         </div>
       </header>
+
+      <SeasonalAlertBlock notice={area.seasonalNotice} />
 
       {/* Trustproof Indicators */}
       <TrustProofBlock />
@@ -85,6 +197,17 @@ export default function AreaPageTemplate({ area }: AreaPageTemplateProps) {
                 </div>
               </div>
 
+              {/* Special Salaya Student Promo */}
+              {area.slug === 'salaya' && (
+                <>
+                  <StudentPromoBlock 
+                    ratingValue={area.aggregateRating?.ratingValue} 
+                    reviewCount={area.aggregateRating?.reviewCount} 
+                  />
+                  <LocalProximityBlock proximityBlocks={area.proximityBlocks} />
+                </>
+              )}
+
               {/* Pain points vs solutions */}
               <div className="mt-5">
                 <h3 className="fw-bold text-dark mb-3" style={{ fontFamily: "var(--font-prompt)", fontSize: "1.4rem" }}>
@@ -129,9 +252,9 @@ export default function AreaPageTemplate({ area }: AreaPageTemplateProps) {
                 <h4 className="fw-bold text-primary mt-4 mb-3" style={{ fontSize: "1.1rem", fontFamily: "var(--font-prompt)" }}>
                   📦 บริการยอดนิยมย่าน {area.areaThai}
                 </h4>
-                <div className="d-flex flex-wrap gap-2">
+                <div className="d-flex flex-wrap gap-2" itemScope itemType="https://schema.org/Service">
                   {area.popularServices?.map((serv, idx) => (
-                    <span key={idx} className="badge bg-primary px-3 py-2 rounded-pill" style={{ fontSize: "0.8rem" }}>
+                    <span key={idx} className="badge bg-primary px-3 py-2 rounded-pill" style={{ fontSize: "0.8rem" }} itemProp="name">
                       {serv}
                     </span>
                   ))}
@@ -197,6 +320,8 @@ export default function AreaPageTemplate({ area }: AreaPageTemplateProps) {
         title={`คำถามที่พบบ่อย (FAQ) - รถรับจ้าง${area.areaThai}`}
         subtitle={`คำตอบเคลียร์ชัดสำหรับคนต้องการรถขนของย่าน${area.areaThai}`}
       />
+
+      <VerifiedStudentReviews reviews={area.studentReviews} />
 
       {/* Related semantic internal links */}
       <RelatedLinks currentSlug={area.slug} entityType="area" />

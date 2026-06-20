@@ -16,6 +16,16 @@ export default function SeoLinkHub({ excludeSlug }: SeoLinkHubProps) {
   const otherServices = servicesData.filter((service) => service.slug !== excludeSlug);
   const otherRoutes = routesData.filter((route) => route.slug !== excludeSlug);
 
+  // SEO Internal Linking Graph Injection for Salaya
+  if (excludeSlug === "salaya") {
+    const priorityAreas = ["phutthamonthon", "borommaratchachonnani"];
+    otherAreas.sort((a, b) => {
+      const aPriority = priorityAreas.includes(a.slug) ? 1 : 0;
+      const bPriority = priorityAreas.includes(b.slug) ? 1 : 0;
+      return bPriority - aPriority; // higher priority goes first
+    });
+  }
+
   return (
     <section className={styles.relatedServicesSection}>
       <div className="container" style={{ maxWidth: "1200px" }}>
