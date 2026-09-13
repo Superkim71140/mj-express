@@ -9,8 +9,11 @@ import RelatedLinks from "./RelatedLinks";
 import SeoLinkHub from "./SeoLinkHub";
 import FaqBlock from "./FaqBlock";
 
+import { getAreaDetailBreadcrumbs, BreadcrumbItem } from "@/lib/seo/breadcrumbs";
+
 interface AreaPageTemplateProps {
   area: LocalArea;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const StudentPromoBlock = () => (
@@ -68,11 +71,8 @@ const SeasonalAlertBlock = ({ notice }: { notice?: string }) => {
   );
 };
 
-export default function AreaPageTemplate({ area }: AreaPageTemplateProps) {
-  const breadcrumbItems = [
-    { name: "พื้นที่ให้บริการ", item: "/areas" },
-    { name: `รถรับจ้าง${area.areaThai}`, item: `/areas/${area.slug}` }
-  ];
+export default function AreaPageTemplate({ area, breadcrumbs }: AreaPageTemplateProps) {
+  const breadcrumbItems = breadcrumbs || getAreaDetailBreadcrumbs(area);
 
   return (
     <>

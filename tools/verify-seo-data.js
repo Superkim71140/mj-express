@@ -21,7 +21,12 @@ function loadTs(relPath) {
   const mod = { exports: {} };
   const fn = new Function('module', 'exports', 'require', '__dirname', '__filename', js);
   fn(mod, mod.exports, (p) => {
-    // Basic shim if needed
+    if (p === './site-config' || p === '@/lib/seo/site-config') {
+      return loadTs('src/lib/seo/site-config.ts');
+    }
+    if (p === './breadcrumbs' || p === '@/lib/seo/breadcrumbs') {
+      return loadTs('src/lib/seo/breadcrumbs.ts');
+    }
     throw new Error(`External require not supported in validator: ${p}`);
   }, path.dirname(fullPath), fullPath);
   return mod.exports;
@@ -45,7 +50,7 @@ function warn(condition, message) {
 console.log('🔍 Running SEO Data Integrity & Safety Validator...\n');
 
 // 1. Load authoritative datasets
-let siteConfig, localAreas, servicesData, routesData, caseStudiesData;
+let siteConfig, localAreas, servicesData, routesData, caseStudiesData, breadcrumbsHelper, schemaHelper;
 
 try {
   siteConfig = loadTs('src/lib/seo/site-config.ts').siteConfig;
@@ -53,6 +58,8 @@ try {
   servicesData = loadTs('src/data/seo/services.ts').servicesData;
   routesData = loadTs('src/data/seo/routes.ts').routesData;
   caseStudiesData = loadTs('src/data/seo/case-studies.ts').caseStudiesData;
+  breadcrumbsHelper = loadTs('src/lib/seo/breadcrumbs.ts');
+  schemaHelper = loadTs('src/lib/seo/schema.ts');
 } catch (e) {
   console.error('❌ Failed to load TypeScript datasets:', e.message);
   process.exit(1);
@@ -327,6 +334,144 @@ checkRiskyPhrases(localAreas, 'localAreas');
 checkRiskyPhrases(servicesData, 'servicesData');
 checkRiskyPhrases(routesData, 'routesData');
 checkRiskyPhrases(caseStudiesData, 'caseStudiesData');
+
+// ==========================================
+// CHECK 9: BREADCRUMB DATA & SCHEMA INTEGRITY
+// ==========================================
+console.log('9️⃣ Checking Breadcrumb SEO architecture & schema...');
+
+const servicesHubExists = fs.existsSync(path.join(ROOT, 'src/app/services/page.tsx'));
+const routesHubExists = fs.existsSync(path.join(ROOT, 'src/app/routes/page.tsx'));
+const areasHubExists = fs.existsSync(path.join(ROOT, 'src/app/areas/page.tsx'));
+const caseStudiesHubExists = fs.existsSync(path.join(ROOT, 'src/app/case-studies/page.tsx'));
+
+assert(areasHubExists, '[HUB MISSING] /areas hub page must exist at src/app/areas/page.tsx');
+assert(caseStudiesHubExists, '[HUB MISSING] /case-studies hub page must exist at src/app/case-studies/page.tsx');
+
+// Verify that if /services and /routes do not exist, no breadcrumb links to them
+if (!servicesHubExists) {
+  console.log('   ℹ️ Confirmed /services hub does not exist; detail breadcrumbs must NOT link to /services');
+}
+if (!routesHubExists) {
+  console.log('   ℹ️ Confirmed /routes hub does not exist; detail breadcrumbs must NOT link to /routes');
+}
+
+const badKeywords = ['ราคาถูกที่สุด', '24 ชั่วโมง', 'อันดับหนึ่ง', 'ขนของราคาถูกพร้อมคนยกทั่วไทย'];
+
+function validateBreadcrumbs(trail, pageContext, canonicalUrl) {
+  assert(Array.isArray(trail), `[BREADCRUMB ERROR] Trail is not an array in ${pageContext}`);
+  assert(trail.length >= 2, `[BREADCRUMB SHORT] Trail must have at least 2 items in ${pageContext} (found ${trail.length})`);
+
+  const schema = schemaHelper.buildBreadcrumbSchema(trail, baseUrl);
+  assert(schema['@context'] === 'https://schema.org', `[SCHEMA CONTEXT] Invalid @context in ${pageContext}`);
+  assert(schema['@type'] === 'BreadcrumbList', `[SCHEMA TYPE] Invalid @type in ${pageContext}`);
+  assert(Array.isArray(schema.itemListElement), `[SCHEMA ITEMS] itemListElement not an array in ${pageContext}`);
+  assert(schema.itemListElement.length === trail.length, `[SCHEMA LENGTH MISMATCH] schema items length != trail length in ${pageContext}`);
+
+  const seenPositions = new Set();
+  const seenUrls = new Set();
+
+  schema.itemListElement.forEach((el, index) => {
+    const expectedPos = index + 1;
+    assert(el['@type'] === 'ListItem', `[SCHEMA ITEM TYPE] Element ${index} is not ListItem in ${pageContext}`);
+    assert(el.position === expectedPos, `[SCHEMA POSITION] Element ${index} position is ${el.position}, expected ${expectedPos} in ${pageContext}`);
+    assert(!seenPositions.has(el.position), `[SCHEMA DUPLICATE POSITION] Duplicate position ${el.position} in ${pageContext}`);
+    seenPositions.add(el.position);
+
+    // Name checks
+    assert(typeof el.name === 'string' && el.name.trim().length > 0, `[SCHEMA NAME EMPTY] Element ${index} name is empty in ${pageContext}`);
+    assert(el.name === trail[index].name, `[SCHEMA NAME MISMATCH] Element ${index} name "${el.name}" does not match trail name "${trail[index].name}" in ${pageContext}`);
+
+    // Keyword stuffing check
+    for (const kw of badKeywords) {
+      assert(!el.name.includes(kw), `[KEYWORD STUFFING] Element ${index} contains stuffed phrase "${kw}" in ${pageContext}`);
+    }
+    assert(el.name.length <= 60, `[LABEL TOO LONG] Breadcrumb label "${el.name}" is ${el.name.length} chars (> 60) in ${pageContext}`);
+
+    // URL checks
+    assert(typeof el.item === 'string' && el.item.startsWith('https://'), `[SCHEMA URL NON-HTTPS] Element ${index} URL "${el.item}" is not HTTPS in ${pageContext}`);
+    assert(el.item.startsWith(baseUrl), `[SCHEMA HOSTNAME MISMATCH] Element ${index} URL "${el.item}" does not use production baseUrl in ${pageContext}`);
+    assert(!el.item.includes('localhost'), `[LOCALHOST LEAK] Element ${index} contains localhost in ${pageContext}`);
+    assert(!el.item.includes('?'), `[QUERY STRING IN URL] Element ${index} contains query parameter in ${pageContext}`);
+    assert(!el.item.includes('#'), `[FRAGMENT IN URL] Element ${index} contains URL fragment in ${pageContext}`);
+
+    // No duplicate URLs in one trail
+    assert(!seenUrls.has(el.item), `[DUPLICATE URL IN TRAIL] URL "${el.item}" duplicated in ${pageContext}`);
+    seenUrls.add(el.item);
+
+    // Check against nonexistent hubs
+    if (!servicesHubExists) {
+      assert(el.item !== `${baseUrl}/services` && el.item !== `${baseUrl}/services/`, `[NONEXISTENT HUB LINK] Linked to nonexistent /services in ${pageContext}`);
+    }
+    if (!routesHubExists) {
+      assert(el.item !== `${baseUrl}/routes` && el.item !== `${baseUrl}/routes/`, `[NONEXISTENT HUB LINK] Linked to nonexistent /routes in ${pageContext}`);
+    }
+
+    // Check parent links
+    if (index < trail.length - 1) {
+      const parentPath = new URL(el.item).pathname;
+      if (parentPath === '/') {
+        assert(fs.existsSync(path.join(ROOT, 'src/app/page.tsx')), `[PARENT 404] Homepage src/app/page.tsx missing for ${pageContext}`);
+      } else if (parentPath === '/areas') {
+        assert(areasHubExists, `[PARENT 404] /areas missing for ${pageContext}`);
+      } else if (parentPath === '/case-studies') {
+        assert(caseStudiesHubExists, `[PARENT 404] /case-studies missing for ${pageContext}`);
+      }
+    }
+  });
+
+  // Final item matches canonical URL
+  if (canonicalUrl) {
+    const finalItem = schema.itemListElement[schema.itemListElement.length - 1];
+    assert(finalItem.item === canonicalUrl, `[CANONICAL MISMATCH] Final item URL "${finalItem.item}" does not match canonical "${canonicalUrl}" in ${pageContext}`);
+  }
+}
+
+// 1. Areas hub
+validateBreadcrumbs(breadcrumbsHelper.getAreasBreadcrumbs(), 'Areas Hub (/areas)', `${baseUrl}/areas`);
+
+// 2. All 17 Local Areas
+for (const area of localAreas) {
+  const trail = breadcrumbsHelper.getAreaDetailBreadcrumbs(area);
+  assert(trail.length === 3, `[AREA TRAIL DEPTH] Area ${area.slug} breadcrumbs depth is ${trail.length}, expected 3`);
+  assert(trail[1].name === 'พื้นที่ให้บริการ', `[AREA PARENT LABEL] Expected "พื้นที่ให้บริการ" in ${area.slug}`);
+  assert(!trail[2].name.startsWith('รถรับจ้าง'), `[AREA KEYWORD STUFFING] Area breadcrumb label "${trail[2].name}" should not start with "รถรับจ้าง"`);
+  validateBreadcrumbs(trail, `Area: ${area.slug}`, `${baseUrl}/areas/${area.slug}`);
+}
+
+// 3. All 10 Services
+for (const service of servicesData) {
+  const trail = breadcrumbsHelper.getServiceDetailBreadcrumbs(service);
+  assert(trail.length === 2, `[SERVICE TRAIL DEPTH] Service ${service.slug} breadcrumbs depth is ${trail.length}, expected 2`);
+  assert(trail[0].name === 'หน้าแรก' && trail[0].href === '/', `[SERVICE ROOT] Service ${service.slug} must start with หน้าแรก /`);
+  assert(!trail[1].name.includes('ราคาถูกที่สุด'), `[SERVICE KEYWORD STUFFING] Service breadcrumb label "${trail[1].name}" contains bad keywords`);
+  validateBreadcrumbs(trail, `Service: ${service.slug}`, `${baseUrl}/services/${service.slug}`);
+}
+
+// 4. All 18 Routes
+for (const route of routesData) {
+  const trail = breadcrumbsHelper.getRouteDetailBreadcrumbs(route);
+  assert(trail.length === 2, `[ROUTE TRAIL DEPTH] Route ${route.slug} breadcrumbs depth is ${trail.length}, expected 2`);
+  assert(!trail[1].name.includes('รถรับจ้าง'), `[ROUTE KEYWORD STUFFING] Route label "${trail[1].name}" should not contain "รถรับจ้าง" in ${route.slug}`);
+  validateBreadcrumbs(trail, `Route: ${route.slug}`, `${baseUrl}/routes/${route.slug}`);
+}
+
+// 5. Case Studies hub and all 6 Case Studies
+validateBreadcrumbs(breadcrumbsHelper.getCaseStudiesBreadcrumbs(), 'Case Studies Hub (/case-studies)', `${baseUrl}/case-studies`);
+
+for (const cs of caseStudiesData) {
+  const trail = breadcrumbsHelper.getCaseStudyDetailBreadcrumbs(cs);
+  assert(trail.length === 3, `[CASE STUDY DEPTH] Case Study ${cs.slug} depth is ${trail.length}, expected 3`);
+  assert(trail[1].name === 'กรณีศึกษา', `[CASE STUDY PARENT LABEL] Expected "กรณีศึกษา" in ${cs.slug}`);
+  assert(!trail[2].name.includes('| MJ-TH Express'), `[CASE STUDY TITLE LEAK] Breadcrumb label contains brand suffix in ${cs.slug}`);
+  validateBreadcrumbs(trail, `Case Study: ${cs.slug}`, `${baseUrl}/case-studies/${cs.slug}`);
+}
+
+// 6. Static Pages
+validateBreadcrumbs(breadcrumbsHelper.getMotorcycleTransportBreadcrumbs(), 'Motorcycle Transport (/motorcycle-transport)', `${baseUrl}/motorcycle-transport`);
+validateBreadcrumbs(breadcrumbsHelper.getPortfolioBreadcrumbs(), 'Portfolio (/portfolio)', `${baseUrl}/portfolio`);
+validateBreadcrumbs(breadcrumbsHelper.getReviewsBreadcrumbs(), 'Reviews (/reviews)', `${baseUrl}/reviews`);
+validateBreadcrumbs(breadcrumbsHelper.getContactBreadcrumbs(), 'Contact (/contact)', `${baseUrl}/contact`);
 
 // ==========================================
 // SUMMARY REPORT

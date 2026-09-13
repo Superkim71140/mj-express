@@ -5,6 +5,7 @@ export interface FaqItem {
 
 export interface RouteItem {
   slug: string;
+  breadcrumbLabel?: string;
   origin: string;
   destination: string;
   title: string;

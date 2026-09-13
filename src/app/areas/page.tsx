@@ -1,9 +1,12 @@
-// Areas index page with dynamic search, tabs, and Pro Max UI
 import React from "react";
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { localAreas } from "@/data/areas";
 import AreaSearchFilter from "@/components/AreaSearchFilter";
+import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import JsonLd from "@/components/JsonLd";
+import { buildBreadcrumbSchema } from "@/lib/seo/schema";
+import { getAreasBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import { siteConfig } from "@/data/site";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -13,8 +16,12 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function AreasIndexPage() {
+  const breadcrumbs = getAreasBreadcrumbs();
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
+
   return (
     <main style={{ backgroundColor: "#f8fafc", minHeight: "100vh" }}>
+      <JsonLd data={[breadcrumbSchema]} />
       {/* 1) Premium Corporate Hero Section */}
       <section 
         className="position-relative overflow-hidden" 
@@ -34,12 +41,15 @@ export default function AreasIndexPage() {
         ></div>
 
         <div className="container position-relative z-3 py-5 mt-4 text-center">
-          <span 
-            className="badge border border-warning text-warning px-3 py-2 rounded-pill mb-3 fw-medium font-prompt animate-pulse-badge" 
-            style={{ background: "rgba(255,215,0,0.1)", backdropFilter: "blur(4px)" }}
-          >
-            <i className="bi bi-map-fill me-2"></i> Service Area Coverage
-          </span>
+          <Breadcrumbs items={breadcrumbs} />
+          <div>
+            <span
+              className="badge border border-warning text-warning px-3 py-2 rounded-pill mb-3 fw-medium font-prompt animate-pulse-badge"
+              style={{ background: "rgba(255,215,0,0.1)", backdropFilter: "blur(4px)" }}
+            >
+              <i className="bi bi-map-fill me-2"></i> Service Area Coverage
+            </span>
+          </div>
           <h1 className="display-4 fw-bold text-white mb-3 font-prompt text-shadow-sm">
             พื้นที่ให้บริการ <span className="text-warning">รถรับจ้างขนของ</span>
           </h1>

@@ -7,6 +7,7 @@ import SeoLinkHub from "@/components/seo/SeoLinkHub";
 import JsonLd from "@/components/JsonLd";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { buildBreadcrumbSchema, buildMovingCompanySchema } from "@/lib/seo/schema";
+import { getReviewsBreadcrumbs } from "@/lib/seo/breadcrumbs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "รีวิวความเห็นลูกค้า ย้ายบ้าน คอนโด ส่งมอเตอร์ไซค์ | MJ-TH Express",
@@ -66,15 +67,8 @@ const allReviews = [
 ];
 
 export default function ReviewsPage() {
-  const breadcrumbItems = [
-    { name: "รีวิวความเห็นลูกค้า", item: "/reviews" }
-  ];
-
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "หน้าแรก", item: "/" },
-    { name: "รีวิวความเห็นลูกค้า", item: "/reviews" }
-  ]);
-
+  const breadcrumbs = getReviewsBreadcrumbs();
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
   const movingCompanySchema = buildMovingCompanySchema();
 
   return (
@@ -83,7 +77,7 @@ export default function ReviewsPage() {
 
       <header className="hero-local text-center py-5 text-white" style={{ background: "var(--blue-gradient)" }}>
         <div className="container py-4">
-          <Breadcrumbs items={breadcrumbItems} />
+          <Breadcrumbs items={breadcrumbs} />
           <h1 className="display-4 fw-bold mb-3" style={{ fontFamily: "var(--font-prompt)" }}>
             รีวิวความเห็นและผลตอบรับจากลูกค้าจริง
           </h1>

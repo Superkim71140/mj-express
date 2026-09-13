@@ -1,11 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { siteConfig } from "@/lib/seo/site-config";
 import ContactForm from "@/components/ContactForm";
 import JsonLd from "@/components/JsonLd";
+import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { generateBreadcrumbSchema } from "@/lib/seo/schema";
+import { buildBreadcrumbSchema } from "@/lib/seo/schema";
+import { getContactBreadcrumbs } from "@/lib/seo/breadcrumbs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "ติดต่อรถรับจ้างบางแค ขนส่งมอเตอร์ไซค์ ย้ายของ (โทร 095-583-0371) - MJ-TH Express",
@@ -65,11 +66,9 @@ export default function ContactPage() {
     },
   };
 
-  // Breadcrumb List Schema
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "หน้าแรก", item: "/" },
-    { name: "ติดต่อเรา", item: "/contact" },
-  ]);
+  // Breadcrumbs
+  const breadcrumbs = getContactBreadcrumbs();
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 
   return (
     <>
@@ -78,12 +77,10 @@ export default function ContactPage() {
       {/* Page Header */}
       <header className="page-header">
         <div className="container">
-          <h1 className="display-4 fw-bold mb-2">ปรึกษาและประเมินราคาฟรี</h1>
-          <div className="page-breadcrumb text-center mb-3">
-            <Link href="/" style={{ color: "#fff", textDecoration: "none" }}>หน้าแรก</Link>
-            <span className="mx-2 text-white-50">/</span>
-            <span className="text-warning fw-semibold">ติดต่อเรา</span>
+          <div className="d-flex justify-content-center mb-3">
+            <Breadcrumbs items={breadcrumbs} />
           </div>
+          <h1 className="display-4 fw-bold mb-2">ปรึกษาและประเมินราคาฟรี</h1>
           <p className="lead opacity-75">
             รถรับจ้างบางแค รถรับจ้างฝั่งธน <br /> ทักไลน์ตอบไว โทรปรึกษาได้ทันที 24 ชม.
           </p>

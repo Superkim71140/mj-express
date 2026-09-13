@@ -1,6 +1,7 @@
 import React from "react";
 import { RouteItem } from "@/data/seo/routes";
 import Breadcrumbs from "./Breadcrumbs";
+import { BreadcrumbItem, getRouteDetailBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import ConversionCTA from "./ConversionCTA";
 import TrustProofBlock from "./TrustProofBlock";
 import PricingGuideBlock from "./PricingGuideBlock";
@@ -10,12 +11,11 @@ import FaqBlock from "./FaqBlock";
 
 interface RoutePageTemplateProps {
   route: RouteItem;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-export default function RoutePageTemplate({ route }: RoutePageTemplateProps) {
-  const breadcrumbItems = [
-    { name: `รถรับจ้าง ${route.originThai} ⇄ ${route.destinationThai}`, item: `/routes/${route.slug}` }
-  ];
+export default function RoutePageTemplate({ route, breadcrumbs }: RoutePageTemplateProps) {
+  const breadcrumbItems = breadcrumbs || getRouteDetailBreadcrumbs(route);
 
   return (
     <>

@@ -10,6 +10,7 @@ import RelatedLinks from "@/components/seo/RelatedLinks";
 import JsonLd from "@/components/JsonLd";
 import { buildCaseStudyMetadata } from "@/lib/seo/metadata";
 import { buildBreadcrumbSchema, buildMovingCompanySchema } from "@/lib/seo/schema";
+import { getCaseStudyDetailBreadcrumbs } from "@/lib/seo/breadcrumbs";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -38,17 +39,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
     notFound();
   }
 
-  const breadcrumbItems = [
-    { name: "ผลงานขนย้ายจริง", item: "/case-studies" },
-    { name: study.title.replace(" | MJ-TH Express", ""), item: `/case-studies/${study.slug}` }
-  ];
-
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "หน้าแรก", item: "/" },
-    { name: "ผลงานขนย้ายจริง", item: "/case-studies" },
-    { name: study.title.replace(" | MJ-TH Express", ""), item: `/case-studies/${study.slug}` }
-  ]);
-
+  const breadcrumbs = getCaseStudyDetailBreadcrumbs(study);
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
   const companySchema = buildMovingCompanySchema();
 
   return (
@@ -58,7 +50,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* Hero Header */}
       <header className="hero-local text-center py-5 text-white" style={{ background: "var(--blue-gradient)" }}>
         <div className="container py-4">
-          <Breadcrumbs items={breadcrumbItems} />
+          <Breadcrumbs items={breadcrumbs} />
           
           <span className="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold" style={{ fontSize: "0.9rem" }}>
             <i className="bi bi-patch-check-fill me-1"></i> กรณีตัวอย่างการให้บริการ

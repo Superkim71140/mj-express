@@ -2,9 +2,17 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/data/site";
+import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import { BreadcrumbItem, getMotorcycleTransportBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import styles from "./MotorcycleHero.module.css";
 
-export default function MotorcycleHero() {
+interface MotorcycleHeroProps {
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+export default function MotorcycleHero({ breadcrumbs }: MotorcycleHeroProps) {
+  const items = breadcrumbs || getMotorcycleTransportBreadcrumbs();
+
   return (
     <section className={styles.heroSection}>
       {/* Background Glow Effects */}
@@ -13,10 +21,8 @@ export default function MotorcycleHero() {
 
       <div className="container position-relative z-1 py-5">
         {/* Breadcrumbs */}
-        <div className="page-breadcrumb mb-4 d-flex justify-content-center justify-content-lg-start align-items-center gap-2" style={{ fontSize: "0.95rem" }}>
-          <Link href="/" className="text-white-50 text-decoration-none">หน้าแรก</Link>
-          <span className="text-white-50">/</span>
-          <span className="text-warning fw-semibold">ส่งมอเตอร์ไซค์</span>
+        <div className="mb-4 d-flex justify-content-center justify-content-lg-start">
+          <Breadcrumbs items={items} />
         </div>
 
         <div className="row align-items-center gy-5">

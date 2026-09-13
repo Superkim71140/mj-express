@@ -5,6 +5,7 @@ export interface FaqItem {
 
 export interface ServiceItem {
   slug: string;
+  breadcrumbLabel?: string;
   serviceName: string; // Keep for backward compatibility
   serviceNameThai: string;
   shortName: string;

@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 const targets = [
+  'index',
+  'areas',
   'areas/bang-khae',
   'areas/nong-khaem',
   'areas/bang-bon',
@@ -16,6 +18,7 @@ const targets = [
   'case-studies/condo-moving-phranakhon-to-bangkae',
   'contact',
   'reviews',
+  'portfolio',
   'case-studies'
 ];
 
@@ -64,16 +67,55 @@ for (const t of targets) {
   // JSON-LD Scripts
   const jsonLdMatches = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
   const jsonLdSchemas = [];
+  const breadcrumbSchemas = [];
   for (const m of jsonLdMatches) {
     try {
       const parsed = JSON.parse(m[1]);
+      const checkObj = (obj) => {
+        if (!obj || typeof obj !== 'object') return;
+        const type = obj['@type'] || 'unknown';
+        jsonLdSchemas.push(type);
+        if (type === 'BreadcrumbList') {
+          breadcrumbSchemas.push(obj);
+        }
+      };
       if (Array.isArray(parsed)) {
-        parsed.forEach(p => jsonLdSchemas.push(p['@type'] || 'unknown'));
+        parsed.forEach(p => checkObj(p));
       } else {
-        jsonLdSchemas.push(parsed['@type'] || 'unknown');
+        checkObj(parsed);
       }
     } catch (e) {
       jsonLdSchemas.push('INVALID_JSON');
+    }
+  }
+
+  // Breadcrumb HTML verification
+  const isHomepage = t === 'index';
+  const hasVisibleBreadcrumb = html.includes('aria-label="Breadcrumb"');
+  const hasBreadcrumbOl = html.includes('<ol');
+  const hasAriaCurrent = html.includes('aria-current="page"');
+
+  let breadcrumbHtmlPass = false;
+  let breadcrumbSchemaPass = false;
+
+  if (isHomepage) {
+    breadcrumbHtmlPass = !hasVisibleBreadcrumb;
+    breadcrumbSchemaPass = breadcrumbSchemas.length === 0;
+  } else {
+    breadcrumbHtmlPass = hasVisibleBreadcrumb && hasAriaCurrent;
+    breadcrumbSchemaPass = breadcrumbSchemas.length === 1; // exactly 1 BreadcrumbList
+
+    if (breadcrumbSchemas.length === 1) {
+      const bc = breadcrumbSchemas[0];
+      if (Array.isArray(bc.itemListElement) && bc.itemListElement.length >= 2) {
+        const sequential = bc.itemListElement.every((item, idx) => item.position === idx + 1);
+        const nonNullNames = bc.itemListElement.every(item => typeof item.name === 'string' && item.name.length > 0);
+        const lastMatchesCanonical = bc.itemListElement[bc.itemListElement.length - 1].item === canonical;
+        const noNonexistentHub = bc.itemListElement.every(item => !item.item.endsWith('/services') && !item.item.endsWith('/routes'));
+        breadcrumbSchemaPass = sequential && nonNullNames && lastMatchesCanonical && noNonexistentHub;
+      } else {
+        breadcrumbSchemaPass = false;
+      }
     }
   }
 
@@ -82,16 +124,19 @@ for (const t of targets) {
   const passReviews = !hasFakeStudentReviews;
   const passSameAs = !hasMahidolSameAs;
 
-  if (!passRating || !passGeo || !passReviews || !passSameAs) {
+  if (!passRating || !passGeo || !passReviews || !passSameAs || !breadcrumbHtmlPass || !breadcrumbSchemaPass) {
     allPassed = false;
   }
 
-  console.log(`URL: /${t}`);
+  console.log(`URL: /${t === 'index' ? '' : t}`);
   console.log(`  Title: ${title}`);
   console.log(`  Canonical: ${canonical}`);
   console.log(`  H1 (${h1Count}): ${h1}`);
   console.log(`  Robots: ${robots}`);
   console.log(`  Schemas: [${jsonLdSchemas.join(', ')}]`);
+  console.log(`  Breadcrumb Checks:`);
+  console.log(`    - Visible HTML Breadcrumb: ${breadcrumbHtmlPass ? '✅ PASS' : '❌ FAIL'}`);
+  console.log(`    - BreadcrumbList Schema (count=${breadcrumbSchemas.length}): ${breadcrumbSchemaPass ? '✅ PASS' : '❌ FAIL'}`);
   console.log(`  Safety Checks:`);
   console.log(`    - Has aggregateRating: ${passRating ? '✅ NONE' : '❌ FAIL'}`);
   console.log(`    - Multiple / Fake Coordinates: ${passGeo ? '✅ NONE' : '❌ FAIL'}`);
@@ -101,8 +146,8 @@ for (const t of targets) {
 }
 
 if (!allPassed) {
-  console.error('❌ SOME HTML SAFETY CHECKS FAILED');
+  console.error('❌ SOME HTML SAFETY/BREADCRUMB CHECKS FAILED');
   process.exit(1);
 } else {
-  console.log('✅ ALL RENDERED HTML SAFETY CHECKS PASSED!');
+  console.log('✅ ALL RENDERED HTML SAFETY & BREADCRUMB CHECKS PASSED!');
 }

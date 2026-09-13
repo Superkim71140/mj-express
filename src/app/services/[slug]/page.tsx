@@ -11,6 +11,7 @@ import {
   buildFAQSchema,
   buildBreadcrumbSchema
 } from "@/lib/seo/schema";
+import { getServiceDetailBreadcrumbs } from "@/lib/seo/breadcrumbs";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -39,19 +40,18 @@ export default async function ServicePage({ params }: PageProps) {
     notFound();
   }
 
+  const breadcrumbs = getServiceDetailBreadcrumbs(service);
+
   // Linked Schemas Graph
   const companySchema = buildMovingCompanySchema(service.serviceAreas);
   const serviceSchema = buildServiceSchema(service);
   const faqSchema = buildFAQSchema(service.faqs);
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "หน้าแรก", item: "/" },
-    { name: service.serviceNameThai, item: `/services/${service.slug}` }
-  ]);
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 
   return (
     <>
       <JsonLd data={[companySchema, serviceSchema, faqSchema, breadcrumbSchema]} />
-      <ServicePageTemplate service={service} />
+      <ServicePageTemplate service={service} breadcrumbs={breadcrumbs} />
     </>
   );
 }

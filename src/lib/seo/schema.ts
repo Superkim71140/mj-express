@@ -123,16 +123,31 @@ export function buildFAQSchema(faqs: { question: string; answer: string }[]) {
 }
 
 // Breadcrumb Schema
-export function buildBreadcrumbSchema(items: { name: string; item: string }[]) {
+export function buildBreadcrumbSchema(
+  items: { name: string; href?: string; item?: string }[],
+  baseUrl: string = siteConfig.baseUrl
+) {
+  const firstPath = items[0]?.href || items[0]?.item;
+  const normalized = (firstPath === "/" || items[0]?.name === "หน้าแรก")
+    ? items
+    : [{ name: "หน้าแรก", href: "/" }, ...items];
+
   return {
     "@context": "https://schema.org" as const,
     "@type": "BreadcrumbList" as const,
-    "itemListElement": items.map((item, index) => ({
-      "@type": "ListItem" as const,
-      "position": index + 1,
-      "name": item.name,
-      "item": item.item.startsWith("http") ? item.item : `${siteConfig.baseUrl}${item.item}`
-    }))
+    "itemListElement": normalized.map((item, index) => {
+      const path = item.href || item.item || "/";
+      const fullUrl = path.startsWith("http")
+        ? path
+        : `${baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
+
+      return {
+        "@type": "ListItem" as const,
+        "position": index + 1,
+        "name": item.name,
+        "item": fullUrl
+      };
+    })
   };
 }
 

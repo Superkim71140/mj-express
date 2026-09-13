@@ -12,6 +12,7 @@ export interface FaqItem {
 
 export interface LocalArea {
   slug: string;
+  breadcrumbLabel?: string;
   oldHtmlPath?: string;
   title: string;
   description: string;

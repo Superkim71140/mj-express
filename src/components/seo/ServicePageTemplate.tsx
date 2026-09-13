@@ -1,6 +1,7 @@
 import React from "react";
 import { ServiceItem } from "@/data/seo/services";
 import Breadcrumbs from "./Breadcrumbs";
+import { BreadcrumbItem, getServiceDetailBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import ConversionCTA from "./ConversionCTA";
 import TrustProofBlock from "./TrustProofBlock";
 import PricingGuideBlock from "./PricingGuideBlock";
@@ -10,12 +11,11 @@ import FaqBlock from "./FaqBlock";
 
 interface ServicePageTemplateProps {
   service: ServiceItem;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-export default function ServicePageTemplate({ service }: ServicePageTemplateProps) {
-  const breadcrumbItems = [
-    { name: service.serviceNameThai, item: `/services/${service.slug}` }
-  ];
+export default function ServicePageTemplate({ service, breadcrumbs }: ServicePageTemplateProps) {
+  const breadcrumbItems = breadcrumbs || getServiceDetailBreadcrumbs(service);
 
   return (
     <>

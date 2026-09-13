@@ -8,6 +8,8 @@ import JsonLd from "@/components/JsonLd";
 import SectionTitle from "@/components/SectionTitle";
 import MotorcycleHero from "@/components/MotorcycleHero";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { buildBreadcrumbSchema } from "@/lib/seo/schema";
+import { getMotorcycleTransportBreadcrumbs } from "@/lib/seo/breadcrumbs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "รับส่งมอเตอร์ไซค์ ฝั่งธน บางแค ทั่ว กทม. ไปต่างจังหวัด - MJ-TH Express",
@@ -83,31 +85,15 @@ export default function MotorcyclePage() {
     })),
   };
 
-  // Breadcrumb Schema
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "หน้าแรก",
-        "item": "https://www.mj-th-express.com",
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "บริการส่งมอเตอร์ไซค์",
-        "item": "https://www.mj-th-express.com/motorcycle-transport",
-      },
-    ],
-  };
+  // Breadcrumbs
+  const breadcrumbs = getMotorcycleTransportBreadcrumbs();
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 
   return (
     <>
       <JsonLd data={[companySchema, serviceSchema, faqSchema, breadcrumbSchema]} />
 
-      <MotorcycleHero />
+      <MotorcycleHero breadcrumbs={breadcrumbs} />
 
       {/* Showcase Gallery */}
       <section className="py-5 bg-light">

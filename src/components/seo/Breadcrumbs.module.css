@@ -6,6 +6,7 @@
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   margin-bottom: 15px;
+  max-width: 100%;
 }
 
 .breadcrumbsList {
@@ -18,32 +19,42 @@
   font-family: var(--font-prompt), sans-serif;
   font-size: 0.88rem;
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
 
 .breadcrumbItem {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   color: rgba(255, 255, 255, 0.85);
+  max-width: 100%;
 }
 
 .breadcrumbLink {
   color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
 }
 
-.breadcrumbLink:hover {
-  color: var(--accent-color);
+.breadcrumbLink:hover,
+.breadcrumbLink:focus-visible {
+  color: var(--accent-color, #ffc107);
+  text-decoration: underline;
+  outline: 2px solid var(--accent-color, #ffc107);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .separator {
   margin: 0 8px;
   color: rgba(255, 255, 255, 0.4);
   font-size: 0.8rem;
+  user-select: none;
 }
 
 .currentName {
-  color: var(--accent-color);
+  color: var(--accent-color, #ffc107);
   font-weight: 600;
 }
 

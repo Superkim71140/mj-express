@@ -11,6 +11,7 @@ import {
   buildFAQSchema,
   buildBreadcrumbSchema
 } from "@/lib/seo/schema";
+import { getRouteDetailBreadcrumbs } from "@/lib/seo/breadcrumbs";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -39,19 +40,18 @@ export default async function RoutePage({ params }: PageProps) {
     notFound();
   }
 
+  const breadcrumbs = getRouteDetailBreadcrumbs(route);
+
   // Linked Schemas Graph
   const companySchema = buildMovingCompanySchema();
   const routeServiceSchema = buildRouteServiceSchema(route);
   const faqSchema = buildFAQSchema(route.faqs);
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "หน้าแรก", item: "/" },
-    { name: `เส้นทาง ${route.origin} ⇄ ${route.destination}`, item: `/routes/${route.slug}` }
-  ]);
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 
   return (
     <>
       <JsonLd data={[companySchema, routeServiceSchema, faqSchema, breadcrumbSchema]} />
-      <RoutePageTemplate route={route} />
+      <RoutePageTemplate route={route} breadcrumbs={breadcrumbs} />
     </>
   );
 }

@@ -12,6 +12,8 @@ import {
   buildBreadcrumbSchema
 } from "@/lib/seo/schema";
 
+import { getAreaDetailBreadcrumbs } from "@/lib/seo/breadcrumbs";
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -43,16 +45,13 @@ export default async function AreaPage({ params }: PageProps) {
   const companySchema = buildMovingCompanySchema(area.areaServed);
   const areaServiceSchema = buildLocalBusinessSchema(area);
   const faqSchema = buildFAQSchema(area.faqs);
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "หน้าแรก", item: "/" },
-    { name: "พื้นที่ให้บริการ", item: "/areas" },
-    { name: `รถรับจ้าง${area.areaThai}`, item: `/areas/${area.slug}` }
-  ]);
+  const breadcrumbs = getAreaDetailBreadcrumbs(area);
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 
   return (
     <>
       <JsonLd data={[companySchema, areaServiceSchema, faqSchema, breadcrumbSchema]} />
-      <AreaPageTemplate area={area} />
+      <AreaPageTemplate area={area} breadcrumbs={breadcrumbs} />
     </>
   );
 }

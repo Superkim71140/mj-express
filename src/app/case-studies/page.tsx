@@ -9,6 +9,7 @@ import SeoLinkHub from "@/components/seo/SeoLinkHub";
 import JsonLd from "@/components/JsonLd";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { buildBreadcrumbSchema, buildItemListSchema } from "@/lib/seo/schema";
+import { getCaseStudiesBreadcrumbs } from "@/lib/seo/breadcrumbs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "ผลงานขนของย้ายบ้าน ย้ายคอนโด ส่งมอเตอร์ไซค์จริง | MJ-TH Express",
@@ -17,14 +18,8 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function CaseStudiesPage() {
-  const breadcrumbItems = [
-    { name: "ผลงานขนย้ายจริง", item: "/case-studies" }
-  ];
-
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "หน้าแรก", item: "/" },
-    { name: "ผลงานขนย้ายจริง", item: "/case-studies" }
-  ]);
+  const breadcrumbs = getCaseStudiesBreadcrumbs();
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 
   const itemListSchema = buildItemListSchema(
     caseStudiesData.map((cs) => ({
@@ -39,7 +34,7 @@ export default function CaseStudiesPage() {
 
       <header className="hero-local text-center py-5 text-white" style={{ background: "var(--blue-gradient)" }}>
         <div className="container py-4">
-          <Breadcrumbs items={breadcrumbItems} />
+          <Breadcrumbs items={breadcrumbs} />
           <h1 className="display-4 fw-bold mb-3" style={{ fontFamily: "var(--font-prompt)" }}>
             ผลงานขนของย้ายบ้าน ย้ายคอนโด ส่งมอเตอร์ไซค์จริง
           </h1>

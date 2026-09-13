@@ -1,11 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { siteConfig } from "@/lib/seo/site-config";
 import PortfolioGallery from "@/components/PortfolioGallery";
 import JsonLd from "@/components/JsonLd";
+import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { generateBreadcrumbSchema } from "@/lib/seo/schema";
+import { buildBreadcrumbSchema } from "@/lib/seo/schema";
+import { getPortfolioBreadcrumbs } from "@/lib/seo/breadcrumbs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "ผลงานขนย้ายบ้าน ส่งมอเตอร์ไซค์ รีวิวลูกค้าจริง - MJ-TH EXPRESS",
@@ -30,20 +31,13 @@ export default function PortfolioPage() {
         "@type": "MovingCompany",
         "name": siteConfig.businessName,
         "url": siteConfig.baseUrl,
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "350",
-        },
       },
     },
   };
 
-  // Breadcrumb List Schema
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "หน้าแรก", item: "/" },
-    { name: "ผลงาน", item: "/portfolio" },
-  ]);
+  // Breadcrumbs
+  const breadcrumbs = getPortfolioBreadcrumbs();
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 
   const testimonials = [
     {
@@ -73,10 +67,8 @@ export default function PortfolioPage() {
       {/* Page header banner block */}
       <header className="page-header">
         <div className="container">
-          <h1 className="page-title">ผลงานรับจ้างขนของและขนส่งมอเตอร์ไซค์ทั่วไทย - MJ-TH EXPRESS</h1>
-          <div className="page-breadcrumb">
-            <Link href="/">หน้าแรก</Link> <span className="mx-2 text-white-50">/</span> ผลงาน
-          </div>
+          <Breadcrumbs items={breadcrumbs} />
+          <h1 className="page-title mt-3">ผลงานรับจ้างขนของและขนส่งมอเตอร์ไซค์ทั่วไทย - MJ-TH EXPRESS</h1>
           <p className="mt-3 opacity-90 header-desc">ภาพถ่ายจากการทำงานจริง มั่นใจได้ในความปลอดภัย และความเป็นมืออาชีพ</p>
         </div>
       </header>
