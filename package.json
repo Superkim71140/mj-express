@@ -6,7 +6,9 @@
     "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node tools/verify-seo-data.js",
+    "seo:verify": "node tools/verify-seo-data.js"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",

@@ -44,5 +44,6 @@ next-env.d.ts
 /_old_site/
 /claude-seo-/
 /ui-ux-pro-max-skill-main/
-/tools/
+/tools/*
+!/tools/*.js
 

@@ -29,9 +29,13 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
   // Normalise paths to ensure clean canonical routing
   const absoluteCanonicalUrl = `${siteConfig.baseUrl}${canonicalPath.startsWith("/") ? "" : "/"}${canonicalPath}`;
 
+  const resolvedTitle = title.includes(siteConfig.businessName)
+    ? { absolute: title }
+    : title;
+
   return {
     metadataBase: new URL(siteConfig.baseUrl),
-    title: title,
+    title: resolvedTitle,
     description: description,
     keywords: keywords.length > 0 ? keywords : siteConfig.keywords,
     alternates: {

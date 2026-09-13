@@ -99,7 +99,7 @@ export default function HomePage() {
             รถรับจ้างขนของ ย้ายบ้าน ย้ายหอพัก ด้วยรถกระบะ 4 ล้อตู้ทึบ บริการทั่วไทย
           </h1>
           <p className="text-muted small max-width-700 mx-auto">
-            บริการรถรับจ้างขนย้ายครบวงจร พิกัดหลักบางแค เพชรเกษม ฝั่งธนบุรี บุกหน้างานไว พร้อมทีมงานยกของมืออาชีพ ปลอดภัยจากแดดและฝน 100%
+            บริการรถรับจ้างขนย้ายครบวงจร พิกัดหลักบางแค เพชรเกษม ฝั่งธนบุรี พร้อมทีมงานยกของมืออาชีพ รถกระบะตู้ทึบช่วยป้องกันแดดและฝนอย่างมั่นใจ
           </p>
         </div>
 
@@ -145,7 +145,7 @@ export default function HomePage() {
             <div className="col-md-4">
               <div className="stat-item">
                 <h2>100%</h2>
-                <p>ลูกค้าพึงพอใจ</p>
+                <p>บริการด้วยความใส่ใจ</p>
               </div>
             </div>
           </div>
@@ -255,52 +255,60 @@ export default function HomePage() {
 
           <div className="row g-4">
             <div className="col-md-6 col-lg-3">
-              <div className="service-card">
-                <div className="service-icon">
-                  <i className="bi bi-house-check-fill"></i>
+              <Link href="/services/moving-house" className="text-decoration-none text-dark h-100 d-block">
+                <div className="service-card h-100">
+                  <div className="service-icon">
+                    <i className="bi bi-house-check-fill"></i>
+                  </div>
+                  <h4 className="fw-bold mb-3">ย้ายบ้าน/คอนโด</h4>
+                  <p className="text-muted small mb-0">
+                    บริการรถรับจ้างย้ายบ้าน ย้ายหอพัก สำนักงาน ด้วยรถกระบะ 4 ล้อตู้ทึบ
+                    ช่วยกันแดดกันฝนได้อย่างมั่นใจ พร้อมทีมงานมืออาชีพช่วยแพ็คและยกของอย่างระมัดระวัง
+                  </p>
                 </div>
-                <h4 className="fw-bold mb-3">ย้ายบ้าน/คอนโด</h4>
-                <p className="text-muted small">
-                  บริการรถรับจ้างย้ายบ้าน ย้ายหอพัก สำนักงาน ด้วยรถกระบะ 4 ล้อตู้ทึบ
-                  กันแดดกันฝน 100% พร้อมทีมงานมืออาชีพช่วยแพ็คและยกของอย่างระมัดระวัง
-                </p>
-              </div>
+              </Link>
             </div>
             <div className="col-md-6 col-lg-3">
-              <div className="service-card">
-                <div className="service-icon">
-                  <i className="bi bi-bicycle"></i>
+              <Link href="/motorcycle-transport" className="text-decoration-none text-dark h-100 d-block">
+                <div className="service-card h-100">
+                  <div className="service-icon">
+                    <i className="bi bi-bicycle"></i>
+                  </div>
+                  <h4 className="fw-bold mb-3">ส่งมอเตอร์ไซค์</h4>
+                  <p className="text-muted small mb-0">
+                    รับส่งรถจักรยานยนต์ทุกรุ่น ตั้งแต่รถเล็กทั่วไปจนถึง BigBike หรูหรา
+                    แพ็คกันรอยหนาพิเศษ 3 ชั้น ล็อคแน่นหนา ปลอดภัย ส่งถึงหน้าบ้านทั่วประเทศ
+                  </p>
                 </div>
-                <h4 className="fw-bold mb-3">ส่งมอเตอร์ไซค์</h4>
-                <p className="text-muted small">
-                  รับส่งรถจักรยานยนต์ทุกรุ่น ตั้งแต่รถเล็กทั่วไปจนถึง BigBike หรูหรา
-                  แพ็คกันรอยหนาพิเศษ 3 ชั้น ล็อคแน่นหนา ปลอดภัย ส่งถึงหน้าบ้านทั่วประเทศ
-                </p>
-              </div>
+              </Link>
             </div>
             <div className="col-md-6 col-lg-3">
-              <div className="service-card">
-                <div className="service-icon">
-                  <i className="bi bi-boxes"></i>
+              <Link href="/services/pickup-truck-transport" className="text-decoration-none text-dark h-100 d-block">
+                <div className="service-card h-100">
+                  <div className="service-icon">
+                    <i className="bi bi-boxes"></i>
+                  </div>
+                  <h4 className="fw-bold mb-3">ส่งสินค้าทั่วไป</h4>
+                  <p className="text-muted small mb-0">
+                    รถรับจ้างตู้ทึบรับส่งพัสดุชิ้นใหญ่ เครื่องใช้ไฟฟ้า เฟอร์นิเจอร์
+                    สินค้าโรงงาน เหมาคันกระจายสินค้าด่วนทั่วประเทศ ปลอดภัยตรงเวลา
+                  </p>
                 </div>
-                <h4 className="fw-bold mb-3">ส่งสินค้าทั่วไป</h4>
-                <p className="text-muted small">
-                  รถรับจ้างตู้ทึบรับส่งพัสดุชิ้นใหญ่ เครื่องใช้ไฟฟ้า เฟอร์นิเจอร์
-                  สินค้าโรงงาน เหมาคันกระจายสินค้าด่วนทั่วประเทศ ปลอดภัยตรงเวลา
-                </p>
-              </div>
+              </Link>
             </div>
             <div className="col-md-6 col-lg-3">
-              <div className="service-card">
-                <div className="service-icon">
-                  <i className="bi bi-heart-fill"></i>
+              <Link href="/services/pet-transport" className="text-decoration-none text-dark h-100 d-block">
+                <div className="service-card h-100">
+                  <div className="service-icon">
+                    <i className="bi bi-heart-fill"></i>
+                  </div>
+                  <h4 className="fw-bold mb-3">ขนส่งสัตว์เลี้ยง</h4>
+                  <p className="text-muted small mb-0">
+                    บริการขนย้ายสัตว์เลี้ยงแสนรัก สุนัข แมว ข้ามจังหวัดด้วยความใส่ใจ
+                    ปลอดภัย มีแอร์พัดลมระบายอากาศ ดูแลอย่างดีตลอดการเดินทาง
+                  </p>
                 </div>
-                <h4 className="fw-bold mb-3">ขนส่งสัตว์เลี้ยง</h4>
-                <p className="text-muted small">
-                  บริการขนย้ายสัตว์เลี้ยงแสนรัก สุนัข แมว ข้ามจังหวัดด้วยความใส่ใจ
-                  ปลอดภัย มีแอร์พัดลมระบายอากาศ ดูแลอย่างดีตลอดการเดินทาง
-                </p>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

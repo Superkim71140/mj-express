@@ -32,7 +32,7 @@ export function buildMovingCompanySchema(areaServed: string[] = siteConfig.servi
     "@context": "https://schema.org" as const,
     "@type": "MovingCompany" as const,
     "@id": `${siteConfig.baseUrl}/#moving-company`,
-    "name": siteConfig.businessFullName,
+    "name": siteConfig.businessName,
     "image": `${siteConfig.baseUrl}/assets/images/work4.webp`,
     "url": siteConfig.baseUrl,
     "telephone": siteConfig.phone,
@@ -67,22 +67,18 @@ export function buildMovingCompanySchema(areaServed: string[] = siteConfig.servi
   };
 }
 
-// LocalBusiness Schema for specific areas
+// Service Schema for specific areas (referencing stable moving-company entity)
 export function buildLocalBusinessSchema(area: LocalArea) {
   return {
     "@context": "https://schema.org" as const,
-    "@type": "LocalBusiness" as const,
-    "@id": `${siteConfig.baseUrl}/areas/${area.slug}#local-business`,
-    "name": `รถรับจ้าง${area.areaThai} - MJ-TH Express`,
+    "@type": "Service" as const,
+    "@id": `${siteConfig.baseUrl}/areas/${area.slug}#service`,
+    "name": area.h1 || `รถรับจ้าง${area.areaThai} - MJ-TH Express`,
     "image": `${siteConfig.baseUrl}${area.ogImage}`,
-    "telephone": siteConfig.phone,
-    "priceRange": siteConfig.priceRange,
-    "address": {
-      "@type": "PostalAddress" as const,
-      "addressLocality": area.addressLocality || area.areaThai,
-      "addressRegion": area.addressRegion || "Bangkok",
-      "addressCountry": "TH"
+    "provider": {
+      "@id": `${siteConfig.baseUrl}/#moving-company`
     },
+    "serviceType": "Transportation & Moving Service",
     "areaServed": area.areaServed || [area.areaThai],
     "url": `${siteConfig.baseUrl}/areas/${area.slug}`,
     "description": area.description

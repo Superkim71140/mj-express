@@ -6,7 +6,7 @@ import ConversionCTA from "@/components/seo/ConversionCTA";
 import SeoLinkHub from "@/components/seo/SeoLinkHub";
 import JsonLd from "@/components/JsonLd";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { buildBreadcrumbSchema, buildReviewSchema, buildMovingCompanySchema } from "@/lib/seo/schema";
+import { buildBreadcrumbSchema, buildMovingCompanySchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "รีวิวความเห็นลูกค้า ย้ายบ้าน คอนโด ส่งมอเตอร์ไซค์ | MJ-TH Express",
@@ -76,23 +76,10 @@ export default function ReviewsPage() {
   ]);
 
   const movingCompanySchema = buildMovingCompanySchema();
-  // Inject aggregate rating into moving company schema
-  const companyWithRatingSchema = {
-    ...movingCompanySchema,
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": allReviews.length.toString(),
-      "bestRating": "5",
-      "worstRating": "4"
-    }
-  };
-
-  const reviewSchema = buildReviewSchema(allReviews);
 
   return (
     <>
-      <JsonLd data={[breadcrumbSchema, companyWithRatingSchema, reviewSchema]} />
+      <JsonLd data={[breadcrumbSchema, movingCompanySchema]} />
 
       <header className="hero-local text-center py-5 text-white" style={{ background: "var(--blue-gradient)" }}>
         <div className="container py-4">

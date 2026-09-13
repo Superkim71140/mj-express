@@ -5,75 +5,70 @@ import { routesData } from "@/data/routes";
 import { caseStudiesData } from "@/data/case-studies";
 import { siteConfig } from "@/lib/seo/site-config";
 
-export const dynamic = "force-dynamic";
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.baseUrl;
-  const defaultDate = new Date();
+  // Stable verified last modified date for content updates
+  const stableFallbackDate = new Date("2026-06-15T12:00:00Z");
 
   // Core pages
   const corePages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
-      lastModified: defaultDate,
+      lastModified: stableFallbackDate,
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${baseUrl}/motorcycle-transport`,
-      lastModified: defaultDate,
+      lastModified: stableFallbackDate,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/areas`,
-      lastModified: defaultDate,
+      lastModified: stableFallbackDate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/portfolio`,
-      lastModified: defaultDate,
+      lastModified: stableFallbackDate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: defaultDate,
+      lastModified: stableFallbackDate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/reviews`,
-      lastModified: defaultDate,
+      lastModified: stableFallbackDate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/case-studies`,
-      lastModified: defaultDate,
+      lastModified: stableFallbackDate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
   ];
 
-  const areaPages = localAreas.map((area) => {
-    const isSalaya = area.slug === "salaya";
-    return {
-      url: `${baseUrl}/areas/${area.slug}`,
-      // SEO Magic: Only force current date for Salaya, use DB date for others
-      lastModified: isSalaya ? new Date() : (area.updatedAt ? new Date(area.updatedAt) : defaultDate),
-      changeFrequency: isSalaya ? ("daily" as const) : ("weekly" as const),
-      priority: isSalaya ? 1.0 : 0.85,
-    };
-  });
+  const areaPages = localAreas.map((area) => ({
+    url: `${baseUrl}/areas/${area.slug}`,
+    lastModified: area.updatedAt ? new Date(area.updatedAt) : stableFallbackDate,
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+  }));
 
-  // Dynamic service pages (priority 0.9) - excluding motorcycle-transport to consolidate ranking signals on /motorcycle-transport
+  // Dynamic service pages (priority 0.9) - excluding motorcycle-transport to consolidate ranking signals on canonical /motorcycle-transport
   const servicePages = servicesData
     .filter((service) => service.slug !== "motorcycle-transport")
     .map((service) => ({
       url: `${baseUrl}/services/${service.slug}`,
-      lastModified: service.updatedAt ? new Date(service.updatedAt) : defaultDate,
+      lastModified: service.updatedAt ? new Date(service.updatedAt) : stableFallbackDate,
       changeFrequency: "weekly" as const,
       priority: 0.9,
     }));
@@ -81,7 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic route pages (priority 0.9)
   const routePages = routesData.map((route) => ({
     url: `${baseUrl}/routes/${route.slug}`,
-    lastModified: route.updatedAt ? new Date(route.updatedAt) : defaultDate,
+    lastModified: route.updatedAt ? new Date(route.updatedAt) : stableFallbackDate,
     changeFrequency: "weekly" as const,
     priority: 0.9,
   }));
@@ -89,7 +84,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic case study pages (priority 0.8)
   const caseStudyPages = caseStudiesData.map((study) => ({
     url: `${baseUrl}/case-studies/${study.slug}`,
-    lastModified: study.updatedAt ? new Date(study.updatedAt) : defaultDate,
+    lastModified: study.updatedAt ? new Date(study.updatedAt) : stableFallbackDate,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));

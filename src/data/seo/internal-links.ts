@@ -24,18 +24,39 @@ export function getRelatedRoutesForService(serviceSlug: string, limit = 6): Rout
 export function getRelatedAreasForArea(areaSlug: string, limit = 6): LocalArea[] {
   const area = localAreas.find((a) => a.slug === areaSlug);
   if (!area) return [];
-  return localAreas
-    .filter((a) => area.nearbyAreas.includes(a.slug) || (a.nearbyAreas.includes(areaSlug) && a.slug !== areaSlug))
-    .slice(0, limit);
+
+  // Use canonical nearbyAreaSlugs first, fallback to nearbyAreas for compatibility
+  const targetSlugs = (area.nearbyAreaSlugs && area.nearbyAreaSlugs.length > 0)
+    ? area.nearbyAreaSlugs
+    : area.nearbyAreas;
+
+  const results: LocalArea[] = [];
+  const seen = new Set<string>();
+
+  for (const slugOrName of targetSlugs) {
+    if (!slugOrName || slugOrName === areaSlug) continue;
+    const found = localAreas.find(
+      (a) => a.slug === slugOrName || a.areaThai === slugOrName || a.label === slugOrName
+    );
+    if (found && found.slug !== areaSlug && !seen.has(found.slug)) {
+      seen.add(found.slug);
+      results.push(found);
+      if (results.length >= limit) break;
+    }
+  }
+
+  return results;
 }
 
 export function getRelatedServicesForArea(areaSlug: string, limit = 6): ServiceItem[] {
   const area = localAreas.find((a) => a.slug === areaSlug);
   if (!area) return [];
   // Popular services listed in area, or fallback to first few services
-  return servicesData
-    .filter((service) => service.relatedAreaSlugs.includes(areaSlug))
-    .slice(0, limit);
+  const matched = servicesData.filter((service) => service.relatedAreaSlugs.includes(areaSlug));
+  if (matched.length > 0) {
+    return matched.slice(0, limit);
+  }
+  return servicesData.slice(0, limit);
 }
 
 export function getRelatedRoutesForArea(areaSlug: string, limit = 6): RouteItem[] {

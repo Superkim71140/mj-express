@@ -17,6 +17,7 @@ const thonburiSlugs = [
   "taling-chan",
   "thawi-watthana",
   "borommaratchachonnani",
+  "phasi-charoen",
 ];
 
 const suburbsSlugs = [

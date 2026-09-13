@@ -61,7 +61,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           <Breadcrumbs items={breadcrumbItems} />
           
           <span className="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold" style={{ fontSize: "0.9rem" }}>
-            <i className="bi bi-patch-check-fill me-1"></i> เคสตัวอย่างงานจริง
+            <i className="bi bi-patch-check-fill me-1"></i> กรณีตัวอย่างการให้บริการ
           </span>
           
           <h1 className="display-5 fw-bold mb-3" style={{ fontFamily: "var(--font-prompt)", lineHeight: "1.3" }}>
@@ -148,7 +148,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                   className="object-fit-cover"
                 />
                 <div className="position-absolute bottom-0 start-0 w-100 bg-dark bg-opacity-75 text-white p-3 text-center small font-sarabun">
-                  📸 ภาพถ่ายบรรยากาศการจัดขนย้ายจริง
+                  📸 ภาพประกอบลักษณะงานขนย้ายของ MJ-TH Express
                 </div>
               </div>
             </div>
