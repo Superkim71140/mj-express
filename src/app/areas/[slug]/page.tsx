@@ -14,6 +14,7 @@ import {
 
 import { getAreaDetailBreadcrumbs } from "@/lib/seo/breadcrumbs";
 
+// Service Area Page component
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

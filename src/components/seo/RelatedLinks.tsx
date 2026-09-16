@@ -67,67 +67,137 @@ export default function RelatedLinks({ currentSlug, entityType, title }: Related
         </div>
 
         <div className={styles.contentGrid}>
-          {/* Related Services */}
-          {relatedServices.length > 0 && (
-            <div className={styles.linkGroup}>
-              <h4 className={styles.groupTitle}>
-                <i className="bi bi-box-seam-fill text-primary me-2"></i>บริการขนย้ายยอดนิยม
-              </h4>
-              <div className={styles.linkList}>
-                {relatedServices.map((service) => (
-                  <Link 
-                    href={`/services/${service.slug}`} 
-                    key={service.slug}
-                    className={styles.linkItem}
-                  >
-                    🚚 {service.serviceName}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* If entityType is area, prioritize nearby areas first */}
+          {entityType === "area" ? (
+            <>
+              {/* Related Areas (Prioritized for Area Detail Pages) */}
+              {relatedAreas.length > 0 && (
+                <div className={styles.linkGroup}>
+                  <h4 className={styles.groupTitle}>
+                    <i className="bi bi-geo-alt-fill text-danger me-2"></i>พื้นที่ให้บริการด่วนใกล้เคียง
+                  </h4>
+                  <div className={styles.linkList}>
+                    {relatedAreas.map((area) => {
+                      const displayLabel = area.label || area.badgeText.replace("พื้นที่ ", "");
+                      return (
+                        <Link 
+                          href={`/areas/${area.slug}`} 
+                          key={area.slug}
+                          className={styles.linkItem}
+                        >
+                          📍 รถรับจ้าง{displayLabel}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
-          {/* Related Areas */}
-          {relatedAreas.length > 0 && (
-            <div className={styles.linkGroup}>
-              <h4 className={styles.groupTitle}>
-                <i className="bi bi-geo-alt-fill text-danger me-2"></i>พื้นที่ให้บริการด่วนใกล้เคียง
-              </h4>
-              <div className={styles.linkList}>
-                {relatedAreas.map((area) => {
-                  const displayLabel = area.label || area.badgeText.replace("พื้นที่ ", "");
-                  return (
-                    <Link 
-                      href={`/areas/${area.slug}`} 
-                      key={area.slug}
-                      className={styles.linkItem}
-                    >
-                      📍 รถรับจ้าง{displayLabel}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+              {/* Related Services */}
+              {relatedServices.length > 0 && (
+                <div className={styles.linkGroup}>
+                  <h4 className={styles.groupTitle}>
+                    <i className="bi bi-box-seam-fill text-primary me-2"></i>บริการขนย้ายยอดนิยม
+                  </h4>
+                  <div className={styles.linkList}>
+                    {relatedServices.map((service) => (
+                      <Link 
+                        href={`/services/${service.slug}`} 
+                        key={service.slug}
+                        className={styles.linkItem}
+                      >
+                        🚚 {service.serviceName}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
 
-          {/* Related Routes */}
-          {relatedRoutes.length > 0 && (
-            <div className={styles.linkGroup}>
-              <h4 className={styles.groupTitle}>
-                <i className="bi bi-compass-fill text-success me-2"></i>เส้นทางขนส่งแนะนำ
-              </h4>
-              <div className={styles.linkList}>
-                {relatedRoutes.map((route) => (
-                  <Link 
-                    href={`/routes/${route.slug}`} 
-                    key={route.slug}
-                    className={styles.linkItem}
-                  >
-                    🛣️ {route.origin} ⇄ {route.destination}
-                  </Link>
-                ))}
-              </div>
-            </div>
+              {/* Related Routes */}
+              {relatedRoutes.length > 0 && (
+                <div className={styles.linkGroup}>
+                  <h4 className={styles.groupTitle}>
+                    <i className="bi bi-compass-fill text-success me-2"></i>เส้นทางขนส่งแนะนำ
+                  </h4>
+                  <div className={styles.linkList}>
+                    {relatedRoutes.map((route) => (
+                      <Link 
+                        href={`/routes/${route.slug}`} 
+                        key={route.slug}
+                        className={styles.linkItem}
+                      >
+                        🛣️ {route.origin} ⇄ {route.destination}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              {/* Related Services */}
+              {relatedServices.length > 0 && (
+                <div className={styles.linkGroup}>
+                  <h4 className={styles.groupTitle}>
+                    <i className="bi bi-box-seam-fill text-primary me-2"></i>บริการขนย้ายยอดนิยม
+                  </h4>
+                  <div className={styles.linkList}>
+                    {relatedServices.map((service) => (
+                      <Link 
+                        href={`/services/${service.slug}`} 
+                        key={service.slug}
+                        className={styles.linkItem}
+                      >
+                        🚚 {service.serviceName}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Related Areas */}
+              {relatedAreas.length > 0 && (
+                <div className={styles.linkGroup}>
+                  <h4 className={styles.groupTitle}>
+                    <i className="bi bi-geo-alt-fill text-danger me-2"></i>พื้นที่ให้บริการด่วนใกล้เคียง
+                  </h4>
+                  <div className={styles.linkList}>
+                    {relatedAreas.map((area) => {
+                      const displayLabel = area.label || area.badgeText.replace("พื้นที่ ", "");
+                      return (
+                        <Link 
+                          href={`/areas/${area.slug}`} 
+                          key={area.slug}
+                          className={styles.linkItem}
+                        >
+                          📍 รถรับจ้าง{displayLabel}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Related Routes */}
+              {relatedRoutes.length > 0 && (
+                <div className={styles.linkGroup}>
+                  <h4 className={styles.groupTitle}>
+                    <i className="bi bi-compass-fill text-success me-2"></i>เส้นทางขนส่งแนะนำ
+                  </h4>
+                  <div className={styles.linkList}>
+                    {relatedRoutes.map((route) => (
+                      <Link 
+                        href={`/routes/${route.slug}`} 
+                        key={route.slug}
+                        className={styles.linkItem}
+                      >
+                        🛣️ {route.origin} ⇄ {route.destination}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

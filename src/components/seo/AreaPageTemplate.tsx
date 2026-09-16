@@ -1,13 +1,17 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { LocalArea } from "@/data/seo/areas";
 import Breadcrumbs from "./Breadcrumbs";
 import ConversionCTA from "./ConversionCTA";
 import TrustProofBlock from "./TrustProofBlock";
-import PricingGuideBlock from "./PricingGuideBlock";
+import PricingGuideBlock, { PriceEstimateItem } from "./PricingGuideBlock";
 import RelatedLinks from "./RelatedLinks";
 import SeoLinkHub from "./SeoLinkHub";
-import FaqBlock from "./FaqBlock";
+import FaqBlock, { FaqItem } from "./FaqBlock";
+import ServiceShowcaseBanner from "@/components/ServiceShowcaseBanner";
+import { siteConfig } from "@/lib/seo/site-config";
+import { getCaseStudiesForEntity } from "@/data/seo/internal-links";
 
 import { getAreaDetailBreadcrumbs, BreadcrumbItem } from "@/lib/seo/breadcrumbs";
 
@@ -73,6 +77,59 @@ const SeasonalAlertBlock = ({ notice }: { notice?: string }) => {
 
 export default function AreaPageTemplate({ area, breadcrumbs }: AreaPageTemplateProps) {
   const breadcrumbItems = breadcrumbs || getAreaDetailBreadcrumbs(area);
+  const matchingCaseStudies = getCaseStudiesForEntity(area.slug, "area");
+
+  // Dynamic distance-based price matrix for this area
+  const areaPrices: PriceEstimateItem[] = [
+    {
+      label: `ขนย้ายภายในเขต${area.areaThai} / ซอยใกล้เคียง`,
+      priceStart: "เริ่มต้น 1,000 - 1,500 บาท",
+      details: "ระยะทาง 0 - 15 กม. รถกระบะตู้ทึบหลังคาสูง พร้อมคนขับช่วยดูแลจัดเรียงของ เหมาะสำหรับย้ายหอพัก คอนโด",
+      recommendFor: "ย้ายหอพัก, ห้องสตูดิโอ, มอเตอร์ไซค์, ส่งของด่วนในซอย",
+    },
+    {
+      label: `ขนย้ายข้ามเขต (กรุงเทพฯ & ปริมณฑล)`,
+      priceStart: "เริ่มต้น 1,200 - 2,200 บาท",
+      details: `วิ่งรับ-ส่งเชื่อมต่อจาก${area.areaThai}ไปยังทุกเขตใน กทม. นนทบุรี นครปฐม สมุทรสาคร สมุทรปราการ ปทุมธานี`,
+      recommendFor: "ย้ายบ้านเดี่ยว, ย้ายทาวน์โฮม, ขนย้ายคอนโด 1-2 ห้องนอน",
+    },
+    {
+      label: `ส่งต่างจังหวัด (ภาคกลาง / ภาคตะวันออก)`,
+      priceStart: "เริ่มต้น 2,500 - 4,500 บาท",
+      details: "บริการเหมาคันตรงถึงปลายทาง ไม่รวมของปะปนกับผู้อื่น ปลอดภัย 100% ถึงภายในวันเดียวกัน",
+      recommendFor: "ชลบุรี, ระยอง, อยุธยา, สระบุรี, ราชบุรี, ฉะเชิงเทรา ฯลฯ",
+    },
+    {
+      label: `ส่งต่างจังหวัดระยะไกล (อีสาน / เหนือ / ใต้)`,
+      priceStart: "คิดตามระยะทางจริง (กม.)",
+      details: "คิดอัตราเหมาจ่ายสุทธิตั้งแต่ก่อนเริ่มงาน มีผ้าคลุมสายรัดพร้อมคนยก การันตีไม่มีค่าใช้จ่ายแอบแฝง",
+      recommendFor: "ย้ายภูมิลำเนา, ย้ายบ้านข้ามภาค, ขนส่งสินค้าโรงงาน/เกษตร",
+    },
+  ];
+
+  // Practical local moving FAQs combined with district-specific FAQs
+  const practicalFaqs: FaqItem[] = [
+    {
+      question: `รถกระบะตู้ทึบเข้าชั้นใต้ดินคอนโดในย่าน${area.areaThai}ได้ไหม?`,
+      answer: `รถกระบะตู้ทึบหลังคาสูงมีความสูงตู้ 2.10 เมตร (ความสูงรวมตัวรถประมาณ 2.80 - 3.00 เมตร) ซึ่งอาจเกินความสูงจำกัดของลานจอดใต้ดินอาคาร (ปกติจำกัดที่ 1.90 - 2.10 ม.) **แนะนำให้จอดเทียบจุด Loading Dock หรือจุดรับ-ส่งของหน้าล็อบบี้คอนโด** ซึ่งเป็นจุดมาตรฐานที่ปลอดภัยที่สุด โดยทีมงาน MJ-TH Express มีรถเข็นและอุปกรณ์พร้อมลำเลียงของเข้าลิฟต์ส่งตรงถึงหน้าห้องพักทันที`,
+    },
+    {
+      question: `มีทีมงานยกของขึ้นบันไดหอพักหรือตึกแถวใน${area.areaThai}ที่ไม่มีลิฟต์หรือไม่?`,
+      answer: `**มีบริการทีมงานช่วยยกของมืออาชีพ** สามารถยกของขึ้น-ลงบันไดหอพัก อพาร์ตเมนต์ หรืออาคารพาณิชย์ที่ไม่มีลิฟต์ได้ทุกชั้น เพียงแจ้งจำนวนชั้นและรายการสิ่งของขนาดใหญ่ล่วงหน้า เช่น เตียง ตู้เสื้อผ้า ตู้เย็น เราจะจัดเตรียมทีมงานยกของที่เหมาะสมเพื่อดูแลสิ่งของทุกชิ้นอย่างปลอดภัย 100%`,
+    },
+    {
+      question: `ติดต่อเรียกรถด่วนรอบดึก หรือวันหยุดเสาร์-อาทิตย์ ในพื้นที่${area.areaThai}ได้ไหม?`,
+      answer: `**ให้บริการตลอด 24 ชั่วโมง ทุกวันไม่มีวันหยุด** ไม่ว่าจะเป็นช่วงเช้าตรู่ รอบดึก วันเสาร์-อาทิตย์ หรือวันหยุดนักขัตฤกษ์ สามารถติดต่อผ่าน LINE หรือโทรหาทีมงานเพื่อเช็กคิวรถด่วนที่พร้อมเข้าหน้างานทันที หรือจองคิวล่วงหน้าตามเวลาที่ท่านสะดวกได้ตลอดเวลา`,
+    },
+  ];
+
+  // Merge FAQs ensuring practical questions appear first, followed by unique area faqs
+  const combinedFaqs: FaqItem[] = [
+    ...practicalFaqs,
+    ...(area.faqs || []).filter(
+      (f) => !practicalFaqs.some((p) => p.question.includes(f.question.slice(0, 15)))
+    ),
+  ];
 
   return (
     <>
@@ -111,70 +168,223 @@ export default function AreaPageTemplate({ area, breadcrumbs }: AreaPageTemplate
       {/* Trustproof Indicators */}
       <TrustProofBlock />
 
+      {/* Service Showcase Banner Section */}
+      <section className="py-5 bg-white">
+        <div className="container">
+          <ServiceShowcaseBanner areaName={area.areaThai} />
+        </div>
+      </section>
+
+      {/* 1. Useful Vehicle Information Before Booking */}
+      <section className="py-5 bg-light border-top border-bottom" id="truck-specs">
+        <div className="container" style={{ maxWidth: "1140px" }}>
+          <div className="row g-4 g-lg-5 align-items-center">
+            {/* Left Column: Real photo of MJ-TH Express enclosed pickup truck */}
+            <div className="col-12 col-lg-5">
+              <div
+                className="position-relative overflow-hidden rounded-4 border shadow-sm"
+                style={{
+                  width: "100%",
+                  aspectRatio: "4 / 3",
+                  backgroundColor: "#e2e8f0",
+                }}
+              >
+                <Image
+                  src="/assets/images/best.webp"
+                  alt="รถกระบะ 4 ล้อตู้ทึบ MJ-TH Express ขณะเปิดท้ายเตรียมขนย้ายสินค้าและอุปกรณ์"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 480px"
+                  className="object-fit-cover"
+                />
+              </div>
+            </div>
+
+            {/* Right Column: Scannable specifications, condo notice, and direct CTAs */}
+            <div className="col-12 col-lg-7">
+              <h2
+                className="fw-bold text-dark mb-3"
+                style={{ fontFamily: "var(--font-prompt)", fontSize: "clamp(1.35rem, 1.15rem + 0.8vw, 1.75rem)", lineHeight: "1.3" }}
+              >
+                รถที่ใช้ให้บริการ เหมาะกับงานแบบไหน?
+              </h2>
+
+              <ul className="list-unstyled mb-4 d-flex flex-column gap-2" style={{ fontSize: "1rem", lineHeight: "1.7" }}>
+                <li className="d-flex align-items-start gap-2">
+                  <i className="bi bi-check-circle-fill text-primary mt-1 flex-shrink-0"></i>
+                  <span className="text-dark">รถกระบะ 4 ล้อตู้ทึบ ช่วยป้องกันแดด ฝน และฝุ่น</span>
+                </li>
+                <li className="d-flex align-items-start gap-2">
+                  <i className="bi bi-check-circle-fill text-primary mt-1 flex-shrink-0"></i>
+                  <span className="text-dark">เหมาะสำหรับย้ายหอ คอนโด บ้านขนาดเล็ก และขนเครื่องใช้ไฟฟ้า</span>
+                </li>
+                <li className="d-flex align-items-start gap-2">
+                  <i className="bi bi-check-circle-fill text-primary mt-1 flex-shrink-0"></i>
+                  <span className="text-dark">รองรับสิ่งของจากห้อง Studio หรือคอนโด 1 ห้องนอนตามปริมาณจริง</span>
+                </li>
+                <li className="d-flex align-items-start gap-2">
+                  <i className="bi bi-check-circle-fill text-primary mt-1 flex-shrink-0"></i>
+                  <span className="text-dark">รถขนาดกระชับ เข้าซอยและจุดรับของได้สะดวก</span>
+                </li>
+              </ul>
+
+              {/* Clearly visible information box */}
+              <div
+                className="p-3 p-md-4 rounded-3 mb-4 bg-white"
+                style={{
+                  border: "1px solid #cbd5e1",
+                  borderLeft: "4px solid #0d6efd",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)"
+                }}
+              >
+                <div className="d-flex align-items-center gap-2 mb-2">
+                  <i className="bi bi-info-circle-fill text-primary fs-5"></i>
+                  <h3
+                    className="h6 fw-bold mb-0 text-dark"
+                    style={{ fontFamily: "var(--font-prompt)", fontSize: "1rem" }}
+                  >
+                    ข้อควรรู้สำหรับคอนโด
+                  </h3>
+                </div>
+                <p className="mb-0 text-muted" style={{ fontSize: "0.95rem", lineHeight: "1.65" }}>
+                  ก่อนจอง กรุณาแจ้งความสูงทางเข้าอาคาร จุดจอดรถ และเวลาที่นิติบุคคลอนุญาตให้ขนย้าย เพื่อให้ทีมงานเลือกรถและวางแผนจุดโหลดของได้เหมาะสม
+                </p>
+              </div>
+
+              {/* Two restrained CTA buttons */}
+              <div className="d-flex flex-wrap gap-3">
+                <a
+                  href={siteConfig.lineUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-warning fw-bold px-4 py-2.5 rounded-pill font-prompt d-inline-flex align-items-center justify-content-center gap-2 text-dark shadow-sm"
+                  style={{ minHeight: "48px", fontSize: "1rem" }}
+                >
+                  <i className="bi bi-line fs-5"></i>
+                  <span>ส่งรูปของให้ประเมินราคา</span>
+                </a>
+                <a
+                  href={siteConfig.phoneHref}
+                  className="btn btn-outline-primary fw-bold px-4 py-2.5 rounded-pill font-prompt d-inline-flex align-items-center justify-content-center gap-2"
+                  style={{ minHeight: "48px", fontSize: "1rem" }}
+                >
+                  <i className="bi bi-telephone-fill"></i>
+                  <span>โทรเช็กคิวรถ</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Area Local Overview */}
       <section className="py-5 bg-white">
-        <div className="container" style={{ maxWidth: "1000px" }}>
-          <div className="row g-4">
+        <div className="container" style={{ maxWidth: "1140px" }}>
+          <div className="row g-4 g-lg-5">
             
             {/* Left Column: Localized content */}
-            <div className="col-md-7">
+            <div className="col-lg-7">
               <h2 className="fw-bold text-dark mb-3" style={{ fontFamily: "var(--font-prompt)", fontSize: "1.6rem" }}>
-                📍 พื้นที่ให้บริการรถรับจ้างย่าน {area.areaThai}
+                <i className="bi bi-geo-alt-fill text-primary me-2"></i>พื้นที่ให้บริการรถรับจ้างย่าน {area.areaThai}
               </h2>
-              <p className="text-muted" style={{ fontSize: "1rem", lineHeight: "1.7" }}>
+              <p className="text-muted mb-4" style={{ fontSize: "1rem", lineHeight: "1.75", maxWidth: "70ch" }}>
                 {area.localIntro || area.intro}
               </p>
 
-              {/* Landmarks and Pickup Points */}
-              <div className="mt-4 p-4 rounded-4 bg-light border">
-                <h4 className="fw-bold mb-3 text-secondary" style={{ fontSize: "1.1rem", fontFamily: "var(--font-prompt)" }}>
-                  🏢 สถานที่และจุดรับของสำคัญในพื้นที่
-                </h4>
-                <div className="row">
-                  <div className="col-sm-6 mb-3 mb-sm-0">
-                    <p className="small text-muted fw-bold mb-2">สถานที่สำคัญ/แลนด์มาร์ค:</p>
-                    <ul className="list-unstyled mb-0 d-flex flex-column gap-1.5">
-                      {area.landmarks?.map((landmark, idx) => (
-                        <li key={idx} className="small text-secondary">
-                          <i className="bi bi-building text-primary me-2"></i> {landmark}
-                        </li>
+              {/* 2. Local Route & Landmark Coverage */}
+              <div className="p-4 rounded-4 bg-light border mb-5">
+                <h3 className="fw-bold mb-3 text-secondary" style={{ fontSize: "1.15rem", fontFamily: "var(--font-prompt)" }}>
+                  <i className="bi bi-compass-fill text-primary me-2"></i>ความชำนาญเส้นทางและจุดรับ-ส่งสำคัญในย่าน {area.areaThai}
+                </h3>
+                
+                {/* Landmarks */}
+                {area.landmarks && area.landmarks.length > 0 && (
+                  <div className="mb-3">
+                    <p className="small text-muted fw-bold mb-2">
+                      <i className="bi bi-building text-primary me-1"></i> คอนโด หอพัก &amp; แลนด์มาร์คสำคัญ:
+                    </p>
+                    <div className="d-flex flex-wrap gap-2">
+                      {area.landmarks.map((landmark, idx) => (
+                        <span key={idx} className="badge bg-white text-dark border px-3 py-2 rounded-pill fw-normal" style={{ fontSize: "0.88rem" }}>
+                          🏢 {landmark}
+                        </span>
                       ))}
-                    </ul>
+                    </div>
                   </div>
-                  <div className="col-sm-6">
-                    <p className="small text-muted fw-bold mb-2">จุดรับ-ส่งยอดนิยม:</p>
-                    <ul className="list-unstyled mb-0 d-flex flex-column gap-1.5">
-                      {area.pickupPoints?.map((pt, idx) => (
-                        <li key={idx} className="small text-secondary">
-                          <i className="bi bi-geo-alt-fill text-danger me-2"></i> {pt}
-                        </li>
+                )}
+
+                {/* Pickup points & sub-districts */}
+                {area.pickupPoints && area.pickupPoints.length > 0 && (
+                  <div className="mb-3">
+                    <p className="small text-muted fw-bold mb-2">
+                      <i className="bi bi-geo-alt-fill text-danger me-1"></i> ซอยลัด ถนนสายหลัก &amp; จุดรับ-ส่งยอดนิยม:
+                    </p>
+                    <div className="d-flex flex-wrap gap-2">
+                      {area.pickupPoints.map((pt, idx) => (
+                        <span key={idx} className="badge bg-white text-dark border px-3 py-2 rounded-pill fw-normal" style={{ fontSize: "0.88rem" }}>
+                          📍 {pt}
+                        </span>
                       ))}
-                    </ul>
+                    </div>
                   </div>
-                </div>
+                )}
+
+                {/* Service areas / sub-districts */}
+                {area.serviceAreas && area.serviceAreas.length > 0 && (
+                  <div className="mb-3">
+                    <p className="small text-muted fw-bold mb-2">
+                      <i className="bi bi-map-fill text-success me-1"></i> แขวง/ตำบลที่ครอบคลุม:
+                    </p>
+                    <div className="d-flex flex-wrap gap-2">
+                      {area.serviceAreas.map((sa, idx) => (
+                        <span key={idx} className="badge bg-success-subtle text-success-emphasis border border-success-subtle px-3 py-2 rounded-pill fw-normal" style={{ fontSize: "0.88rem" }}>
+                          ✓ {sa}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Popular routes */}
+                {area.popularRoutes && area.popularRoutes.length > 0 && (
+                  <div>
+                    <p className="small text-muted fw-bold mb-2">
+                      <i className="bi bi-arrow-left-right text-info me-1"></i> เส้นทางขนย้ายที่วิ่งประจำ:
+                    </p>
+                    <div className="d-flex flex-wrap gap-2">
+                      {area.popularRoutes.map((route, idx) => (
+                        <span key={idx} className="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle px-3 py-2 rounded-pill fw-normal" style={{ fontSize: "0.88rem" }}>
+                          🚛 {route}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Special Salaya Student Promo */}
               {area.slug === 'salaya' && (
-                <>
+                <div className="mb-5">
                   <StudentPromoBlock />
                   <LocalProximityBlock proximityBlocks={area.proximityBlocks} />
-                </>
+                </div>
               )}
 
               {/* Pain points vs solutions */}
-              <div className="mt-5">
-                <h3 className="fw-bold text-dark mb-3" style={{ fontFamily: "var(--font-prompt)", fontSize: "1.4rem" }}>
-                  ⚠️ ปัญหาการขนย้ายในพื้นที่ {area.areaThai} และการแก้ไขของเรา
+              <div className="mb-4">
+                <h3 className="fw-bold text-dark mb-3" style={{ fontFamily: "var(--font-prompt)", fontSize: "1.35rem" }}>
+                  <i className="bi bi-shield-check text-success me-2"></i>แนวทางรับมือปัญหาการขนย้ายในพื้นที่ {area.areaThai}
                 </h3>
                 <div className="d-flex flex-column gap-3">
                   {area.painPoints?.map((pain, idx) => (
-                    <div className="p-3 border rounded-3 bg-danger-subtle text-danger-emphasis d-flex gap-3 align-items-start" key={idx}>
-                      <i className="bi bi-exclamation-triangle-fill fs-5 mt-0.5"></i>
-                      <div>
-                        <strong className="d-block mb-1">ปัญหา: {pain}</strong>
-                        <span className="small text-muted">
-                          แก้ไขโดย: {area.solutionBullets?.[idx] || "ทีมงานชำนาญการและจัดเตรียมรถที่เหมาะสมเข้าช่วยเหลือทันที"}
+                    <div className="p-3 p-md-3.5 border rounded-3 bg-light d-flex flex-column gap-1" key={idx} style={{ borderLeft: "4px solid #f59e0b" }}>
+                      <div className="d-flex align-items-center gap-2">
+                        <i className="bi bi-exclamation-triangle-fill text-warning flex-shrink-0"></i>
+                        <strong className="text-dark" style={{ fontSize: "0.95rem" }}>ปัญหา: {pain}</strong>
+                      </div>
+                      <div className="d-flex align-items-start gap-2 ms-4">
+                        <i className="bi bi-arrow-return-right text-success flex-shrink-0 mt-1"></i>
+                        <span className="text-muted" style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
+                          แนวทางแก้ไข: {area.solutionBullets?.[idx] || "ทีมงานชำนาญการและจัดเตรียมรถที่เหมาะสมเข้าช่วยเหลือทันที"}
                         </span>
                       </div>
                     </div>
@@ -184,39 +394,39 @@ export default function AreaPageTemplate({ area, breadcrumbs }: AreaPageTemplate
             </div>
 
             {/* Right Column: Local Advantages & Popular Services */}
-            <div className="col-md-5">
-              <div className="p-4 rounded-4 border shadow-sm h-100" style={{ backgroundColor: "#fafbfc" }}>
+            <div className="col-lg-5">
+              <div className="p-4 rounded-4 border shadow-sm" style={{ backgroundColor: "#fafbfc" }}>
                 <h3 className="fw-bold text-secondary mb-3" style={{ fontSize: "1.2rem", fontFamily: "var(--font-prompt)" }}>
-                  💡 จุดเด่นรถรับจ้าง MJ-TH {area.areaThai}
+                  <i className="bi bi-star-fill text-warning me-2"></i>จุดเด่นรถรับจ้าง MJ-TH {area.areaThai}
                 </h3>
                 
                 <div className="d-flex flex-column gap-3 mb-4">
                   {area.localAdvantages?.map(([title, desc], idx) => (
-                    <div key={idx} className="border-bottom pb-2">
-                      <strong className="text-dark d-block small" style={{ fontFamily: "var(--font-prompt)" }}>
-                        ✅ {title}
+                    <div key={idx} className="border-bottom pb-2.5">
+                      <strong className="text-dark d-block mb-1" style={{ fontFamily: "var(--font-prompt)", fontSize: "0.95rem" }}>
+                        <i className="bi bi-check2 text-success me-1.5"></i>{title}
                       </strong>
-                      <span className="text-muted small leading-relaxed">{desc}</span>
+                      <span className="text-muted small" style={{ lineHeight: "1.65", display: "block" }}>{desc}</span>
                     </div>
                   ))}
                 </div>
 
-                <hr />
+                <hr className="my-4" />
 
-                <h4 className="fw-bold text-primary mt-4 mb-3" style={{ fontSize: "1.1rem", fontFamily: "var(--font-prompt)" }}>
-                  📦 บริการยอดนิยมย่าน {area.areaThai}
+                <h4 className="fw-bold text-primary mb-3" style={{ fontSize: "1.1rem", fontFamily: "var(--font-prompt)" }}>
+                  <i className="bi bi-box-seam-fill text-primary me-2"></i>บริการยอดนิยมย่าน {area.areaThai}
                 </h4>
                 <div className="d-flex flex-wrap gap-2" itemScope itemType="https://schema.org/Service">
                   {area.popularServices?.map((serv, idx) => (
-                    <span key={idx} className="badge bg-primary px-3 py-2 rounded-pill" style={{ fontSize: "0.8rem" }} itemProp="name">
+                    <span key={idx} className="badge bg-primary px-3 py-2 rounded-pill fw-normal" style={{ fontSize: "0.85rem" }} itemProp="name">
                       {serv}
                     </span>
                   ))}
                 </div>
 
-                <div className="mt-4 p-3 rounded bg-warning-subtle text-warning-emphasis border border-warning-subtle">
-                  <i className="bi bi-clock-history me-2"></i> 
-                  <span>สอบถามคิวรถและระยะเวลาเข้ารับงานตามพิกัดและสภาพการจราจรได้ตลอด 24 ชม.</span>
+                <div className="mt-4 p-3 rounded-3 bg-warning-subtle text-warning-emphasis border border-warning-subtle d-flex align-items-start gap-2">
+                  <i className="bi bi-clock-history mt-0.5 flex-shrink-0"></i> 
+                  <span className="small leading-relaxed">สอบถามคิวรถและระยะเวลาเข้ารับงานตามพิกัดและสภาพการจราจรได้ตลอด 24 ชม.</span>
                 </div>
               </div>
             </div>
@@ -226,53 +436,115 @@ export default function AreaPageTemplate({ area, breadcrumbs }: AreaPageTemplate
       </section>
 
       {/* Case studies in this local area */}
-      {area.workCards && area.workCards.length > 0 && (
+      {((area.workCards && area.workCards.length > 0) || matchingCaseStudies.length > 0) && (
         <section className="py-5 bg-light border-top">
-          <div className="container" style={{ maxWidth: "1000px" }}>
-            <div className="text-center mb-5">
-              <h2 className="fw-bold text-dark" style={{ fontFamily: "var(--font-prompt)" }}>
-                🖼️ ภาพผลงานการขนของ ย้ายของ ในเขต {area.areaThai}
-              </h2>
-              <div className="title-underline"></div>
-              <p className="text-muted">รีวิวงานจริงจากลูกค้าที่ใช้บริการกระบะตู้ทึบรับจ้างย่าน{area.areaThai}</p>
-            </div>
-            
-            <div className="row g-4">
-              {area.workCards.map((card, idx) => (
-                <div className="col-md-4" key={idx}>
-                  <div className="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                    <div style={{ position: "relative", height: "200px" }}>
-                      <Image 
-                        src={card.imgSrc} 
-                        alt={card.alt} 
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-fit-cover"
-                      />
-                    </div>
-                    <div className="card-body">
-                      <h5 className="card-title fw-bold" style={{ fontFamily: "var(--font-prompt)", fontSize: "1.05rem" }}>
-                        {card.title}
-                      </h5>
-                      <p className="card-text text-muted small">{card.desc}</p>
-                    </div>
-                  </div>
+          <div className="container" style={{ maxWidth: "1140px" }}>
+            {area.workCards && area.workCards.length > 0 && (
+              <>
+                <div className="text-center mb-5">
+                  <h2 className="fw-bold text-dark" style={{ fontFamily: "var(--font-prompt)", fontSize: "1.6rem" }}>
+                    <i className="bi bi-images text-primary me-2"></i>ภาพผลงานการขนของ ย้ายของ ในเขต {area.areaThai}
+                  </h2>
+                  <div className="title-underline"></div>
+                  <p className="text-muted" style={{ maxWidth: "65ch", margin: "0 auto" }}>รีวิวงานจริงจากลูกค้าที่ใช้บริการกระบะตู้ทึบรับจ้างย่าน{area.areaThai}</p>
                 </div>
-              ))}
-            </div>
+                
+                <div className="row g-4">
+                  {area.workCards.map((card, idx) => (
+                    <div className="col-md-4" key={idx}>
+                      <div className="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+                        <div style={{ position: "relative", height: "220px", backgroundColor: "#f1f5f9" }}>
+                          <Image 
+                            src={card.imgSrc} 
+                            alt={card.alt} 
+                            fill
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            className="object-fit-cover"
+                          />
+                        </div>
+                        <div className="card-body p-3 p-md-4">
+                          <h3 className="card-title fw-bold" style={{ fontFamily: "var(--font-prompt)", fontSize: "1.05rem" }}>
+                            {card.title}
+                          </h3>
+                          <p className="card-text text-muted small mb-0" style={{ lineHeight: "1.6" }}>{card.desc}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Real matching case studies */}
+            {matchingCaseStudies.length > 0 && (
+              <div className={`${area.workCards && area.workCards.length > 0 ? "mt-5 pt-4 border-top" : ""}`}>
+                <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                  <div>
+                    <h3 className="fw-bold text-dark mb-1" style={{ fontFamily: "var(--font-prompt)", fontSize: "1.3rem" }}>
+                      <i className="bi bi-journal-bookmark-fill text-primary me-2"></i>ผลงานจริงที่เกี่ยวข้อง
+                    </h3>
+                    <p className="text-muted small mb-0">กรณีศึกษาและบันทึกงานขนย้ายจริงที่เชื่อมโยงกับพื้นที่{area.areaThai}</p>
+                  </div>
+                  <Link href="/case-studies" className="btn btn-outline-primary btn-sm rounded-pill px-3">
+                    ดูกรณีศึกษาทั้งหมด <i className="bi bi-arrow-right ms-1"></i>
+                  </Link>
+                </div>
+                
+                <div className="row g-3">
+                  {matchingCaseStudies.map((cs) => (
+                    <div className="col-12 col-md-6" key={cs.slug}>
+                      <div className="card h-100 border border-primary-subtle shadow-sm rounded-4 p-3 bg-white">
+                        <div className="d-flex align-items-start gap-3">
+                          <div className="position-relative flex-shrink-0 rounded-3 overflow-hidden" style={{ width: "96px", height: "80px", backgroundColor: "#f1f5f9" }}>
+                            <Image
+                              src={cs.image}
+                              alt={cs.alt}
+                              fill
+                              sizes="96px"
+                              className="object-fit-cover"
+                            />
+                          </div>
+                          <div className="flex-grow-1 min-w-0">
+                            <span className="badge bg-primary-subtle text-primary mb-1 fw-medium" style={{ fontSize: "0.75rem" }}>
+                              {cs.jobType}
+                            </span>
+                            <h4 className="fw-bold text-dark mb-1 text-truncate" style={{ fontSize: "0.95rem", fontFamily: "var(--font-prompt)" }}>
+                              <Link href={`/case-studies/${cs.slug}`} className="text-decoration-none text-dark hover-primary">
+                                {cs.shortTitle || cs.title}
+                              </Link>
+                            </h4>
+                            <p className="text-muted small mb-2 text-truncate" style={{ fontSize: "0.8rem", lineHeight: "1.4" }}>
+                              {cs.description}
+                            </p>
+                            <Link href={`/case-studies/${cs.slug}`} className="text-primary fw-medium small text-decoration-none d-inline-flex align-items-center" style={{ fontSize: "0.8rem" }}>
+                              อ่านรายละเอียดผลงานจริง <i className="bi bi-chevron-right ms-1" style={{ fontSize: "0.7rem" }}></i>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
       )}
 
-      {/* Pricing Guide */}
-      <PricingGuideBlock priceNotes="อัตราค่าบริการเริ่มต้นที่ 1,000 บาท และประเมินราคารวมคนยกตามความเหมาะสมของปริมาณของและสถานที่หน้างานจริง ไม่มีบวกราคาแอบแฝง" />
+      {/* 3. Transparent Price Guidance Matrix */}
+      <PricingGuideBlock
+        title={`ตารางประเมินราคาค่าบริการรถรับจ้างย่าน${area.areaThai} (ตามระยะทางจริง)`}
+        subtitle="คิดราคาโปร่งใสตามระยะทางจริงและขนาดงาน แจ้งราคาสุทธิตั้งแต่ก่อนเริ่มงาน ไม่มีบวกเพิ่ม"
+        customPrices={areaPrices}
+        priceNotes={`อัตราค่าบริการเริ่มต้นจากพื้นที่${area.areaThai} คำนวณตามระยะทางจริงและจำนวนทีมงานยกของที่ลูกค้าเลือก การันตีราคาตามที่ตกลง ไม่มีค่าทางด่วนหรือค่าน้ำมันแอบแฝงเพิ่มเติม`}
+      />
 
-      {/* FAQ block */}
+      {/* 4. Local Moving FAQ Accordion */}
       <FaqBlock
         id={`faq-${area.slug}`}
-        items={area.faqs}
+        items={combinedFaqs}
         title={`คำถามที่พบบ่อย (FAQ) - รถรับจ้าง${area.areaThai}`}
-        subtitle={`คำตอบเคลียร์ชัดสำหรับคนต้องการรถขนของย่าน${area.areaThai}`}
+        subtitle={`คำตอบเคลียร์ชัดสำหรับคนต้องการรถขนของ ย้ายบ้าน ย้ายหอพัก คอนโด ย่าน${area.areaThai}`}
       />
 
       {/* Related semantic internal links */}

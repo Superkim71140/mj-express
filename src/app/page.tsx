@@ -13,6 +13,8 @@ import ReviewsSlider from "@/components/ReviewsSlider";
 import SeoLinkHub from "@/components/seo/SeoLinkHub";
 
 
+import ServiceShowcaseBanner from "@/components/ServiceShowcaseBanner";
+
 export const metadata: Metadata = buildPageMetadata({
   title: "รถรับจ้างย้ายบ้าน ขนของ ขนส่งมอเตอร์ไซค์ กระบะตู้ทึบ 4 ล้อ - MJ-TH Express",
   description:
@@ -94,14 +96,18 @@ export default function HomePage() {
         </div>
 
         {/* Visible accessible H1 heading for SEO matching brand visual styles */}
-        <div className="container mt-4 text-center">
-          <h1 className="fw-bold text-secondary fs-3 mb-2" style={{ fontFamily: "var(--font-prompt)" }}>
+        <div className="container mt-4 mb-2 text-center mj-hero-heading-block">
+          <h1 className="mj-hero-title mb-3">
             รถรับจ้างขนของ ย้ายบ้าน ย้ายหอพัก ด้วยรถกระบะ 4 ล้อตู้ทึบ บริการทั่วไทย
           </h1>
-          <p className="text-muted small max-width-700 mx-auto">
+          <div className="mj-hero-title-underline" aria-hidden="true"></div>
+          <p className="mj-hero-subtitle mx-auto">
             บริการรถรับจ้างขนย้ายครบวงจร พิกัดหลักบางแค เพชรเกษม ฝั่งธนบุรี พร้อมทีมงานยกของมืออาชีพ รถกระบะตู้ทึบช่วยป้องกันแดดและฝนอย่างมั่นใจ
           </p>
         </div>
+
+        {/* Service Showcase Section (Reference 1 Match) */}
+        <ServiceShowcaseBanner areaName="บางแค เพชรเกษม ฝั่งธนบุรี" />
 
         {/* Mobile Action Buttons (Visible only on mobile viewports) */}
         <div className="container d-md-none mt-4 mb-4">

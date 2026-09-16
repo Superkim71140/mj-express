@@ -21,11 +21,29 @@ function loadTs(relPath) {
   const mod = { exports: {} };
   const fn = new Function('module', 'exports', 'require', '__dirname', '__filename', js);
   fn(mod, mod.exports, (p) => {
-    if (p === './site-config' || p === '@/lib/seo/site-config') {
+    if (p === './site-config' || p === '@/lib/seo/site-config' || p === '@/data/site') {
       return loadTs('src/lib/seo/site-config.ts');
     }
     if (p === './breadcrumbs' || p === '@/lib/seo/breadcrumbs') {
       return loadTs('src/lib/seo/breadcrumbs.ts');
+    }
+    if (p === '@/data/areas' || p === './areas' || p === '@/data/seo/areas' || p === './seo/areas') {
+      return loadTs('src/data/seo/areas.ts');
+    }
+    if (p === '@/data/services' || p === './services' || p === '@/data/seo/services' || p === './seo/services') {
+      return loadTs('src/data/seo/services.ts');
+    }
+    if (p === '@/data/routes' || p === './routes' || p === '@/data/seo/routes' || p === './seo/routes') {
+      return loadTs('src/data/seo/routes.ts');
+    }
+    if (p === '@/data/case-studies' || p === './case-studies' || p === '@/data/seo/case-studies' || p === './seo/case-studies') {
+      return loadTs('src/data/seo/case-studies.ts');
+    }
+    if (p === '@/data/seo/internal-links' || p === './internal-links') {
+      return loadTs('src/data/seo/internal-links.ts');
+    }
+    if (p === 'next' || p.startsWith('next/')) {
+      return {};
     }
     throw new Error(`External require not supported in validator: ${p}`);
   }, path.dirname(fullPath), fullPath);
@@ -472,6 +490,184 @@ validateBreadcrumbs(breadcrumbsHelper.getMotorcycleTransportBreadcrumbs(), 'Moto
 validateBreadcrumbs(breadcrumbsHelper.getPortfolioBreadcrumbs(), 'Portfolio (/portfolio)', `${baseUrl}/portfolio`);
 validateBreadcrumbs(breadcrumbsHelper.getReviewsBreadcrumbs(), 'Reviews (/reviews)', `${baseUrl}/reviews`);
 validateBreadcrumbs(breadcrumbsHelper.getContactBreadcrumbs(), 'Contact (/contact)', `${baseUrl}/contact`);
+
+// ==========================================
+// CHECK 10: SITEMAP REGRESSION CHECKS
+// ==========================================
+console.log('🔟 Checking sitemap regression (no duplicates, no missing existing area URLs)...');
+try {
+  const sitemapFn = loadTs('src/app/sitemap.ts').default;
+  const sitemapEntries = sitemapFn();
+  assert(Array.isArray(sitemapEntries) && sitemapEntries.length > 0, '[SITEMAP EMPTY] Sitemap did not return valid entries');
+  
+  const seenSitemapUrls = new Set();
+  for (const entry of sitemapEntries) {
+    assert(!seenSitemapUrls.has(entry.url), `[SITEMAP DUPLICATE URL] Duplicate URL in sitemap: ${entry.url}`);
+    seenSitemapUrls.add(entry.url);
+  }
+
+  // Verify all 17 existing localAreas are present in sitemap
+  for (const area of localAreas) {
+    const expectedAreaUrl = `${baseUrl}/areas/${area.slug}`;
+    assert(seenSitemapUrls.has(expectedAreaUrl), `[SITEMAP MISSING AREA] Area "${area.slug}" missing from sitemap: ${expectedAreaUrl}`);
+  }
+
+  // Verify all services, routes, and case studies are present
+  for (const service of servicesData) {
+    const expectedServiceUrl = service.slug === 'motorcycle-transport' ? `${baseUrl}/motorcycle-transport` : `${baseUrl}/services/${service.slug}`;
+    assert(seenSitemapUrls.has(expectedServiceUrl), `[SITEMAP MISSING SERVICE] Service "${service.slug}" missing from sitemap`);
+  }
+  for (const route of routesData) {
+    assert(seenSitemapUrls.has(`${baseUrl}/routes/${route.slug}`), `[SITEMAP MISSING ROUTE] Route "${route.slug}" missing from sitemap`);
+  }
+  for (const cs of caseStudiesData) {
+    assert(seenSitemapUrls.has(`${baseUrl}/case-studies/${cs.slug}`), `[SITEMAP MISSING CASE STUDY] Case study "${cs.slug}" missing from sitemap`);
+  }
+} catch (e) {
+  errors.push(`[SITEMAP CHECK FAILED] Failed to validate sitemap: ${e.message}`);
+}
+
+// ==========================================
+// CHECK 11: CANONICAL REGRESSION (UNIQUE & NON-CONFLICTING)
+// ==========================================
+console.log('1️⃣1️⃣ Checking unique canonical per indexable page and no conflicting canonicals...');
+const coreIndexablePages = [
+  { path: '/', canonical: `${baseUrl}/` },
+  { path: '/areas', canonical: `${baseUrl}/areas` },
+  { path: '/case-studies', canonical: `${baseUrl}/case-studies` },
+  { path: '/portfolio', canonical: `${baseUrl}/portfolio` },
+  { path: '/reviews', canonical: `${baseUrl}/reviews` },
+  { path: '/contact', canonical: `${baseUrl}/contact` },
+];
+
+for (const core of coreIndexablePages) {
+  validateCanonical(core.canonical, core.path, 'CorePage', core.path);
+}
+
+// ==========================================
+// CHECK 12: ACCIDENTAL NOINDEX REGRESSION
+// ==========================================
+console.log('1️⃣2️⃣ Checking for accidental noindex on indexable pages and layouts...');
+const routeFilesToCheck = [
+  'src/app/layout.tsx',
+  'src/app/page.tsx',
+  'src/app/areas/page.tsx',
+  'src/app/areas/[slug]/page.tsx',
+  'src/app/case-studies/page.tsx',
+  'src/app/case-studies/[slug]/page.tsx',
+  'src/app/services/[slug]/page.tsx',
+  'src/app/routes/[slug]/page.tsx',
+  'src/app/motorcycle-transport/page.tsx',
+  'src/app/contact/page.tsx',
+  'src/app/portfolio/page.tsx',
+  'src/app/reviews/page.tsx',
+];
+
+for (const relFile of routeFilesToCheck) {
+  const fullPath = path.join(ROOT, relFile);
+  if (fs.existsSync(fullPath)) {
+    const code = fs.readFileSync(fullPath, 'utf8');
+    assert(!code.includes('noindex'), `[ACCIDENTAL NOINDEX] Found accidental "noindex" in ${relFile}`);
+  }
+}
+
+// ==========================================
+// CHECK 13: PROTECTED RANKING PAGES METADATA REGRESSION
+// ==========================================
+console.log('1️⃣3️⃣ Verifying protected ranking pages metadata (/, /areas/bang-khae, /areas/nong-khaem)...');
+// 1. Homepage (/)
+const homepageCode = fs.readFileSync(path.join(ROOT, 'src/app/page.tsx'), 'utf8');
+assert(homepageCode.includes('title: "รถรับจ้างย้ายบ้าน ขนของ ขนส่งมอเตอร์ไซค์ กระบะตู้ทึบ 4 ล้อ - MJ-TH Express"'), '[PROTECTED METADATA] Homepage title has been modified!');
+assert(homepageCode.includes('description:'), '[PROTECTED METADATA] Homepage description missing!');
+assert(homepageCode.includes('canonicalPath: "/"'), '[PROTECTED METADATA] Homepage canonicalPath has been modified!');
+assert(homepageCode.includes('รถรับจ้างขนของ ย้ายบ้าน ย้ายหอพัก ด้วยรถกระบะ 4 ล้อตู้ทึบ บริการทั่วไทย'), '[PROTECTED METADATA] Homepage H1 text has been modified!');
+assert(homepageCode.includes('บริการรถรับจ้างขนย้ายครบวงจร พิกัดหลักบางแค เพชรเกษม ฝั่งธนบุรี พร้อมทีมงานยกของมืออาชีพ รถกระบะตู้ทึบช่วยป้องกันแดดและฝนอย่างมั่นใจ'), '[PROTECTED METADATA] Homepage opening copy has been modified!');
+
+// 2. Bang Khae (/areas/bang-khae)
+const bangKhaeArea = localAreas.find(a => a.slug === 'bang-khae');
+assert(bangKhaeArea, '[PROTECTED METADATA] /areas/bang-khae missing from localAreas dataset!');
+assert(bangKhaeArea.title === 'รถรับจ้างบางแค ขนของ ย้ายบ้าน รถกระบะตู้ทึบ | MJ-TH Express', `[PROTECTED METADATA] Bang Khae title modified: "${bangKhaeArea.title}"`);
+assert(bangKhaeArea.description === 'รถรับจ้างบางแค ขนของ ย้ายบ้าน ย้ายหอและคอนโด ด้วยรถกระบะ 4 ล้อตู้ทึบ กันแดดกันฝน พร้อมบริการขนย้ายในกรุงเทพฯ และต่างจังหวัด โทร 095-583-0371', '[PROTECTED METADATA] Bang Khae description modified!');
+assert(bangKhaeArea.canonical === 'https://www.mj-th-express.com/areas/bang-khae', '[PROTECTED METADATA] Bang Khae canonical modified!');
+assert(bangKhaeArea.h1 === 'รถรับจ้างบางแค ขนของ ย้ายบ้าน ด้วยรถกระบะตู้ทึบ', '[PROTECTED METADATA] Bang Khae H1 text modified!');
+
+// 3. Nong Khaem (/areas/nong-khaem)
+const nongKhaemArea = localAreas.find(a => a.slug === 'nong-khaem');
+assert(nongKhaemArea, '[PROTECTED METADATA] /areas/nong-khaem missing from localAreas dataset!');
+assert(nongKhaemArea.title === 'รถรับจ้างหนองแขม ย้ายบ้าน ขนของ รถกระบะตู้ทึบ เพชรเกษม 81 | MJ-TH Express', `[PROTECTED METADATA] Nong Khaem title modified: "${nongKhaemArea.title}"`);
+assert(nongKhaemArea.description === 'บริการรถกระบะรับจ้างหนองแขม เพชรเกษม 81, 69, 77, 110 ขนของ ย้ายบ้าน ย้ายหอพัก คอนโด ส่งมอเตอร์ไซค์ พร้อมทีมงานช่วยยกของด่วน โทร 095-583-0371', '[PROTECTED METADATA] Nong Khaem description modified!');
+assert(nongKhaemArea.canonical === 'https://www.mj-th-express.com/areas/nong-khaem', '[PROTECTED METADATA] Nong Khaem canonical modified!');
+assert(nongKhaemArea.h1 === 'รถรับจ้างหนองแขม รถกระบะขนของ ย้ายหอพัก–ย้ายบ้าน', '[PROTECTED METADATA] Nong Khaem H1 text modified!');
+
+// ==========================================
+// CHECK 14: NO BROKEN INTERNAL LINKS REGRESSION
+// ==========================================
+console.log('1️⃣4️⃣ Checking for broken internal links in contextual relations...');
+try {
+  const internalLinks = loadTs('src/data/seo/internal-links.ts');
+  for (const area of localAreas) {
+    const nearby = internalLinks.getRelatedAreasForArea(area.slug);
+    for (const item of nearby) {
+      assert(areaSlugSet.has(item.slug), `[BROKEN INTERNAL LINK] Area "${area.slug}" links to missing area "${item.slug}"`);
+    }
+    const services = internalLinks.getRelatedServicesForArea(area.slug);
+    for (const item of services) {
+      assert(serviceSlugSet.has(item.slug), `[BROKEN INTERNAL LINK] Area "${area.slug}" links to missing service "${item.slug}"`);
+    }
+    const routes = internalLinks.getRelatedRoutesForArea(area.slug);
+    for (const item of routes) {
+      assert(routeSlugSet.has(item.slug), `[BROKEN INTERNAL LINK] Area "${area.slug}" links to missing route "${item.slug}"`);
+    }
+    const matchingCs = internalLinks.getCaseStudiesForEntity(area.slug, 'area');
+    for (const cs of matchingCs) {
+      assert(caseStudySlugSet.has(cs.slug), `[BROKEN INTERNAL LINK] Area "${area.slug}" links to missing case study "${cs.slug}"`);
+    }
+  }
+} catch (e) {
+  errors.push(`[INTERNAL LINKS REGRESSION ERROR] ${e.message}`);
+}
+
+// ==========================================
+// CHECK 15: SINGLE H1 PER PAGE REGRESSION
+// ==========================================
+console.log('1️⃣5️⃣ Checking single H1 per page...');
+for (const area of localAreas) {
+  assert(area.h1 && area.h1.trim().length > 0, `[MISSING H1] Area "${area.slug}" missing H1`);
+  assert(!area.h1.includes('<h1'), `[NESTED H1] Area "${area.slug}" contains nested <h1> tag`);
+}
+for (const service of servicesData) {
+  assert(service.h1 && service.h1.trim().length > 0, `[MISSING H1] Service "${service.slug}" missing H1`);
+  assert(!service.h1.includes('<h1'), `[NESTED H1] Service "${service.slug}" contains nested <h1> tag`);
+}
+for (const route of routesData) {
+  assert(route.h1 && route.h1.trim().length > 0, `[MISSING H1] Route "${route.slug}" missing H1`);
+  assert(!route.h1.includes('<h1'), `[NESTED H1] Route "${route.slug}" contains nested <h1> tag`);
+}
+for (const cs of caseStudiesData) {
+  assert(cs.h1 && cs.h1.trim().length > 0, `[MISSING H1] Case study "${cs.slug}" missing H1`);
+  assert(!cs.h1.includes('<h1'), `[NESTED H1] Case study "${cs.slug}" contains nested <h1> tag`);
+}
+
+// Check compiled HTML if available in .next
+const serverAppDir = path.join(ROOT, '.next/server/app');
+if (fs.existsSync(serverAppDir)) {
+  const checkHtmlFiles = [
+    'index.html',
+    'areas.html',
+    'areas/bang-khae.html',
+    'areas/nong-khaem.html',
+    'case-studies.html',
+    'motorcycle-transport.html'
+  ];
+  for (const hf of checkHtmlFiles) {
+    const fullHf = path.join(serverAppDir, hf);
+    if (fs.existsSync(fullHf)) {
+      const html = fs.readFileSync(fullHf, 'utf8');
+      const h1Count = (html.match(/<h1[^>]*>[\s\S]*?<\/h1>/g) || []).length;
+      assert(h1Count === 1, `[MULTIPLE OR MISSING H1] Rendered page ${hf} has ${h1Count} <h1> tags (must be exactly 1)`);
+    }
+  }
+}
 
 // ==========================================
 // SUMMARY REPORT
